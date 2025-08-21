@@ -36,7 +36,7 @@ import { PetHealthCertificateComponent } from './pet-registration/component/pet-
 import { AddFollowUpComponent } from './disease-outbreak/components/add-follow-up/add-follow-up.component';
 import { AddOwnerComponent } from './disease-outbreak/components/add-owner/add-owner.component';
 import { PetCertificateComponent } from './certificate/compoments/pet-certificate/pet-certificate.component';
-import { VaccineCertificateComponent } from './certificate/compoments/vaccine-certificate/vaccine-certificate.component';
+import { VaccineCertificateComponent } from '@app/vis/certificate/compoments/vaccine-certificate/vaccine-certificate.component'; // chanegd By TN
 import { AddMassComponent } from './mass/components/add-mass/add-mass.component';
 import { AddMedicationComponent } from './individual/components/add-medication/add-medication.component';
 import { AddFlashCaseComponent } from './disease-outbreak/components/add-flash-case/add-flash-case.component';
@@ -82,18 +82,18 @@ import { AddMassCaseComponent } from './mass/components/add-mass-case/add-mass-c
 import { AddMassMedComponent } from './mass/components/add-mass-med/add-mass-med.component';
 import { AddMassVaccComponent } from './mass/components/add-mass-vacc/add-mass-vacc.component';
 import { MassCertificateComponent } from './certificate/components/mass-certificate/mass-certificate.component';
-import { MassDewormingReportComponent } from './report/components/mass-deworming-report/mass-deworming-report.component';
+import { MassDewormingReportComponent } from '@app/vis/Report/components/mass-deworming-report/mass-deworming-report.component'; // changes by TN
 import { MassVaccinationReportComponent } from './report/components/mass-vaccination-report/mass-vaccination-report.component';
 import { OutbreakReportComponent } from './report/components/outbreak-report/outbreak-report.component';
-import { IndivClinicalReportComponent } from './Report/components/indiv-clinical-report/indiv-clinical-report.component';
+import { IndivClinicalReportComponent } from '@app/vis/Report/components/indiv-clinical-report/indiv-clinical-report.component'; // changed by TN
 import { ClinicalFollowupCertificateComponent } from './individual/components/clinical/clinical-followup-certificate/clinical-followup-certificate.component';
-import { MassClinincalReportComponent } from './Report/components/mass-clinincal-report/mass-clinincal-report.component';
+import { MassClinincalReportComponent } from '@app/vis/Report/components/mass-clinincal-report/mass-clinincal-report.component'; // changed by TN
 import { DataArchivalComponent } from './Report/components/data-archival/data-archival.component';
 import { MatIconModule } from '@angular/material/icon';
 import { DiseaseOutbreakReportSummaryComponent } from './Report/components/disease-outbreak-report-summary/disease-outbreak-report-summary.component';
 import { DiseaseOutbreakReportSearchComponent } from './Report/components/disease-outbreak-report-search/disease-outbreak-report-search.component';
 import { RegisterOwnerComponent } from './pet-registration/component/register-owner/register-owner.component';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
 @NgModule({
   declarations: [
     RegistrationComponent,
@@ -180,7 +180,6 @@ import {MatDividerModule} from '@angular/material/divider';
     DiseaseOutbreakReportSummaryComponent,
     DiseaseOutbreakReportSearchComponent,
     RegisterOwnerComponent,
-
   ],
   imports: [
     CommonModule,
@@ -195,7 +194,7 @@ import {MatDividerModule} from '@angular/material/divider';
     MatTableExporterModule,
     NgxPrintModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
   ],
 
   exports: [
