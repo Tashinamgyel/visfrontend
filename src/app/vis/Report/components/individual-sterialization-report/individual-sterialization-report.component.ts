@@ -30,7 +30,7 @@ export class IndividualSterializationReportComponent implements OnInit {
   breeds: Breeds[];
   classes: Class[];
   medicines: Medicines[];
-  showReport: boolean = false;
+  showReport = false;
   response: Response[];
   loading = true;
   countrys: Country[];
@@ -82,6 +82,7 @@ export class IndividualSterializationReportComponent implements OnInit {
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  showDetails: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -163,7 +164,6 @@ export class IndividualSterializationReportComponent implements OnInit {
       medicineId: new FormControl('All'),
     });
   }
-  showDetails: boolean;
   getReport() {
     this.showReport = true;
     const reportRequest = new ReportRequest();
