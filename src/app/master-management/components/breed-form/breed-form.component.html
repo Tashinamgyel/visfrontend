@@ -1,0 +1,56 @@
+<mat-card-header>
+  <mat-card-title>Add PetBreed </mat-card-title>
+</mat-card-header>
+<mat-dialog-content>
+  <div class="col-md-12 col-lg-12">
+    <form class="form-horizontal" [formGroup]="breedMappingForm">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label"> Breed Name</label>
+        <div class="col-md-9">
+          <mat-form-field appearance="outline">
+            <mat-label>breed Name</mat-label>
+            <input matInput formControlName="breed" placeholder="" />
+            <mat-error>Breed name is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label">Species</label>
+        <div class="col-md-9">
+          <mat-form-field appearance="outline">
+            <mat-label>Species Name</mat-label>
+            <mat-select formControlName="speciesId" (selectionChange)="getPetBreeds($event.value)">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let specie of species" [value]="specie.id">
+                {{ specie.speciesName }}
+              </mat-option>
+            </mat-select>
+            <mat-error>species is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    *ngIf="actionType === 'ADD'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!breedMappingForm.valid"
+    (click)="saveBreedMapping()"
+  >
+    Add
+  </button>
+  <button
+    *ngIf="actionType === 'EDIT'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!breedMappingForm.valid"
+    (click)="updateBreedMapping()"
+  >
+    Update
+  </button>
+
+  <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

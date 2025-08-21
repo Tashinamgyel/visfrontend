@@ -1,0 +1,457 @@
+<mat-card>
+  <div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
+    <div fxFlex class="button-component-holder mat-elevation-z4">
+      <mat-toolbar class="button-header">
+        <h5 class="p-2" style="padding-top: 20px; margin-left: 20px">Pet Registration</h5>
+      </mat-toolbar>
+      <div class="button-container">
+        <div class="container">
+          <form [formGroup]="petRegistrationForm" class="form-horizontal form">
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Registration Date <span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    [matDatepicker]="picker"
+                    [max]="maxDate"
+                    formControlName="registrationDate"
+                    matInput
+                    placeholder="Select Registration Date"
+                    readonly
+                  />
+                  <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error *ngIf="petRegistrationForm.controls['registrationDate'].hasError('required')">
+                    Registration date is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <br />
+              <div class="col-md-6">
+                <label class="col-form-label">Animal Ownership Type <span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="petRegistrationTypeId" (selectionChange)="validateRoyal()">
+                    <mat-option value="">Select Ownership Type</mat-option>
+                    <mat-option *ngFor="let ownershipType of ownershipTypes" [value]="ownershipType.id">{{
+                      ownershipType.ownerType
+                    }}</mat-option>
+                  </mat-select>
+                  <mat-error>Pet Registration Type is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <h4>Owner Details</h4>
+            <div class="form-group row">
+              <mat-radio-group
+                (change)="changeNationality($event)"
+                aria-label="Select an option"
+                class="mat-radio-group p-3"
+                formControlName="nationality"
+              >
+                <mat-radio-button [value]="1">Bhutanese</mat-radio-button>
+                <mat-radio-button [value]="2" *ngIf="nonbFlag">Bhutanese without CID/ Non-Bhutanese</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div class="form-group row">
+              <div *ngIf="nationality === true" class="col-md-6">
+                <label class="col-form-label">CID Number<span class="text-danger" *ngIf="cidValidation">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]="false">
+                  <input
+                    matInput
+                    formControlName="cid"
+                    (change)="getCitizen($event.target.value)"
+                    name="cid"
+                    placeholder="CID Number"
+                    maxlength="11"
+                    maxlength="11"
+                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                  />
+                  <mat-error *ngIf="petRegistrationForm.controls['cid'].hasError('minlength')">
+                    CID number should be 11 digit
+                  </mat-error>
+                  <mat-error *ngIf="petRegistrationForm.controls['cid'].hasError('maxlength')">
+                    CID number should be 11 digit
+                  </mat-error>
+                  <mat-error *ngIf="petRegistrationForm.controls['cid'].hasError('required')">
+                    CID is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <br />
+              <div *ngIf="nationality === false" class="col-md-6">
+                <label class="col-form-label"
+                  >ID/Passport/Work Permit No<span class="text-danger">*</span></label
+                >
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    formControlName="passportNumber"
+                    matInput
+                    name="passportNumber"
+                    placeholder="Passport Number"
+                    required
+                  />
+                  <mat-error>Enter valid Passport Number/Work Permit Number</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <label class="col-form-label"
+                  >Owner Name <span *ngIf="ownerValidation" class="text-danger">*</span></label
+                >
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    formControlName="ownerName"
+                    id="ownerName"
+                    matInput
+                    name="ownerName"
+                    required
+                    placeholder="Owner Name"
+                  />
+
+                  <mat-error>Owner Name is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div *ngIf="nationality === false">
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label class="col-form-label">Country</label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-select formControlName="countryId">
+                      <mat-option value="">Select Country</mat-option>
+                      <mat-option *ngFor="let country of countrys" [value]="country.id">{{
+                        country.countryName
+                      }}</mat-option>
+                    </mat-select>
+                    <mat-error>Country is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <br />
+            <h5>Present Address</h5>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Dzongkhag <span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select (selectionChange)="getGewogs($event.value)" formControlName="dzongkhagId" required>
+                    <mat-option value="">Select Dzongkhag</mat-option>
+                    <mat-option *ngFor="let dzongkhag of dzongkhags" [value]="dzongkhag.id">{{
+                      dzongkhag.dzongkhagName
+                    }}</mat-option>
+                  </mat-select>
+                  <mat-error>Dzongkhag is required</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <label class="col-form-label">Gewog <span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select (selectionChange)="getVillage($event.value)" formControlName="gewogId">
+                    <mat-option value="">Select Gewog</mat-option>
+                    <mat-option *ngFor="let gewog of gewogs" [value]="gewog.id">{{ gewog.gewogName }}</mat-option>
+                  </mat-select>
+                  <mat-error>Gewog is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Village</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="villageId">
+                    <mat-option value="">Select Village</mat-option>
+                    <mat-option *ngFor="let village of villages" [value]="village.id">{{
+                      village.villageName
+                    }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <label class="col-form-label">Locality </label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <textarea formControlName="locality" matInput name="locality" placeholder="Enter Locality"></textarea>
+                  <!-- <mat-error>Locality is required</mat-error> -->
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label"
+                  >Mobile Number <span class="text-danger" *ngIf="cidValidation">*</span></label
+                >
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    formControlName="mobileNumber"
+                    matInput
+                    name="mobileNumber"
+                    placeholder="Mobile Number"
+                    maxLength="8"
+                    minLength="8"
+                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                  />
+                  <mat-error>Enter Valid Mobile Number</mat-error>
+                </mat-form-field>
+              </div>
+              <br />
+              <div class="col-md-6">
+                <label class="col-form-label">Email ID </label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input type="email" formControlName="emailId" matInput name="emailId" placeholder="Email ID" />
+                  <mat-error *ngIf="petRegistrationForm.controls['emailId'].hasError('pattern')"
+                    >Invalid Email
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <h4>Pet Details</h4>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Species <span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select
+                    (selectionChange)="getPetBreeds($event.value)"
+                    (selectionChange)="viladateAnimal()"
+                    formControlName="speciesId"
+                  >
+                    <mat-option value="">Select Species</mat-option>
+                    <mat-option *ngFor="let specie of species" [value]="specie.id">{{ specie.speciesName }}</mat-option>
+                  </mat-select>
+                  <mat-error>Species is required</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <label class="col-form-label">Breed <span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="petBreedId">
+                    <mat-option value="">Select Breed</mat-option>
+                    <mat-option *ngFor="let petBreed of petBreeds" [value]="petBreed.id">{{
+                      petBreed.breed
+                    }}</mat-option>
+                  </mat-select>
+                  <mat-error>Breed is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Pet Name <span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="petName" matInput name="pet" placeholder="Enter Pet Name" />
+                  <!-- <mat-error>Pet Name is required</mat-error> -->
+                </mat-form-field>
+              </div>
+              <div class="col-md-6" *ngIf="dontShowSign">
+                <label class="col-form-label"
+                  >Microchip Number <span class="text-danger" *ngIf="dontShowSign">*</span></label
+                >
+                <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]="false">
+                  <input
+                    formControlName="microchipNumber"
+                    (change)="getCheckMicrochipNumber($event.target.value)"
+                    matInput
+                    name="micro"
+                    placeholder="Microchip Number"
+                    maxLength="15"
+                    minLength="15"
+                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                  />
+                  <!-- <mat-error *ngIf="showMgs">Microchip Number is required</mat-error> -->
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6" style="margin-top: 6px">
+                <label class="col-form-label">Colour <span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="colour" matInput placeholder="Enter Colour" />
+                  <mat-error>Colour is required</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6" style="margin-top: 15px">
+                <label class="col-form-label">Distinguishing Mark <span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="distinguishingMark" matInput placeholder="Distinguishing mark" required />
+                  <mat-error>Distinguishing Mark is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <br />
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Age</label>
+                <div class="row gutters-xs">
+                  <div class="col-3">
+                    <mat-form-field appearance="outline" style="width: 100px">
+                      <mat-label>Year</mat-label>
+                      <input
+                        formControlName="year"
+                        matInput
+                        type="number"
+                        id="number"
+                        min="0"
+                        placeholder="Year(0-100)"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-3">
+                    <mat-form-field appearance="outline" style="width: 100px">
+                      <mat-label>Month</mat-label>
+                      <input
+                        formControlName="month"
+                        matInput
+                        type="number"
+                        id="number"
+                        min="0"
+                        max="31"
+                        (change)="validateYear('month')"
+                        placeholder="Month(1-11)"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-3">
+                    <mat-form-field appearance="outline" style="width: 100px">
+                      <mat-label>Day</mat-label>
+                      <input
+                        formControlName="day"
+                        matInput
+                        type="number"
+                        id="number"
+                        min="0"
+                        max="100"
+                        (change)="validateYear('day')"
+                        placeholder="Day(1-29)"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="col-form-label">Sex<span class="text-danger">*</span></label>
+                <div class="row gutters-xs">
+                  <div class="col-6">
+                    <mat-radio-group
+                      aria-label="Select an option"
+                      class="mat-radio-group pt-6"
+                      formControlName="sex"
+                      ng-required="true"
+                    >
+                      <mat-radio-button value="M">Male</mat-radio-button>
+                      <mat-radio-button value="F">Female</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label" for="text-input">Neuter Status <span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="neuterStatus">
+                    <mat-option value="">Select Neuter Status</mat-option>
+                    <mat-option value="Yes">Yes</mat-option>
+                    <mat-option value="No">No</mat-option>
+                  </mat-select>
+                  <mat-error>Neuter Status is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6" *ngIf="petRegistrationForm.value.neuterStatus === 'No'">
+                <label class="col-form-label">Breeder Status</label>
+
+                <div class="row gutters-xs">
+                  <div class="col-6">
+                    <mat-radio-group
+                      class="mat-radio-group"
+                      aria-label="Select an option"
+                      formControlName="breederStatus"
+                    >
+                      <mat-radio-button value="Yes">Yes </mat-radio-button>
+                      <mat-radio-button value="No">No </mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label"> Revenue Receipt Number </label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="receiptNumber" matInput placeholder="Revenue Receipt Number" />
+                  <mat-error> Revenue Receipt Number is Required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Pet Renewal Date<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    [matDatepicker]="pic"
+                    formControlName="dateRenewal"
+                    matInput
+                    disabled
+                    placeholder="Pet Renewal Date"
+                  />
+                  <mat-datepicker-toggle [for]="pic" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #pic></mat-datepicker>
+                  <mat-error>Date is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+
+            <div class="form-group row">
+              <div class="col-md-3">
+                <label class="col-form-label"> Upload Pet's Photo</label>
+              </div>
+              <div class="col-md-6">
+                <input
+                  (change)="selectFile($event.target.files, 'Photo')"
+                  id="file"
+                  type="file"
+                  formControlName="hasPetPhoto"
+                  [(ngModel)]="hasPetPhoto"
+                />
+                <mat-error *ngIf="hasPetPhotoFlag">Pet Photo is required</mat-error>
+              </div>
+            </div>
+            <br />
+            <div class="form-group row" *ngIf="showBarImage">
+              <div class="col-md-3">
+                <label class="col-form-label"> Upload Barcode Image<span class="text-danger">*</span></label>
+                <!-- <label class="col-md-3 col-form-label">Upload Pet's Photo</label> -->
+              </div>
+              <div class="col-md-6">
+                <input
+                  (change)="selectFile($event.target.files, 'BarCode')"
+                  id="file"
+                  type="file"
+                  formControlName="hasBarcodeImage"
+                  [(ngModel)]="hasBarcodeImage"
+                />
+                <mat-error *ngIf="hasBarcodeImageFlag">Barcode Image is required</mat-error>
+              </div>
+            </div>
+            <hr />
+            <mat-card-actions style="margin-top: 10px">
+              <button (click)="savePetRegistration()" color="primary" mat-raised-button>Submit</button>
+            </mat-card-actions>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

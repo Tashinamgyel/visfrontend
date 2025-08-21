@@ -1,0 +1,76 @@
+<mat-card style="background-color: #327ebd; margin: 0 auto 0">
+  <!-- <mat-card-title>Add Susceptible Animal's Details</mat-card-title> -->
+  <h4 style="color: #fff">Susceptible Animals</h4>
+</mat-card>
+<mat-dialog-content>
+  <div class="col-md-12 col-lg-12">
+    <form class="form-horizontal form" [formGroup]="followUpSusceptibleForm">
+      <div class="form-group row">
+        <div class="col-md-10">
+          <label class="col-form-label">Species<span class="text-danger">*</span></label>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-select (selectionChange)="getAnimalTypes($event.value)" formControlName="speciesId">
+              <mat-option value="">Select Species</mat-option>
+              <mat-option *ngFor="let specie of species" [value]="specie.id">{{ specie.speciesName }} </mat-option>
+            </mat-select>
+            <mat-error>Species is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+        <div class="col-md-10">
+          <label class="col-form-label">Animal Type<span class="text-danger">*</span></label>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-select formControlName="animalTypeId">
+              <mat-option value="">Select Animal Type</mat-option>
+              <mat-option *ngFor="let animalType of animalTypes" [value]="animalType.id">{{
+                animalType.animalType
+              }}</mat-option>
+            </mat-select>
+            <mat-error>Animal Type is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+        <div class="col-md-10">
+          <label class="col-form-label">Susceptible Animals<span class="text-danger">*</span></label>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input
+              formControlName="susceptibleAnimals"
+              matInput
+              required
+              type="number"
+              min="0"
+              placeholder="Susceptible Animals"
+            />
+            <mat-error>Susceptible Animals is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <br />
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    *ngIf="actionType === 'ADD'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!followUpSusceptibleForm.valid"
+    (click)="saveCase()"
+  >
+    Add
+  </button>
+  <button
+    *ngIf="actionType === 'EDIT'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!followUpSusceptibleForm.valid"
+    (click)="updateCase()"
+  >
+    Update
+  </button>
+  <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

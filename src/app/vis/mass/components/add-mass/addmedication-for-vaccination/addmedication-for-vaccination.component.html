@@ -1,0 +1,26 @@
+<mat-toolbar class="titleTopic">
+  <h6 class="p-2;" style="padding-top: 5px; padding-left: 5px">Choose Vaccine Type</h6>
+</mat-toolbar>
+
+<mat-dialog-content>
+  <form class="form-horizontal" [formGroup]="addVaccinationForm" align="left">
+    <div class="container">
+      <div class="form-group row">
+        <div class="col-md-6">
+          <label class="col-form-label"><strong> Vaccine</strong><span class="text-danger">*</span></label>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-select formControlName="vaccineType">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let Vaccine of VaccineType" [value]="Vaccine"> {{ Vaccine.vaccineName }}</mat-option>
+            </mat-select>
+            <mat-error>Vaccine is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <br />
+
+    <button mat-raised-button (click)="addVaccination()" color="primary"><mat-icon>add</mat-icon> Add</button>
+    <button mat-raised-button (click)="closeDialog()" style="background-color: red; color: white">Close</button>
+  </form>
+</mat-dialog-content>

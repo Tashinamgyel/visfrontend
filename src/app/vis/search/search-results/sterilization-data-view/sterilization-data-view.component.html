@@ -1,0 +1,122 @@
+<div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
+  <div fxFlex class="button-component-holder mat-elevation-z4">
+    <mat-toolbar class="button-header">
+      <mat-toolbar class="button-header">
+        <h5 class="p-2" style="padding-top: 20px; margin-left: 16px">Sterilization</h5>
+      </mat-toolbar>
+    </mat-toolbar>
+    <mat-card>
+      <form [formGroup]="treatmentForm" class="form-horizontal form">
+        <div class="exampl2e-card">
+          <mat-card-content>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="col-form-label"> Sterilization Date </label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <input formControlName="treatmentDate" matInput readonly />
+                    {{ sterilizationDataFormat | date }}
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <br />
+            <hr />
+            <!-- <mat-divider></mat-divider> -->
+            <!-- <mat-card-header class="p-3 pl-lg-0">
+              <mat-card-title style="margin-top: 4px"></mat-card-title>
+            </mat-card-header> -->
+
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label class="textarea">Brief Observation</label>
+                <mat-form-field style="width: 100%" appearance="outline" type="text">
+                  <textarea matInput rows="2" cols="10" formControlName="observation" readonly></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+
+          <hr />
+        </div>
+      </form>
+
+      <h6 style="padding-top: 20px">Medications</h6>
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z1">
+        <ng-container matColumnDef="slno">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="classEntity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Medicine Class</th>
+          <td mat-cell *matCellDef="let element">{{ element.classEntity.className }}</td>
+        </ng-container>
+        <ng-container matColumnDef="medicineEntity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Medicine Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.medicineEntity.medicineName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="composition">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Composition</th>
+          <td mat-cell *matCellDef="let element">{{ element.medicineEntity.composition }}</td>
+        </ng-container>
+        <ng-container matColumnDef="presentation">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Presentation</th>
+          <td mat-cell *matCellDef="let element">{{ element.medicineEntity.presentation }}</td>
+        </ng-container>
+        <ng-container matColumnDef="unit">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Dose Unit</th>
+          <td mat-cell *matCellDef="let element">{{ element.unit.unitType }}</td>
+        </ng-container>
+        <ng-container matColumnDef="route">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Route</th>
+          <td mat-cell *matCellDef="let element">{{ element.route.routeName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="duration">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration</th>
+          <td mat-cell *matCellDef="let element">{{ element.duration }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="dosage">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-decoration-color: snow">Dose</th>
+          <td mat-cell *matCellDef="let element">{{ element.dosage }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="frequency">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-decoration-color: snow">Frequency</th>
+          <td mat-cell *matCellDef="let element">{{ element.frequency.frequencyName }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      <hr />
+
+      <form [formGroup]="treatmentForm" class="form-horizontal form">
+        <div class="exampl2e-card">
+          <mat-card-content>
+            <!-- <mat-card-header class="p-3 pl-lg-0">
+              <mat-card-title style="margin-top: 4px">Advice</mat-card-title>
+            </mat-card-header> -->
+
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label class="textarea">Brief Advice</label>
+                <mat-form-field style="width: 100%" appearance="outline" type="text">
+                  <textarea matInput rows="2" cols="10" matInput formControlName="advice" readonly> </textarea>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <hr />
+            <mat-dialog-actions align="end">
+              <button mat-dialog-close mat-raised-button color="primary">Close</button>
+            </mat-dialog-actions>
+          </mat-card-content>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>

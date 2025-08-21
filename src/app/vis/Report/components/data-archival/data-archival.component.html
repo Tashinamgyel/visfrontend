@@ -1,0 +1,1365 @@
+<mat-card>
+  <h5 class="p-2" style="background-color: #327ebd; color: #fff">Past Data Archival</h5>
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z1">
+    <ng-container matColumnDef="slno">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.no.</th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="document_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Document Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.document_name }}</td>
+    </ng-container>
+    <ng-container matColumnDef="view">
+      <th class="table-heading" mat-header-cell *matHeaderCellDef mat-sort-header>View</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="viewMass(element.document_name)" class="view-button">
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</mat-card>
+<!-- 2016 Data -->
+<mat-card *ngIf="if2016">
+  <div class="col-md-12" style="padding-left: 15%">
+    <h5><strong>Clinical, Deworming, Sterilization and Vaccination 2016 (20 Dzongkhags)</strong></h5>
+    <table style="width: 80%; border: 1px solid black" border="1">
+      <tr align="center" style="background-color: rgb(0, 174, 255)">
+        <th>Dzongkhag</th>
+        <th>Files</th>
+      </tr>
+      <tr align="center">
+        <td>Bumthang</td>
+        <td>
+          <a href="/assets/DataArc/2016/Bumthang_2016.xlsx" routerLinkActive="active">
+            <span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Chukha</td>
+        <td>
+          <a href="/assets/DataArc/2016/Chukha_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Dagana</td>
+        <td>
+          <a href="/assets/DataArc/2016/Dagana_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Gasa</td>
+        <td>
+          <a href="/assets/DataArc/2016/Gasa_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Haa</td>
+        <td>
+          <a href="/assets/DataArc/2016/Haa_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Lhuentse</td>
+        <td>
+          <a href="/assets/DataArc/2016/Lhuentse_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Mongar</td>
+        <td>
+          <a href="/assets/DataArc/2016/Mongar_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Paro</td>
+        <td>
+          <a href="/assets/DataArc/2016/Paro_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Pema Gatshel</td>
+        <td>
+          <a href="/assets/DataArc/2016/Pema Gatshel_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Punakha</td>
+        <td>
+          <a href="/assets/DataArc/2016/Punakha_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Samdrup Jongkhar</td>
+        <td>
+          <a href="/assets/DataArc/2016/Samdrup jongkhar_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Samtse</td>
+        <td>
+          <a href="/assets/DataArc/2016/Samtse_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Sarpang</td>
+        <td>
+          <a href="/assets/DataArc/2016/Sarpang_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Thimphu</td>
+        <td>
+          <a href="/assets/DataArc/2016/Thimphu_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trashigang</td>
+        <td>
+          <a href="/assets/DataArc/2016/Trashigang_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trashi Yangtse</td>
+        <td>
+          <a href="/assets/DataArc/2016/Trashi Yangtse_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trongsa</td>
+        <td>
+          <a href="/assets/DataArc/2016/Trongsa_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Tsirang</td>
+        <td>
+          <a href="/assets/DataArc/2016/Tsirang_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Wangdue Phodrang</td>
+        <td>
+          <a href="/assets/DataArc/2016/Wangdue_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Zhemgang</td>
+        <td>
+          <a href="/assets/DataArc/2016/Zhemgang_2016.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+    </table>
+  </div>
+</mat-card>
+<!-- 2017 data -->
+<mat-card *ngIf="if2017">
+  <div class="col-md-12" style="padding-left: 15%">
+    <h5><strong> Clinical, Deworming, Sterilization and Vaccination 2017 (20 Dzongkhags) </strong></h5>
+    <table style="width: 80%; border: 1px solid black" border="1">
+      <tr align="center" style="background-color: rgb(0, 174, 255)">
+        <th>Dzongkhag</th>
+        <th>Files</th>
+      </tr>
+      <tr align="center">
+        <td>Bumthang</td>
+        <td>
+          <a href="/assets/DataArc/2017/Bumthang_2017.xlsx" routerLinkActive="active">
+            <span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Chukha</td>
+        <td>
+          <a href="/assets/DataArc/2017/Chukha_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Dagana</td>
+        <td>
+          <a href="/assets/DataArc/2017/Dagana_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Gasa</td>
+        <td>
+          <a href="/assets/DataArc/2017/Gasa_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Haa</td>
+        <td>
+          <a href="/assets/DataArc/2017/Haa_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Lhuentse</td>
+        <td>
+          <a href="/assets/DataArc/2017/Lhuentse_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Mongar</td>
+        <td>
+          <a href="/assets/DataArc/2017/Mongar_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Paro</td>
+        <td>
+          <a href="/assets/DataArc/2017/Paro_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Pema Gatshel</td>
+        <td>
+          <a href="/assets/DataArc/2017/Pema Gatshel_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Punakha</td>
+        <td>
+          <a href="/assets/DataArc/2017/Punakha_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Samdrup Jongkhar</td>
+        <td>
+          <a href="/assets/DataArc/2017/Samdrup Jongkhar_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Samtse</td>
+        <td>
+          <a href="/assets/DataArc/2017/Samtse_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Sarpang</td>
+        <td>
+          <a href="/assets/DataArc/2017/Sarpang_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Thimphu</td>
+        <td>
+          <a href="/assets/DataArc/2017/Thimphu_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trashigang</td>
+        <td>
+          <a href="/assets/DataArc/2017/Trashigang_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+
+      <tr align="center">
+        <td>Trashi Yangtse</td>
+        <td>
+          <a href="/assets/DataArc/2017/Trashi Yangtse_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trongsa</td>
+        <td>
+          <a href="/assets/DataArc/2017/Trongsa_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Tsirang</td>
+        <td>
+          <a href="/assets/DataArc/2017/Tsirang_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Wangdue Phodrang</td>
+        <td>
+          <a href="/assets/DataArc/2017/Wangdue_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Zhemgang</td>
+        <td>
+          <a href="/assets/DataArc/2017/Zhemgang_2017.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+    </table>
+  </div>
+</mat-card>
+<!-- 2018 data -->
+<mat-card *ngIf="if2018">
+  <div class="col-md-12" style="padding-left: 15%">
+    <h5><strong> Clinical, Deworming, Sterilization and Vaccination 2018 (20 Dzongkhags) </strong></h5>
+    <table style="width: 80%; border: 1px solid black" border="1">
+      <tr align="center" style="background-color: rgb(0, 174, 255)">
+        <th>Dzongkhag</th>
+        <th>Files</th>
+      </tr>
+      <tr align="center">
+        <td>Bumthang</td>
+        <td>
+          <a href="/assets/DataArc/2018/Bumthang_2018.xlsx" routerLinkActive="active">
+            <span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Chukha</td>
+        <td>
+          <a href="/assets/DataArc/2018/Chukha_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Dagana</td>
+        <td>
+          <a href="/assets/DataArc/2018/Dagana_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Gasa</td>
+        <td>
+          <a href="/assets/DataArc/2018/Gasa_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Haa</td>
+        <td>
+          <a href="/assets/DataArc/2018/Haa_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Lhuentse</td>
+        <td>
+          <a href="/assets/DataArc/2018/Lhuenste_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Mongar</td>
+        <td>
+          <a href="/assets/DataArc/2018/Mongar_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Paro</td>
+        <td>
+          <a href="/assets/DataArc/2018/Paro_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Pema Gatshel</td>
+        <td>
+          <a href="/assets/DataArc/2018/Pema Gatshel_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Punakha</td>
+        <td>
+          <a href="/assets/DataArc/2018/Punakha_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Samdrup Jongkhar</td>
+        <td>
+          <a href="/assets/DataArc/2018/Samdrup Jongkhar_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Samtse</td>
+        <td>
+          <a href="/assets/DataArc/2018/Samtse_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Sarpang</td>
+        <td>
+          <a href="/assets/DataArc/2018/Sarpang_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Thimphu</td>
+        <td>
+          <a href="/assets/DataArc/2018/Thimphu_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trashigang</td>
+        <td>
+          <a href="/assets/DataArc/2018/Trashigang_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trashi Yangtse</td>
+        <td>
+          <a href="/assets/DataArc/2018/Trashi Yangtse_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trongsa</td>
+        <td>
+          <a href="/assets/DataArc/2018/Trongsa_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Tsirang</td>
+        <td>
+          <a href="/assets/DataArc/2018/Tsirang_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Wangdue Phodrang</td>
+        <td>
+          <a href="/assets/DataArc/2018/Wangdue_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Zhemgang</td>
+        <td>
+          <a href="/assets/DataArc/2018/Zhemgang_2018.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+    </table>
+  </div>
+</mat-card>
+<!-- 2019 data -->
+<mat-card *ngIf="if2019">
+  <div class="col-md-12" style="padding-left: 15%">
+    <h5><strong>Clinical, Deworming, Sterilization and Vaccination 2019 (20 Dzongkhags) </strong></h5>
+    <table style="width: 80%; border: 1px solid black" border="1">
+      <tr align="center" style="background-color: rgb(0, 174, 255)">
+        <th>Dzongkhag</th>
+        <th>Files</th>
+      </tr>
+      <tr align="center">
+        <td>Bumthang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Bumthang_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Chukha</td>
+        <td>
+          <a href="/assets/DataArc/2019/Chukha_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Dagana</td>
+        <td>
+          <a href="/assets/DataArc/2019/Dagana_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Gasa</td>
+        <td>
+          <a href="/assets/DataArc/2019/Gasa_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Haa</td>
+        <td>
+          <a href="/assets/DataArc/2019/Haa_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Lhuentse</td>
+        <td>
+          <a href="/assets/DataArc/2019/Lhuenste_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Mongar</td>
+        <td>
+          <a href="/assets/DataArc/2019/Mongar_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Paro</td>
+        <td>
+          <a href="/assets/DataArc/2019/Paro_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Pema Gatshel</td>
+        <td>
+          <a href="/assets/DataArc/2019/Pema Gatshel_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Punakha</td>
+        <td>
+          <a href="/assets/DataArc/2019/Punakha_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Samdrup Jongkhar</td>
+        <td>
+          <a href="/assets/DataArc/2019/Samdrup Jongkhar_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Samtse</td>
+        <td>
+          <a href="/assets/DataArc/2019/Samtse_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Sarpang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Sarpang_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Thimphu</td>
+        <td>
+          <a href="/assets/DataArc/2019/Thimphu_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trashigang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Trashigang_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trashi Yangtse</td>
+        <td>
+          <a href="/assets/DataArc/2019/Trashi Yangtse_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trongsa</td>
+        <td>
+          <a href="/assets/DataArc/2019/Trongsa_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Tsirang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Tsirang_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Wangdue Phodrang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Wangdue_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Zhemgang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Zhemgang_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+    </table>
+  </div>
+</mat-card>
+<!-- 2020 data -->
+<mat-card *ngIf="if2020">
+  <div class="col-md-12" style="padding-left: 15%">
+    <h5><strong> Clinical, Deworming, Sterilization and Vaccination 2020 (20 Dzongkhags) </strong></h5>
+    <table style="width: 80%; border: 1px solid black" border="1">
+      <tr align="center" style="background-color: rgb(0, 174, 255)">
+        <th>Dzongkhag</th>
+        <th>Files</th>
+      </tr>
+      <tr align="center">
+        <td>Bumthang</td>
+        <td>
+          <a href="/assets/DataArc/2020/Bumthang_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Chukha</td>
+        <td>
+          <a href="/assets/DataArc/2020/Chukha_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Dagana</td>
+        <td>
+          <a href="/assets/DataArc/2020/Dagana_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Gasa</td>
+        <td>
+          <a href="/assets/DataArc/2020/Gasa_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Haa</td>
+        <td>
+          <a href="/assets/DataArc/2020/Haa_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Lhuentse</td>
+        <td>
+          <a href="/assets/DataArc/2020/Lhuenste_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Mongar</td>
+        <td>
+          <a href="/assets/DataArc/2020/Mongar_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Paro</td>
+        <td>
+          <a href="/assets/DataArc/2020/Paro_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Pema Gatshel</td>
+        <td>
+          <a href="/assets/DataArc/2020/Pema Gatshel_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Punakha</td>
+        <td>
+          <a href="/assets/DataArc/2020/Punakha_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Samdrup Jongkhar</td>
+        <td>
+          <a href="/assets/DataArc/2020/Samdrup Jongkhar_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Samtse</td>
+        <td>
+          <a href="/assets/DataArc/2020/Samtse_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Sarpang</td>
+        <td>
+          <a href="/assets/DataArc/2020/Sarpang_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Thimphu</td>
+        <td>
+          <a href="/assets/DataArc/2020/Thimphu_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trashigang</td>
+        <td>
+          <a href="/assets/DataArc/2020/Trashigang_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trashi Yangtse</td>
+        <td>
+          <a href="/assets/DataArc/2020/Trashi Yangtse_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trongsa</td>
+        <td>
+          <a href="/assets/DataArc/2020/Trongsa_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Tsirang</td>
+        <td>
+          <a href="/assets/DataArc/2020/Tsirang_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Wangdue Phodrang</td>
+        <td>
+          <a href="/assets/DataArc/2020/Wangdue_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Zhemgang</td>
+        <td>
+          <a href="/assets/DataArc/2020/Zhemgang_2020.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+    </table>
+  </div>
+</mat-card>
+<!-- 2021 -->
+<mat-card *ngIf="if2021">
+  <div class="col-md-12" style="padding-left: 15%">
+    <h5><strong>Clinical, Deworming, Sterilization and Vaccination 2021 (20 Dzongkhags) </strong></h5>
+    <!-- <table style="width: 80%; border: 1px solid black" border="1">
+      <tr align="center" style="background-color: rgb(0, 174, 255)">
+        <th>Dzongkhag</th>
+        <th>Files</th>
+      </tr>
+      <tr align="center">
+        <td>Bumthang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Bumthang_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Chukha</td>
+        <td>
+          <a href="/assets/DataArc/2019/Chukha_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Dagana</td>
+        <td>
+          <a href="/assets/DataArc/2019/Dagana_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Gasa</td>
+        <td>
+          <a href="/assets/DataArc/2019/Gasa_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Haa</td>
+        <td>
+          <a href="/assets/DataArc/2019/Haa_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Lhuentse</td>
+        <td>
+          <a href="/assets/DataArc/2019/Lhuenste_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Mongar</td>
+        <td>
+          <a href="/assets/DataArc/2019/Mongar_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Paro</td>
+        <td>
+          <a href="/assets/DataArc/2019/Paro_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Pema Gatshel</td>
+        <td>
+          <a href="/assets/DataArc/2019/Pema Gatshel_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Punakha</td>
+        <td>
+          <a href="/assets/DataArc/2019/Punakha_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Samdrup Jongkhar</td>
+        <td>
+          <a href="/assets/DataArc/2019/Samdrup Jongkhar_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Samtse</td>
+        <td>
+          <a href="/assets/DataArc/2019/Samtse_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Sarpang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Sarpang_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Thimphu</td>
+        <td>
+          <a href="/assets/DataArc/2019/Thimphu_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trashigang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Trashigang_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trashi Yangtse</td>
+        <td>
+          <a href="/assets/DataArc/2019/Trashi Yangtse_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trongsa</td>
+        <td>
+          <a href="/assets/DataArc/2019/Trongsa_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Tsirang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Tsirang_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Wangdue Phodrang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Wangdue_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Zhemgang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Zhemgang_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+    </table> -->
+  </div>
+</mat-card>
+<!-- 2022 -->
+<mat-card *ngIf="if2022">
+  <div class="col-md-12" style="padding-left: 15%">
+    <h5><strong>Clinical, Deworming, Sterilization and Vaccination 2022 (20 Dzongkhags) </strong></h5>
+    <!-- <table style="width: 80%; border: 1px solid black" border="1">
+      <tr align="center" style="background-color: rgb(0, 174, 255)">
+        <th>Dzongkhag</th>
+        <th>Files</th>
+      </tr>
+      <tr align="center">
+        <td>Bumthang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Bumthang_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Chukha</td>
+        <td>
+          <a href="/assets/DataArc/2019/Chukha_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Dagana</td>
+        <td>
+          <a href="/assets/DataArc/2019/Dagana_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Gasa</td>
+        <td>
+          <a href="/assets/DataArc/2019/Gasa_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Haa</td>
+        <td>
+          <a href="/assets/DataArc/2019/Haa_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Lhuentse</td>
+        <td>
+          <a href="/assets/DataArc/2019/Lhuenste_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Mongar</td>
+        <td>
+          <a href="/assets/DataArc/2019/Mongar_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Paro</td>
+        <td>
+          <a href="/assets/DataArc/2019/Paro_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Pema Gatshel</td>
+        <td>
+          <a href="/assets/DataArc/2019/Pema Gatshel_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Punakha</td>
+        <td>
+          <a href="/assets/DataArc/2019/Punakha_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Samdrup Jongkhar</td>
+        <td>
+          <a href="/assets/DataArc/2019/Samdrup Jongkhar_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Samtse</td>
+        <td>
+          <a href="/assets/DataArc/2019/Samtse_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Sarpang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Sarpang_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Thimphu</td>
+        <td>
+          <a href="/assets/DataArc/2019/Thimphu_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trashigang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Trashigang_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trashi Yangtse</td>
+        <td>
+          <a href="/assets/DataArc/2019/Trashi Yangtse_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Trongsa</td>
+        <td>
+          <a href="/assets/DataArc/2019/Trongsa_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Tsirang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Tsirang_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Wangdue Phodrang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Wangdue_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Zhemgang</td>
+        <td>
+          <a href="/assets/DataArc/2019/Zhemgang_2019.xlsx" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+    </table> -->
+  </div>
+</mat-card>
+<!--Notifiable Diseases -->
+<mat-card *ngIf="NotifiableDiseases">
+  <div class="col-md-12" style="padding-left: 15%">
+    <h5><strong> Notifiable Animal Disease Outbreaks - Since 1996</strong></h5>
+    <table style="width: 80%; border: 1px solid black" border="1">
+      <tr align="center" style="background-color: rgb(0, 174, 255)">
+        <th>Name</th>
+        <th>File</th>
+      </tr>
+      <tr align="center">
+        <td>African swine fever (ASF)</td>
+        <td>
+          <a href="#" routerLinkActive="active"><span class="material-icons">file_download</span></a>
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Anthrax</td>
+        <td>
+          <a href="/assets/DataArc/NotifiableDiseases/Anthrax_till 2020.xls" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Black quarter (BQ)</td>
+        <td>
+          <a href="/assets/DataArc/NotifiableDiseases/BQ_till 2020.xls" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Brucellosis</td>
+        <td>
+          <a href="#" routerLinkActive="active"><span class="material-icons">file_download</span></a>
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Classical swine fever (CSF)</td>
+        <td>
+          <a href="/assets/DataArc/NotifiableDiseases/CSF_till 2020.xls" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Foot and mouth disease (FMD)</td>
+        <td>
+          <a href="/assets/DataArc/NotifiableDiseases/FMD_till 2020.xls" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Goat pox</td>
+        <td>
+          <a href="#" routerLinkActive="active"><span class="material-icons">file_download</span></a>
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Highly pathogenic avian influenza (HPAI)</td>
+        <td>
+          <a href="/assets/DataArc/NotifiableDiseases/HPAI_till 2020.xls" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Hemorrhagic septicemia (HS)</td>
+        <td>
+          <a href="/assets/DataArc/NotifiableDiseases/HS_till 2020.xls" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Infectious bursal disease (IBD)</td>
+        <td>
+          <a href="/assets/DataArc/NotifiableDiseases/IBD_till 2020.xls" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Lumpy skin disease (LSD)</td>
+        <td>
+          <a href="/assets/DataArc/NotifiableDiseases/LSD_till 2020.xls" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Marek’s disease (MD)</td>
+        <td>
+          <a href="/assets/DataArc/NotifiableDiseases/MD_till 2020.xls" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Newcastle disease (ND)</td>
+        <td>
+          <a href="/assets/DataArc/NotifiableDiseases/ND_till 2020.xls" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Pest des petits ruminants (PPR)</td>
+        <td>
+          <a href="/assets/DataArc/NotifiableDiseases/PPR_till 2020.xls" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Rabies</td>
+        <td>
+          <a href="/assets/DataArc/NotifiableDiseases/Rabies_till 2020.xls" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+      <tr align="center">
+        <td>Strangles</td>
+        <td>
+          <a href="/assets/DataArc/NotifiableDiseases/Str_till 2020.xls" routerLinkActive="active"
+            ><span class="material-icons">file_download</span></a
+          >
+        </td>
+      </tr>
+    </table>
+  </div>
+</mat-card>

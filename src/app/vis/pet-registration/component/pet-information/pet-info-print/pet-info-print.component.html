@@ -1,0 +1,185 @@
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<!-- Certificate. -->
+<mat-card id="printsection">
+  <div class="my-3 my-md-3">
+    <div class="container">
+      <div class="card">
+        <form class="form-horizontal" [formGroup]="petCertificateForm">
+          <div class="row">
+            <div class="col-md-12" align="center">
+              <td>
+                <img class="Header" style="width: 95vh; height: 20vh" src="/assets/print.png " />
+              </td>
+
+              <div class="col-md-12">
+                <hr style="width: 100%; text-align: left; margin-left: 0" />
+              </div>
+              <!-- header -->
+              <div class="col-md-12">
+                <h6 class="p-2" style="padding-top: 10px; text-align: center"><b>PET HEALTH CERTIFICATE</b></h6>
+              </div>
+              <!-- form -->
+              <div
+                class="mat-card-content"
+                style="width: 95%; padding: 5px; height: auto; text-align: center; border: 1px solid #787878"
+              >
+                <div class="col-md-12" style="text-align: left; margin-left: 20px">
+                  <table align="center" style="width: 100%">
+                    <tr>
+                      <td>
+                        <u>Pet Registration No.</u>:
+                        {{ petRegistrationNumber }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><u>Microchip No.</u>:{{ microchipNumber }}</td>
+                    </tr>
+                    <tr>
+                      <td><u>Date of Registration</u>: {{ registrationDate | date }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+
+              <br />
+              <div
+                class="mat-card-content"
+                style="width: 95%; padding: 5px; height: auto; text-align: center; border: 1px solid #787878"
+              >
+                <div class="col-md-12" style="text-align: left; margin-left: 20px">
+                  <h5 class="col-form-label"><b>Owners' Details</b></h5>
+                  <table align="center" style="width: 100%">
+                    <tr>
+                      <td>Nationality: {{ nationality }}</td>
+                      <td>CID No.: {{ cid }}</td>
+                    </tr>
+                    <tr>
+                      <td>Passport/Work Permit No.:{{ passportNumber === '' ? 'NA' : passportNumber }}</td>
+                      <td>Country: {{ countryId }}</td>
+                    </tr>
+                    <tr>
+                      <td>Owner Name: {{ ownerName }}</td>
+                      <td>Dzongkhag:{{ dzongkhagName }}</td>
+                    </tr>
+                    <tr>
+                      <td>Gewog: {{ gewogName }}</td>
+                      <td>Village: {{ villageName }}</td>
+                    </tr>
+                    <tr>
+                      <td>Locality: {{ locality }}</td>
+                      <td>Mobile Number: {{ mobileNumber }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              <br />
+
+              <div
+                class="mat-card-content"
+                style="width: 95%; padding: 5px; height: auto; text-align: center; border: 1px solid #787878"
+              >
+                <div class="col-md-12" style="text-align: left; margin-left: 20px">
+                  <h5 class="col-form-label"><b>Pet Details</b></h5>
+                  <table align="center" style="width: 100%">
+                    <tr>
+                      <td>
+                        Pet Name:
+                        {{ petName }}
+                      </td>
+                      <td>
+                        Species:
+                        {{ speciesName }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Breed: {{ breed }}</td>
+                      <td>Age(Year/Month/Day): {{ year }}/{{ month }}/{{ day }}</td>
+                    </tr>
+                    <tr>
+                      <td>Sex: {{ sex }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+
+              <br />
+              <div
+                class="mat-card-content"
+                style="width: 95%; padding: 5px; height: auto; text-align: center; border: 1px solid #787878"
+              >
+                <div class="col-md-12">
+                  <h5><strong> Vaccination and Deworming</strong></h5>
+                  <table style="width: 90%; border: 1px solid black; border-collapse: collapse" border="1">
+                    <tr align="center" style="width: 100%">
+                      <th><b>Date of Vaccinaion</b></th>
+                      <th><b>Type of Vaccines</b></th>
+                    </tr>
+                    <tr align="center" *ngFor="let element of vaccDetails">
+                      <td>{{ element.treatment_date | date }}</td>
+                      <td>{{ element.vaccine_name }}</td>
+                    </tr>
+                  </table>
+                </div>
+                <br />
+                <div class="col-md-12">
+                  <table>
+                    <tr *ngFor="let element of dewormngDetailsForPrinting">
+                      <td>
+                        <label class="col-form-label" style="padding-left: 10px"
+                          ><b> Deworming Date: </b>{{ element.treatmentDate | date }}</label
+                        >
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              <br />
+              <div class="col-md-12">
+                <label class="col-form-label" style="text-align: justify; text-justify: auto">
+                  This is to certify that the above pet animal is vaccinated and free from ectoparasites and any kind of
+                  contagious or infectious diseases. The pet does not come from a kennel or area closed off because of
+                  any disease spread. During the examination, no signs of pregnancy, infectious lesions on the skin, or
+                  nervous system disturbances were observed. It is further certified that the above description of the
+                  pet is correct.
+                  <br />
+                  <br />
+                  The pet registration booklet is also attached herewith for reference. The pet described above is fit
+                  to travel.
+                </label>
+              </div>
+
+              <br />
+              <br />
+
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <div class="col-md-12">
+                <p class="col-form-label" style="text-align: center"><b>(Seal and signature)</b></p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</mat-card>
+<!-- [useExistingCss]="true" -->
+<!-- styleSheetFile="assets/css/custome1.css" -->
+<button
+  styleSheetFile="assets/css/custome1.css"
+  mat-raised-button
+  color="accent"
+  printSectionId="printsection"
+  ngxPrint
+>
+  <mat-icon>print</mat-icon>&nbsp;Print
+</button>
+<button mat-raised-button color="accent" mat-dialog-close>Close</button>

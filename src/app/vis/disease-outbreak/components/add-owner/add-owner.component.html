@@ -1,0 +1,115 @@
+<mat-card-header>
+  <mat-card-title>Add Owner</mat-card-title>
+</mat-card-header>
+<mat-dialog-content>
+  <div class="col-md-12 col-lg-12">
+    <form class="form-horizontal form" [formGroup]="ownerForm">
+      <div class="container">
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label class="col-form-label"><strong>CID Number</strong><span class="text-danger">*</span>:</label>
+            <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]="false">
+              <input
+                matInput
+                formControlName="cidNumber"
+                (change)="getCitizen($event.target.value)"
+                type="number"
+                maxlength="11"
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                name="cidNumber"
+                placeholder="Cid Number"
+              />
+              <mat-error>Enter Valid CID Number</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <label class="col-form-label"><strong>Owner Name </strong><span class="text-danger">*</span>:</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input formControlName="ownerName" id="ownerName" matInput name="ownerName" readonly />
+              <mat-error>Enter Valid Owner Name</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <h5 class="p-2" style="padding-top: 20px">Present Address</h5>
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label class="col-form-label"><b> Dzongkhag</b><span class="text-danger">*</span>:</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select (selectionChange)="getGewogs($event.value)" formControlName="dzongkhagId">
+                <mat-option></mat-option>
+                <mat-option *ngFor="let dzongkhag of dzongkhags" [value]="dzongkhag.id">{{
+                  dzongkhag.dzongkhagName
+                }}</mat-option>
+              </mat-select>
+              <mat-error>Dzongkhag is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <label class="col-form-label"><strong> Gewog</strong><span class="text-danger">*</span>:</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select formControlName="gewogId">
+                <mat-option></mat-option>
+                <mat-option *ngFor="let gewog of gewogs" [value]="gewog.id">{{ gewog.gewogName }}</mat-option>
+              </mat-select>
+              <mat-error>Gewog is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label class="col-form-label"><b>Village</b><span class="text-danger">*</span>:</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input formControlName="villageName" matInput name="villageName" placeholder="Village Name" />
+              <mat-error>Enter Valid Village Name</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <h5 class="p-2" style="padding-top: 20px">Coordinates.</h5>
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label class="col-form-label">latitude<span class="text-danger">*</span>:</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input
+                formControlName="latitude"
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                matInput
+                name="latitude"
+                placeholder="latitude"
+              />
+              <mat-error>latitude is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <label class="col-form-label">longitude</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input
+                formControlName="longitude"
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                matInput
+                name="longitude"
+                placeholder="longitude"
+              />
+              <mat-error>longitude is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label class="col-form-label">Primary case date (date of first case during the current follow-up)</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input [matDatepicker]="pic" formControlName="primaryDate" [max]="maxDate" matInput readonly />
+              <mat-datepicker-toggle [for]="pic" matSuffix></mat-datepicker-toggle>
+              <mat-datepicker #pic></mat-datepicker>
+              <mat-error>Index case details required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button *ngIf="actionType === 'ADD'" mat-raised-button color="primary" (click)="saveCase()">Add</button>
+  <button *ngIf="actionType === 'EDIT'" mat-raised-button color="primary" (click)="updateCase()">Update</button>
+  <button mat-stroked-button color="secondary" (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

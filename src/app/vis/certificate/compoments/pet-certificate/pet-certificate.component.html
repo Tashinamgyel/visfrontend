@@ -1,0 +1,223 @@
+<mat-card class="example-card">
+  <div class="col-md-12">
+    <label class="col-form-label"><h5>Pet Registration Number/Microchip Number</h5></label><br />
+    <mat-form-field appearance="outline" style="width: 50%">
+      <input type="text" matInput [(ngModel)]="petRegistrationNo" />
+    </mat-form-field>
+    <button (click)="getPetRegistrationNumber()" color="primary" mat-raised-button>
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+
+  <br /><br />
+  <!-- styleSheetFile="assets/css/custome1.css" -->
+  <button [useExistingCss]="true" mat-raised-button color="accent" printSectionId="print-section" ngxPrint>
+    <mat-icon>print</mat-icon>&nbsp;Print
+  </button>
+  <!-- Certificate -->
+  <mat-card id="print-section">
+    <div class="my-3 my-md-3">
+      <div class="container">
+        <div class="card">
+          <form class="form-horizontal" [formGroup]="petCertificate">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12" align="center">
+                  <td>
+                    <img class="Header" style="width: 100%; height: auto" src="/assets/print.png " />
+                  </td>
+                </div>
+                <div class="col-md-12">
+                  <hr style="margin-left: 30px; margin-right: 30px" />
+                </div>
+
+                <div class="col-md-12">
+                  <h5 class="p-2" style="padding-top: 10px; text-align: center">PET HEALTH CERTIFICATE</h5>
+                </div>
+                <div
+                  class="mat-card-content"
+                  style="
+                    width: 90%;
+                    height: auto;
+                    margin-left: 50px;
+                    margin-right: 50px;
+                    padding: 5px;
+                    text-align: center;
+                    border: 1px solid #000000;
+                  "
+                >
+                  <div class="col-md-12" style="text-align: left; margin-left: 0%">
+                    <table align="center" style="width: 100%">
+                      <tr>
+                        <td>
+                          <u>Pet Registration No.</u>:
+                          {{ petRegistrationNumber }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><u>Microchip No.</u>:{{ microchipNumber }}</td>
+                      </tr>
+                      <tr>
+                        <td><u>Date of Registration </u>:{{ registrationDate | date }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <br />
+                <div
+                  class="mat-card-content"
+                  style="
+                    width: 90%;
+                    height: auto;
+                    margin-left: 50px;
+                    margin-right: 50px;
+                    padding: 5px;
+                    text-align: center;
+                    border: 1px solid #000000;
+                  "
+                >
+                  <div class="col-md-12" style="text-align: left; margin-left: 0px">
+                    <h5 style="text-align: left; margin-left: 0%"><strong>Owner Details</strong></h5>
+                    <table align="left" style="width: 90%">
+                      <tr>
+                        <td>Nationality: {{ nationality }}</td>
+                        <td>CID No.: {{ cid }}</td>
+                      </tr>
+                      <tr>
+                        <td>Passport/Work Permit No.:{{ passportNumber }}</td>
+                        <td>Country: {{ countryId }}</td>
+                      </tr>
+                      <tr>
+                        <td>Owner Name: {{ ownerName }}</td>
+                        <td>Dzongkhag:{{ dzongkhagName }}</td>
+                      </tr>
+                      <tr>
+                        <td>Gewog: {{ gewogName }}</td>
+                        <td>Village: {{ villageName }}</td>
+                      </tr>
+                      <tr>
+                        <td>Locality: {{ locality }}</td>
+                        <td>Mobile Number: {{ mobileNumber }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <br />
+                <div
+                  class="mat-card-content"
+                  style="
+                    width: 95%;
+                    height: auto;
+                    margin-left: 50px;
+                    margin-right: 50px;
+                    padding: 5px;
+                    text-align: center;
+                    border: 1px solid #000000;
+                  "
+                >
+                  <div class="col-md-12" style="text-align: left; margin-left: 0px">
+                    <h5 style="text-align: left; margin-left: 0%"><strong>Pet Details</strong></h5>
+                    <table align="left" style="width: 90%">
+                      <tr>
+                        <td>
+                          Pet Name:
+                          {{ petName }}
+                        </td>
+                        <td>
+                          Species:
+                          {{ speciesName }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Breed: {{ breed }}</td>
+                        <td>Age(Year/Month/Day): {{ year }}/{{ month }}/{{ day }}</td>
+                      </tr>
+                      <tr>
+                        <td>Sex: {{ sex }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <br />
+                <div
+                  class="mat-card-content"
+                  style="
+                    width: 90%;
+                    height: auto;
+                    margin-left: 50px;
+                    margin-right: 50px;
+                    padding: 5px;
+                    text-align: center;
+                    border: 1px solid #000000;
+                  "
+                >
+                  <div class="col-md-12">
+                    <h5 style="text-align: left; margin-left: 0%"><strong> Vaccination and Deworming</strong></h5>
+                    <table style="width: 90%; border: 1px solid black" border=".5">
+                      <tr align="center" style="width: 100%">
+                        <th>Date of Vaccinaion</th>
+                        <th>Type of Vaccines</th>
+                      </tr>
+                      <tr align="center" *ngFor="let element of vaccDetails">
+                        <td>{{ element.treatment_date | date }}</td>
+                        <td>{{ element.vaccine_name }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <br />
+                  <!-- <div class="col-md-12" style="text-align: left; margin-left: 0%">
+                    <label class="col-form-label"> Deworming Date:{{ treatmentDate | date }}</label>
+                  </div> -->
+                  <div class="col-md-12">
+                    <table>
+                      <tr>
+                        <td>
+                          <label class="col-form-label" style="padding-left: 10px"
+                            ><b> Deworming Date: </b>{{ treatmentDate | date }}</label
+                          >
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <br />
+                <div class="col-md-12">
+                  <label
+                    class="col-form-label"
+                    style="text-align: justify; text-justify: auto; padding-left: 30px; padding-right: 30px"
+                  >
+                    This is to certify that the above pet animal is vaccinated and free from ectoparasites and any kind
+                    of contagious or infectious diseases. The pet does not come from a kennel or area closed off because
+                    of any disease spread. During the examination, no signs of pregnancy, infectious lesions on the
+                    skin, or nervous system disturbances were observed. It is further certified that the above
+                    description of the pet is correct.
+                    <br />
+                    <br />
+                    The pet registration booklet is also attached herewith for reference. The pet described above is fit
+                    to travel.
+                  </label>
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <div class="col-md-12">
+                  <p class="col-form-label" style="text-align: center"><b>This is a report electronically generated from the Veterinary Information System (VIS) of Bhutan.<br>To verify the authenticity of this report, please contact National Centre for Animal Health,<br> Serbithang (www.ncah.gov.bt)</b></p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</mat-card>

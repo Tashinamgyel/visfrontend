@@ -1,0 +1,130 @@
+@import "../../../../styles/colors";
+
+// :host {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-start;
+// }
+
+.form {
+  width: 100%;
+}
+
+.example-full-width {
+  min-width: 350px;
+  max-width: 800px;
+  width: 100%;
+  height: 0;
+  padding-right: 18px;
+  padding-bottom: 20px;
+}
+
+.example-custom-width {
+  min-width: 300px;
+  max-width: 800px;
+  width: 100%;
+  height: 0px;
+  padding-right: 18px;
+}
+
+.form-responsive {
+  margin-left: 2em;
+  margin-right: 2em;
+  overflow: auto;
+  position: relative;
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+.mat-form-field {
+  margin-right: 12px;
+}
+
+//table
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.save-button {
+  //color: wheat;
+  background-color: greenyellow;
+}
+.follow-button {
+  //color: wheat;
+  background-color: burlywood;
+}
+.mat-divider {
+  color: blue;
+  margin-top: 10px;
+}
+.card-header {
+  size: 1px;
+}
+.button-header {
+  background-color: #327ebd;
+  color: white;
+  padding: 2px;
+}
+.button-container {
+  padding: 5px 15px 15px 15px;
+}
+.button-component-holder {
+  border: 1px solid #327ebd;
+  background-color: rgb(255, 255, 255);
+
+  h4 {
+    color: #327ebd;
+    margin: 11px;
+  }
+  .h1 {
+    text-align: center;
+  }
+
+  mat-divider {
+    margin-bottom: 10px;
+  }
+}
+.mat-card-content {
+  margin-top: 14px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-color: darkblue;
+}
+
+.mat-card {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.button-header {
+  background-color: #327ebd;
+  color: white;
+  padding: 0 5px;
+  text-align: center;
+}
+.button-container {
+  padding: 5px 10px 10px 10px;
+}
+.button-component-holder {
+  border: 1px solid #327ebd;
+  background-color: white;
+
+  h4 {
+    color: black;
+    margin: 14px 0;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  mat-divider {
+    margin-bottom: 10px;
+  }
+}
+.button-header {
+  height: 45px;
+}

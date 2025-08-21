@@ -1,0 +1,79 @@
+<mat-card-content style="margin-bottom: 20%">
+  <div class="col-md-12 col-lg-12">
+    <mat-card-header class="p-3 pl-lg-0">
+      <mat-card-title> Mass Registration Number: {{ registrationId }}</mat-card-title>
+    </mat-card-header>
+  </div>
+  <mat-card>
+    <mat-card-actions>
+      <button mat-raised-button (click)="openAddModal()" color="primary">
+        <mat-icon>add</mat-icon> Add Animal Details, Service and Medications
+      </button>
+    </mat-card-actions>
+
+    <table style="width: 100%; border: 1px solid black" border="1">
+      <tr align="center" style="color: white; background-color: #03a9f4; width: 100%">
+       
+        <!-- <th>Number of Animals</th> -->
+        <th>Type of Service</th>
+        <th>Animal Type</th>
+        <th>View</th>
+        <th>Delete</th>
+      </tr>
+      <tr *ngFor="let data of valueFromForm; let i = index" align="center">
+        
+        <!-- <td>{{ data.data[0].total }}</td> -->
+        <td>{{ data.data[0].treatment }}</td>
+        <td>{{ data.data[0].animalTypeId.animalType }}</td>
+        <td><mat-icon color="primary" style="cursor: pointer" (click)="view(i)">visibility</mat-icon></td>
+        <td><mat-icon style="color: red; cursor: pointer" (click)="delete(i)">delete</mat-icon></td>
+      </tr>
+    </table>
+    <br /><br />
+
+    <div align="center" *ngIf="showWhenViewClicked">
+      <div>
+        <mat-icon style="cursor: pointer; float: right" color="primary" (click)="hideShowWhenViewClicked()"
+          >close</mat-icon
+        >
+      </div>
+      <br /><br />
+
+      <table align="left" border="1" style="width: 100%">
+        <tr align="center">
+          <td colspan="9">
+            <header style="color: white; background-color: #03a9f4; width: 100%">Mass Details</header>
+          </td>
+        </tr>
+
+        <tr align="center">
+          <th>Species Name</th>
+          <th>Animal Type</th>
+          <th>Age</th>
+          <th>Female</th>
+          <th>Male</th>
+          <th>Mixed</th>
+          <th>Total</th>
+          <!-- <th>Animal ID</th>
+          <th>Reason for Vaccinating</th> -->
+        </tr>
+        <tr align="center" *ngFor="let massData of massTableData">
+          <td>{{ massData.speciesId.speciesName }}</td>
+          <td>{{ massData.animalTypeId.animalType }}</td>
+          <td>{{ massData.age }}</td>
+          <td>{{ massData.female }}</td>
+          <td>{{ massData.male }}</td>
+          <td>{{ massData.mixed }}</td>
+          <td>{{ massData.total }}</td>
+          <!-- <td>{{ massData.notVaccinated}}</td>
+          <td>{{ massData.animalIDNOt }}</td> -->
+        </tr>
+      </table>
+    </div>
+    <br /><br />
+    <mat-card-actions>
+      <button (click)="massConfirmation()" color="primary" class="save-button" mat-raised-button>Submit</button>
+      <!-- <button mat-raised-button color="primary" (click)="printPage()"><mat-icon>print</mat-icon>&nbsp;Print</button> -->
+    </mat-card-actions>
+  </mat-card></mat-card-content
+>

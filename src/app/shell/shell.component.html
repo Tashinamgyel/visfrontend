@@ -1,0 +1,511 @@
+<div fxFlex>
+  <mat-sidenav-container fxFill>
+    <!-- SideNav -->
+    <mat-sidenav
+      #sidenav
+      [disableClose]="!isMobile"
+      [mode]="isMobile ? 'over' : 'side'"
+      [opened]="!isMobile"
+      ngClass.gt-sm="has-border"
+    >
+      <mat-toolbar class="side-logo-bar">
+        <img class="img-responsive" src="/assets/vis-logo-white2.png" style="width: 8vh; height: 8vh" />
+      </mat-toolbar>
+      <nav>
+        <mat-divider></mat-divider>
+        <mat-list>
+          <a
+            mat-list-item
+            (click)="isMobile && sidenav.close()"
+            routerLink="{{ routes.DASHBOARD }}"
+            routerLinkActive="active"
+          >
+            <span translate>
+              <strong style="background-color: rgb(0, 174, 255); color: white">
+                <h5 style="font-family: Arial">Home</h5>
+              </strong>
+            </span>
+          </a>
+       <div *ngIf="isAdmin"> 
+            <a mat-list-item style="cursor: pointer">
+              <div fxLayout="row" fxLayoutAlign="left">
+                <span fxFlex (click)="openDialog()"
+                  ><strong><h5 style="font-family: Arial">Master Management</h5></strong></span
+                >
+              </div>
+            </a>
+            <a mat-list-item style="cursor: pointer">
+              <div fxLayout="row" fxLayoutAlign="left">
+                <span
+                  fxFlex
+                  routerLink="/createUser"
+                  (click)="isMobile && sidenav.close()"
+                  routerLinkActive="active"
+                  (click)="openUserManagement()"
+                  ><strong><h5 style="font-family: Arial">User Management</h5></strong></span
+                >
+              </div>
+            </a>
+          </div>
+
+          <div *ngIf="isReceptionist || isClinician || isNCAH">
+            <a mat-list-item style="cursor: pointer">
+              <div fxLayout="row" fxLayoutAlign="left">
+                <span fxFlex (click)="individualsButton()"
+                  ><strong><h5 style="font-family: Arial">Individual</h5></strong></span
+                >
+              </div>
+            </a>
+
+            <div *ngIf="searchbyPID && (isClinician || isNCAH)">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="isMobile && sidenav.close()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLink="{{ individuals[0].route }}"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate style="font-family: Arial">Search Patient</span>
+                </span>
+              </a>
+            </div>
+
+            <div *ngIf="individualRegistration && (isReceptionist || isNCAH)">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="isMobile && sidenav.close()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLink="{{ individuals[1].route }}"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate style="font-family: Arial"
+                    >Patient Registration
+                  </span>
+                </span>
+              </a>
+            </div>
+
+            <a mat-list-item style="cursor: pointer">
+              <div fxLayout="row" fxLayoutAlign="left">
+                <span fxFlex (click)="openMass()"
+                  ><strong><h5 style="font-family: Arial">Mass</h5></strong></span
+                >
+              </div>
+            </a>
+
+            <div *ngIf="searchMass">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="isMobile && sidenav.close()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLink="{{ mass[0].route }}"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate>Search</span>
+                </span>
+              </a>
+            </div>
+
+            <div *ngIf="massRegistration">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="isMobile && sidenav.close()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLink="{{ mass[1].route }}"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate>Mass Registration</span>
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <div *ngIf="isEnumerator || isNCAH || isDPMDV">
+            <a mat-list-item style="cursor: pointer">
+              <div fxLayout="row" fxLayoutAlign="left">
+                <span fxFlex (click)="openDialogbox()"
+                  ><strong>
+                    <h5 style="font-family: Arial">Pet Information Management</h5>
+                  </strong></span
+                >
+              </div>
+            </a>
+
+            <div *ngIf="petInfoRegistration">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="isMobile && sidenav.close()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLink="{{ petManagements[0].route }}"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate>Pet Registration</span>
+                </span>
+              </a>
+            </div>
+            <div *ngIf="petInfoRenewalUpdate">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="isMobile && sidenav.close()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLink="{{ petManagements[1].route }}"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate>Renewal/De-registration</span>
+                </span>
+              </a>
+            </div>
+
+            <div *ngIf="petInfoOwnershipTansfer">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="isMobile && sidenav.close()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLink="{{ petManagements[2].route }}"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate>Ownership Transfer</span>
+                </span>
+              </a>
+            </div>
+
+            <div *ngIf="petInfoPetInformation">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="isMobile && sidenav.close()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLink="{{ petManagements[3].route }}"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate>Pet Information</span>
+                </span>
+              </a>
+            </div>
+
+            <a mat-list-item style="cursor: pointer">
+              <div fxLayout="row" fxLayoutAlign="left">
+                <span fxFlex (click)="openDogManagement()"
+                  ><strong>
+                    <h5 style="font-family: Arial">DPM/MDV</h5>
+                  </strong></span
+                >
+              </div>
+            </a>
+
+            <div *ngIf="dpm">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="isMobile && sidenav.close()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLink="{{ dogDogManagements[0].route }}"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate>DPM</span>
+                </span>
+              </a>
+            </div>
+
+            <div *ngIf="mdv">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="isMobile && sidenav.close()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLink="{{ dogDogManagements[1].route }}"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate>MDV</span>
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <div *ngIf="isReceptionist || isClinician || isNCAH">
+            <a mat-list-item style="cursor: pointer">
+              <div fxLayout="row" fxLayoutAlign="right">
+                <span fxFlex (click)="openDiseaseOutbreak()"
+                  ><strong>
+                    <h5 style="font-family: Arial">Disease Outbreak</h5>
+                  </strong>
+                </span>
+              </div>
+            </a>
+
+            <div *ngIf="flashReport">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="flashReportPopup()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate>Flash Report</span>
+                </span>
+              </a>
+            </div>
+
+            <div *ngIf="followUp">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="followUpPopup()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate>Ongoing/Resolved</span>
+                </span>
+              </a>
+            </div>
+
+            <a mat-list-item style="cursor: pointer">
+              <div fxLayout="row" fxLayoutAlign="left">
+                <span fxFlex (click)="OpenCertifacate()"
+                  ><strong>
+                    <h5 style="font-family: Arial">Certificates</h5>
+                  </strong></span
+                >
+              </div>
+            </a>
+
+            <div *ngIf="petCertificate">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="isMobile && sidenav.close()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLink="{{ certificates[0].route }}"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate>Pet Health Certificate</span>
+                </span>
+              </a>
+            </div>
+
+            <div *ngIf="vaccineCertificate">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="isMobile && sidenav.close()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLink="{{ certificates[1].route }}"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate>Vaccination Certificate (I)</span>
+                </span>
+              </a>
+            </div>
+            <div *ngIf="massCertificate">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="isMobile && sidenav.close()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLink="{{ certificates[3].route }}"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate>Vaccination Certificate (M)</span>
+                </span>
+              </a>
+            </div>
+
+            <div *ngIf="breederStatus">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="isMobile && sidenav.close()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLink="{{ certificates[2].route }}"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate>Breeder Statement</span>
+                </span>
+              </a>
+            </div>
+          </div>
+          <div *ngIf="isGuest">
+            <a mat-list-item style="cursor: pointer">
+              <div fxLayout="row" fxLayoutAlign="left">
+                <span fxFlex (click)="openDialogbox()"
+                  ><strong>
+                    <h5 style="font-family: Arial">Pet Information Management</h5>
+                  </strong></span
+                >
+              </div>
+            </a>
+            <div *ngIf="petInfoPetInformation">
+              <a mat-list-item style="cursor: pointer">
+                <span
+                  fxFlex
+                  style="margin-left: 5%"
+                  (click)="isMobile && sidenav.close()"
+                  [mat-dialog-close]=""
+                  cdkFocusInitial
+                  color="white"
+                  routerLink="{{ petManagements[3].route }}"
+                  routerLinkActive="active"
+                  class="button-width"
+                >
+                  <mat-icon>circle</mat-icon>&nbsp;<span translate>Pet Information</span>
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <a mat-list-item style="cursor: pointer">
+            <div fxLayout="row" fxLayoutAlign="right">
+              <span fxFlex (click)="openReports()"
+                ><strong>
+                  <h5 style="font-family: Arial">Reports</h5>
+                </strong>
+              </span>
+            </div>
+          </a>
+
+          <div *ngIf="dpmReports">
+            <a mat-list-item *ngFor="let route of reports" style="cursor: pointer">
+              <span
+                fxFlex
+                style="margin-left: 5%"
+                (click)="isMobile && sidenav.close()"
+                [mat-dialog-close]=""
+                cdkFocusInitial
+                color="white"
+                routerLink="{{ route.route }}"
+                routerLinkActive="active"
+                class="button-width"
+              >
+                <mat-icon>circle</mat-icon>&nbsp;<span translate style="font-family: Arial">{{ route.name }}</span>
+              </span>
+            </a>
+          </div>
+          <a
+            mat-list-item
+            (click)="isMobile && sidenav.close()"
+            routerLink="{{ routes.DATAARCHIVAL }}"
+            routerLinkActive="active"
+          >
+            <span translate>
+              <strong style="background-color: rgb(0, 174, 255); color: white">
+                <h5 style="font-family: Arial">Past Data Archival</h5>
+              </strong>
+            </span>
+          </a>
+        </mat-list>
+      </nav>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <mat-toolbar>
+        <button class="menu-button" mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon style="color: white" id="arrow" *ngIf="sidenav.opened">arrow_back</mat-icon>
+          <mat-icon style="color: white" id="arrow" *ngIf="!sidenav.opened">arrow_forward</mat-icon>
+        </button>
+
+        <Span id="title" class="center" style="color: white; font-size: calc(10px + 1vw)"
+          >Veterinary Information System</Span
+        >
+        <div fxFlex></div>
+        <div class="header-toolbar">
+          <div>
+            <div style="padding-top: 10px">
+              <label style="color: aliceblue; font-size: calc(8px + 0.5vw)">{{ userDetails?.fullName }}</label>
+              <button class="user-button" mat-mini-fab [matMenuTriggerFor]="userMenu">
+                <mat-icon style="text-align: center; font-size: 2em">person</mat-icon>
+              </button>
+            </div>
+            <div style="float: right">
+              <label *ngIf="isCenter" style="color: aliceblue; font-size: calc(8px + 0.5vw)">{{
+                userDetails?.centre.centre
+              }}</label>
+              <label style="color: aliceblue; font-size: calc(8px + 0.5vw)">{{ userDetails?.jurisdiction }}</label>
+            </div>
+          </div>
+          <div fxFlex></div>
+          <mat-menu #userMenu="matMenu">
+            <a mat-menu-item class="user-menu__item-title" (click)="userProfile()">
+              <mat-icon class="user-menu-icon">person</mat-icon>Change Password
+            </a>
+            <a mat-menu-item class="user-menu__item-title" (click)="signOut()">
+              <mat-icon class="user-menu-icon">logout</mat-icon>Sign out
+            </a>
+          </mat-menu>
+        </div>
+      </mat-toolbar>
+
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

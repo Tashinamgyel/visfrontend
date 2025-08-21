@@ -1,0 +1,374 @@
+<div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
+  <div fxFlex class="button-component-holder mat-elevation-z4">
+    <mat-toolbar class="button-header">
+      <mat-toolbar class="button-header">
+        <h5 class="p-2" style="padding-top: 20px; margin-left: 16px">Clinical</h5>
+      </mat-toolbar>
+    </mat-toolbar>
+    <div class="button-container">
+      <mat-card>
+        <form [formGroup]="treatmentForm" class="form-horizontal form">
+          <mat-card-content>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label"> Treatment Date </label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input [matDatepicker]="picker" [max]="maxDate" readonly formControlName="treatmentDate" matInput />{{
+                    treatmentDate
+                  }}
+                  <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error>Date is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            &nbsp;
+
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label class="textarea">Anamnesis(Case History)</label>
+                <mat-form-field style="width: 100%" appearance="outline" type="text">
+                  <textarea matInput rows="4" cols="10" matInput formControlName="anamnesisHistory"> </textarea>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-12">
+                <label class="textarea">Observation</label>
+                <mat-form-field style="width: 100%" appearance="outline" type="text">
+                  <textarea matInput rows="2" cols="10" formControlName="observation"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <hr />
+            <h6><strong>Tentative Diagnosis</strong></h6>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">System</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select (selectionChange)="getConditions($event.value)" formControlName="systemId">
+                    <mat-option *ngFor="let system of systems" [value]="system.id">{{ system.systemName }}</mat-option>
+                  </mat-select>
+                  <mat-error>System is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label"> Condition<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="conditionsId">
+                    <mat-option></mat-option>
+                    <mat-option *ngFor="let condition of conditions" [value]="condition.id">{{
+                      condition.conditions
+                    }}</mat-option>
+                  </mat-select>
+                  <mat-error>condition is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            &nbsp;
+            <div class="form-group row">
+              <div class="col-md-12">
+                <h6>Differential Diagnosis</h6>
+                <div class="col-md-12">
+                  <mat-form-field style="width: 100%" appearance="outline" type="text">
+                    <textarea
+                      matInput
+                      rows="2"
+                      cols="10"
+                      formControlName="differentialDiagnosis"
+                      placeholder="Differential Diagnosis"
+                    ></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <h6><strong>Diagnostic test(s) request</strong></h6>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Diagnostic test(s) request</label>
+                <mat-radio-group class="mat-radio-group p-3" aria-label="Select an option" formControlName="status">
+                  <mat-radio-button value="Y">Yes </mat-radio-button>
+                  <mat-radio-button value="N">No </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="treatmentForm.value.status === 'Y'">
+              <div class="col-md-6">
+                <label class="col-form-label">Diagnostic test</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="clinicalTest" multiple>
+                    <mat-option *ngFor="let diagnostic of diagnosticTest" [value]="diagnostic.clinicalTest">{{
+                      diagnostic.clinicalTest
+                    }}</mat-option>
+                  </mat-select>
+                  <mat-error>Diagnostic test is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div *ngIf="treatmentForm.value.status === 'N'">
+              <h6><strong>Final Diagnosis</strong></h6>
+            </div>
+
+            <div class="form-group row" *ngIf="treatmentForm.value.status === 'N'">
+              <div class="col-md-6">
+                <label class="col-form-label">System</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select (selectionChange)="getConditions($event.value)" formControlName="systemId" disabled>
+                    <mat-option *ngFor="let system of systems" [value]="system.id">{{ system.systemName }}</mat-option>
+                  </mat-select>
+                  <mat-error>System is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label"> Condition<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="conditionsId" disabled>
+                    <mat-option></mat-option>
+                    <mat-option *ngFor="let condition of conditions" [value]="condition.id">{{
+                      condition.conditions
+                    }}</mat-option>
+                  </mat-select>
+                  <mat-error>condition is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            &nbsp;
+            <h6><strong *ngIf="treatmentForm.value.status === 'Y'"> Final Diagnosis</strong></h6>
+            <div class="form-group row" *ngIf="treatmentForm.value.status === 'Y'">
+              <div class="col-md-6">
+                <label class="col-form-label">System</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select (selectionChange)="getConditionFinal($event.value)" formControlName="finalSystemsId">
+                    <mat-option value="">Select system</mat-option>
+                    <mat-option *ngFor="let system of systems" [value]="system.id">{{ system.systemName }}</mat-option>
+                  </mat-select>
+                  <mat-error>System is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label"> Condition<span class="text-danger">*</span>:</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="finalConditionsId">
+                    <mat-option value="">Select Condition</mat-option>
+                    <mat-option *ngFor="let condition of conditionsfnl" [value]="condition.id">{{
+                      condition.conditions
+                    }}</mat-option>
+                  </mat-select>
+                  <mat-error>Condition is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            &nbsp;
+            <h6><strong>Treatment</strong></h6>
+            <hr />
+            <h6>Procedure</h6>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label"></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="procedures" multiple>
+                    <mat-option value="">Select Procedure</mat-option>
+                    <mat-option *ngFor="let procedure of procedures" [value]="procedure.proceduresName">{{
+                      procedure.proceduresName
+                    }}</mat-option>
+                  </mat-select>
+                  <mat-error>Procedure required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <hr />
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label class="textarea">Remarks</label>
+                <mat-form-field style="width: 100%" appearance="outline" type="text">
+                  <textarea
+                    matInput
+                    rows="2"
+                    cols="10"
+                    matInput
+                    formControlName="remarks"
+                    placeholder=" Write Brief remark here"
+                  >
+                  </textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <hr />
+            <!-- </mat-card-content>
+          <mat-expansion-panel (opened)="basicPanelOpenState = true" (opened)="basicPanelOpenState = true">
+            <mat-expansion-panel-header>
+              <mat-panel-title><strong>Medication History </strong></mat-panel-title>
+            </mat-expansion-panel-header>
+            <cdk-virtual-scroll-viewport
+              itemSize="20"
+              orientation="horizontal"
+              style="height: 300px"
+              class="example-viewport"
+            >
+              <table mat-table [dataSource]="dataSource1" matSort class="mat-elevation-z1">
+                <ng-container matColumnDef="slno">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                  <td mat-cell *matCellDef="let element; let i = index">
+                    {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="classEntity">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Class</th>
+                  <td mat-cell *matCellDef="let element">{{ element.classEntity.className }}</td>
+                </ng-container>
+                <ng-container matColumnDef="medicineEntity">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Medicines</th>
+                  <td mat-cell *matCellDef="let element">{{ element.medicineEntity.medicineName }}</td>
+                </ng-container>
+                <ng-container matColumnDef="composition">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Composition</th>
+                  <td mat-cell *matCellDef="let element">{{ element.medicineEntity.composition }}</td>
+                </ng-container>
+                <ng-container matColumnDef="presentation">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Presentation</th>
+                  <td mat-cell *matCellDef="let element">{{ element.medicineEntity.presentation }}</td>
+                </ng-container>
+                <ng-container matColumnDef="unit">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Dose Unit</th>
+                  <td mat-cell *matCellDef="let element">{{ element.medicineEntity.unit }}</td>
+                </ng-container>
+                <ng-container matColumnDef="route">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Route</th>
+                  <td mat-cell *matCellDef="let element">{{ element.route.routeName }}</td>
+                </ng-container>
+                <ng-container matColumnDef="duration">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration</th>
+                  <td mat-cell *matCellDef="let element">{{ element.duration }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="dosage">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-decoration-color: snow">Dose</th>
+                  <td mat-cell *matCellDef="let element">{{ element.dosage }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="frequency">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-decoration-color: snow">
+                    Frequency
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{ element.frequency.frequencyName }}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns1; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+              </table>
+
+            </cdk-virtual-scroll-viewport>
+          </mat-expansion-panel>
+          <hr /> -->
+          </mat-card-content>
+
+          <h6>Medications</h6>
+          <mat-card-actions>
+            <button mat-raised-button (click)="openAddModal()" style="margin: left" color="primary">
+              <mat-icon>add</mat-icon> Add
+            </button>
+          </mat-card-actions>
+          <cdk-virtual-scroll-viewport
+            itemSize="20"
+            orientation="horizontal"
+            style="height: 300px"
+            class="example-viewport"
+          >
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z1">
+              <ng-container matColumnDef="slno">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="classEntity">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Medicine Class</th>
+                <td mat-cell *matCellDef="let element">{{ element.classEntity.className }}</td>
+              </ng-container>
+              <ng-container matColumnDef="medicineEntity">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Medicine Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.medicineEntity.medicineName }}</td>
+              </ng-container>
+              <!-- <ng-container matColumnDef="composition">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Composition</th>
+                <td mat-cell *matCellDef="let element">{{ element.medicineEntity.composition }}</td>
+              </ng-container>
+              <ng-container matColumnDef="presentation">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Presentation</th>
+                <td mat-cell *matCellDef="let element">{{ element.medicineEntity.presentation }}</td>
+              </ng-container> -->
+              <ng-container matColumnDef="unit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Dose Unit</th>
+                <td mat-cell *matCellDef="let element">{{ element.unit.unitType }}</td>
+              </ng-container>
+              <ng-container matColumnDef="route">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Route</th>
+                <td mat-cell *matCellDef="let element">{{ element.route.routeName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="duration">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration</th>
+                <td mat-cell *matCellDef="let element">{{ element.duration }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="dosage">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-decoration-color: snow">Dose</th>
+                <td mat-cell *matCellDef="let element">{{ element.dosage }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="frequency">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-decoration-color: snow">Frequency</th>
+                <td mat-cell *matCellDef="let element">{{ element.frequency.frequencyName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button (click)="editMedication(element.id)" class="edit-button">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="delete">
+                <th class="table-heading" mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button (click)="deleteMedication(element.id)" class="delete-button">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+
+            <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          </cdk-virtual-scroll-viewport>
+          <hr />
+          <h6>Brief Advice</h6>
+          <div class="form-group row">
+            <div class="col-md-12">
+              <mat-form-field style="width: 100%" appearance="outline" type="text">
+                <textarea matInput rows="2" cols="10" matInput formControlName="advice"> </textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <hr />
+          <mat-card-actions>
+            <button (click)="saveClinical('FollowUp')" style="background-color:blue; color: white" mat-raised-button>
+              Follow-Up
+            </button>
+            <button
+              (click)="saveClinicalCompleted('New')"
+              style="background-color: green; color: white"
+              mat-raised-button
+            >
+              Complete
+            </button>
+            <button mat-raised-button color="primary" (click)="printPage()">
+              <mat-icon>print</mat-icon>&nbsp;Print
+            </button>
+          </mat-card-actions>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,146 @@
+@import "src/app/styles/colors";
+@import "src/app/styles/font";
+@import "src/app/styles/variables";
+
+:host {
+  display: flex;
+  flex: 1;
+}
+.mat-sidenav {
+  min-width: 270px;
+  max-width: 28%;
+}
+
+.has-border {
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+.mat-list {
+  padding-top: 0;
+}
+.mat-list-item {
+  text-decoration: none;
+  &:hover {
+    background: blue;
+  }
+}
+
+.menu-button {
+  margin-right: 1rem;
+}
+
+.elms {
+  font-family: "Times New Roman", Times, serif;
+  font-style: normal;
+  font-weight: bold;
+  color: green;
+  margin-left: 10%;
+}
+
+.header-toolbar {
+  display: flex;
+  align-items: right;
+
+  .unlock-button {
+    border-color: #3cd4a0;
+    margin-right: 16px;
+    text-transform: lowercase;
+    background-color: #3cd4a0;
+    color: white;
+    letter-spacing: 0.0892857143em;
+    @media (max-width: 576px) {
+      display: none;
+    }
+  }
+
+  .cdk-overlay-pane {
+    width: 100%;
+  }
+  .mat-menu-panel {
+    width: 100%;
+  }
+
+  .mat-menu-item {
+    margin-left: 10px;
+    width: 70%;
+    text-transform: lowercase;
+    align-items: center;
+  }
+  .span translate {
+    font-size: smaller;
+  }
+}
+
+.cdk-overlay-pane {
+  width: 100%;
+}
+.mat-menu-panel {
+  width: 100%;
+}
+
+.mat-menu-item {
+  margin-top: 0;
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 90%;
+  align-items: center;
+  cursor: pointer;
+}
+
+.mat-list-user {
+  cursor: pointer;
+  padding-right: 10px;
+}
+
+.height-44 {
+  height: 44x !important;
+}
+.display-block {
+  display: block !important;
+}
+// .header-toolbar {
+//   margin-right: 360px;
+// }
+.mat-toolbar {
+  background-color: #1e90ff;
+}
+
+.mat-drawer {
+  background-color: rgb(65, 53, 53);
+  color: white;
+  margin-left: 0px;
+  margin-right: 60px;
+}
+
+.openDiseaseOutbreak {
+  margin-left: 700px;
+}
+mat-icon {
+  font-size: 1em;
+}
+#arrow {
+  font-size: 1.5em;
+  box-shadow: none;
+  outline: none;
+}
+
+.user-button {
+  background-color: #03a9f4;
+  box-shadow: none;
+  margin: auto auto auto auto;
+  ::ng-deep {
+    outline: none;
+  }
+}
+.user-menu {
+  &__item-title {
+    color: #03a9f4;
+    text-decoration: none;
+  }
+}
+.responsive {
+  width: 100%;
+  height: auto;
+}
+body {
+  color: red;
+}

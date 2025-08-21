@@ -1,0 +1,78 @@
+<mat-card-content>
+  <!-- <div *ngIf="poultryDetails" class="col-md-12 col-lg-12 table-card">
+   </div> -->
+
+  <div [formGroup]="poultryCaseForm">
+    <div>
+      <cdk-virtual-scroll-viewport itemSize="4" orientation="horizontal" style="height: 200px">
+        <table>
+          <tr
+            *ngFor="let poultryDetails of poultryCaseForm.get('poultry')['controls']; let i = index"
+            [formGroup]="poultryDetails"
+          >
+            <td>
+              <mat-form-field appearance="outline" style="width: 170px">
+                <mat-label>Poultry Type</mat-label>
+                <mat-select disableRipple formControlName="animalTypeId" placeholder="Select a Animal Type">
+                  <mat-option *ngFor="let animalType of animalType[i]" [value]="animalType.id">{{
+                    animalType.animalType
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="outline" style="width: 170px">
+                <mat-label>Breed</mat-label>
+                <mat-select disableRipple formControlName="breedId" placeholder="Select a Class">
+                  <mat-option *ngFor="let breed of breeds[i]" [value]="breed.id">{{ breed.breedName }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+
+            <td>
+              <mat-form-field appearance="outline" style="width: 170px">
+                <mat-label>Age</mat-label>
+
+                <mat-select disableRipple formControlName="age" placeholder="Select a Class">
+                  <mat-option *ngFor="let age of poultryAges; let i = index" [value]="age.age">{{
+                    age.age
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="outline" style="width: 170px">
+                <mat-label>Male</mat-label>
+                <input formControlName="male" matInput required type="text" />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="outline" style="width: 170px">
+                <mat-label>Female</mat-label>
+                <input formControlName="female" matInput required type="text" />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field [hideRequiredMarker]="true" appearance="outline" style="width: 170px">
+                <mat-label>Total</mat-label>
+                <input formControlName="total" matInput required type="text" />
+              </mat-form-field>
+            </td>
+            <td>
+              <button (click)="deletePoultryRow(i)" color="warn" mat-raised-button>
+                <mat-icon>delete</mat-icon>
+                Delete
+              </button>
+            </td>
+          </tr>
+        </table>
+      </cdk-virtual-scroll-viewport>
+    </div>
+    <mat-card-actions>
+      <button (click)="addOtherSpeciesDetailRow()" color="primary" mat-raised-button>
+        <mat-icon>add</mat-icon>
+        Add Cases
+      </button>
+    </mat-card-actions>
+  </div>
+</mat-card-content>

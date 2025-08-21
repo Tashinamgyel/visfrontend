@@ -1,0 +1,44 @@
+<mat-card-header>
+  <mat-card-title>Vaccination Details </mat-card-title>
+</mat-card-header>
+<mat-dialog-content>
+  <div class="col-md-12 col-lg-12">
+    <form class="form-horizontal" [formGroup]="vaccForm">
+      <div class="form-group row">
+        <div class="col-md-10">
+          <label class="col-form-label"><strong> Vaccine</strong><span class="text-danger">*</span>:</label>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-select formControlName="vaccineTypeId">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let vaccine of vaccineType" [value]="vaccine.id">
+                {{ vaccine.vaccineName }}</mat-option
+              >
+            </mat-select>
+            <mat-error>Vaccine is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    *ngIf="actionType === 'ADD'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!vaccForm.valid"
+    (click)="saveVaccineType()"
+  >
+    Add
+  </button>
+  <button
+    *ngIf="actionType === 'EDIT'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!vaccForm.valid"
+    (click)="updateVaccineType()"
+  >
+    Update
+  </button>
+  <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

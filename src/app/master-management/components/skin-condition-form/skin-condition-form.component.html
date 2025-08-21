@@ -1,0 +1,49 @@
+<mat-card-header>
+  <mat-card-title>Add Skin Condition </mat-card-title>
+</mat-card-header>
+<mat-dialog-content>
+  <div class="col-md-12 col-lg-12">
+    <form class="form-horizontal" [formGroup]="skinConditionForm">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label"> Skin condition</label>
+        <div class="col-md-9">
+          <mat-form-field appearance="outline">
+            <mat-label> Skin Condition</mat-label>
+            <input matInput formControlName="conditionName" placeholder="" />
+            <mat-error>Skin Condition is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    *ngIf="actionType === 'ADD'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!skinConditionForm.valid"
+    (click)="saveSkinCondition()"
+  >
+    Add
+  </button>
+  <button
+    *ngIf="actionType === 'EDIT'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!skinConditionForm.valid"
+    (click)="updateSkinCondition()"
+  >
+    Update
+  </button>
+  <button
+    *ngIf="actionType === 'DELETE'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!skinConditionForm.valid"
+    (click)="updateSkinCondition()"
+  >
+    Delete
+  </button>
+  <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

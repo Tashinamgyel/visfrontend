@@ -1,0 +1,74 @@
+@media screen and (max-width: 1000px) {
+  .col-lg-12 {
+    width: 98%;
+    margin: 0 1% 10px 1%;
+    float: left;
+  }
+  .col-lg-6 {
+    width: 48%;
+    margin: 0 1% 10px 1%;
+    float: left;
+  }
+  .col-lg-4 {
+    width: 30%;
+    margin: 0 1.5% 10px 1.5%;
+    float: left;
+  }
+  .col-lg-2 {
+    width: 14%;
+    margin: 0 1% 10px 1%;
+    float: left;
+  }
+}
+@media screen and (max-width: 880px) {
+  .col-md-12 {
+    width: 98%;
+    margin: 0 1%;
+    float: left;
+  }
+}
+.align-center {
+  text-align: center;
+}
+.margin-bottom {
+  margin-bottom: 10px !important;
+}
+.table {
+  width: 45px;
+}
+.th {
+  width: 20px;
+}
+.button-header {
+  background-color: #327ebd;
+  color: white;
+  padding: 0 5px;
+}
+.button-container {
+  padding: 5px 15px 15px 15px;
+}
+.button-component-holder {
+  border: 1px solid #327ebd;
+  background-color: white;
+
+  h4 {
+    color: #327ebd;
+    margin: 14px 0;
+  }
+
+  mat-divider {
+    margin-bottom: 10px;
+  }
+}
+.button-header {
+  height: 45px;
+}
+.mat-card {
+  margin-right: 170px;
+}
+.button-header {
+  height: 45px;
+}
+.mat-toolbar {
+  height: 45px;
+}

@@ -1,0 +1,630 @@
+@import "../../../../styles/colors";
+
+.form {
+  min-width: 350px;
+  // max-width: 750px;
+  width: 10%;
+}
+
+.example-full-width {
+  min-width: 350px;
+  max-width: 800px;
+  width: 100%;
+  height: 0;
+  padding-right: 18px;
+  padding-bottom: 20px;
+}
+
+.example-custom-width {
+  min-width: 300px;
+  max-width: 800px;
+  width: 100%;
+  height: 0px;
+  padding-right: 18px;
+}
+
+.form-responsive {
+  margin-left: 2em;
+  margin-right: 2em;
+  overflow: auto;
+  position: relative;
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+.mat-form-field {
+  margin-right: 12px;
+}
+
+//table
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.save-button {
+  //color: wheat;
+  background-color: greenyellow;
+}
+.follow-button {
+  //color: wheat;
+  background-color: burlywood;
+}
+.mat-divider {
+  color: blue;
+  margin-top: 10px;
+}
+.card-header {
+  size: 2px;
+}
+
+.D1 {
+  width: 539px;
+  //text-align: left;
+  //font-family: DDC Rinzin;
+  // font-style: normal;
+  // font-weight: normal;
+  // font-size: 31px;
+}
+// .D2 {
+
+// 	position: ablsolute;
+// 	width: 462px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: DDC Rinzin;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 31px;
+// 	color: rgba(0,0,0,1);
+// }
+
+// .vac {
+// 	left: 274.752px;
+// 	top: 367.598px;
+// 	position: absolute;
+
+// 	width: 383px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: bold;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// 	text-transform: uppercase;
+// }
+// .Ministry {
+// 	left: 317.036px;
+// 	top: 163.782px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 387px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 28px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Department {
+// 	left: 365.042px;
+// 	top: 200.967px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 281px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 28px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Thimphu {
+// 	left: 467.14px;
+// 	top: 238.151px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 104px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 28px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Owners_detail {
+// 	left: 32.708px;
+// 	top: 422.916px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 170px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: bold;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Pets_details {
+// 	left: 32.149px;
+// 	top: 627.886px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 138px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: bold;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Vaccination_and_deworming {
+// 	left: 594.485px;
+// 	top: 634.907px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 324px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: bold;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Name_of_owner {
+// 	left: 32.149px;
+// 	top: 458.293px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 176px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .CID_no {
+// 	left: 32.708px;
+// 	top: 500.691px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 89px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Address {
+// 	left: 32.708px;
+// 	top: 543.09px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 97px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Letter_refno {
+// 	left: 32.749px;
+// 	top: 321.173px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 132px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 25px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Letter_refno_x {
+// 	left: 632.351px;
+// 	top: 321.173px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 132px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 25px;
+// 	color: rgba(0,0,0,1);
+// }
+// .todays_date {
+// 	left: 889.527px;
+// 	top: 321.173px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 135px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 25px;
+// 	color: rgba(0,0,0,1);
+// }
+// .BHTAN_SYMBOL {
+// 	position: absolute;
+// 	width: 186.887px;
+// 	height: 187.781px;
+// 	left: 20px;
+// 	top: 53.517px;
+// 	overflow: visible;
+// }
+// .transparent_DOL {
+// 	position: absolute;
+// 	width: 144.489px;
+// 	height: 129.831px;
+// 	left: 889.527px;
+// 	top: 70.81px;
+// 	overflow: visible;
+// }
+// .Line_1 {
+// 	fill: transparent;
+// 	stroke: rgba(19,239,209,1);
+// 	stroke-width: 2px;
+// 	stroke-linejoin: miter;
+// 	stroke-linecap: butt;
+// 	stroke-miterlimit: 4;
+// 	shape-rendering: auto;
+// }
+// .Line_1 {
+// 	overflow: visible;
+// 	position: absolute;
+// 	width: 1034.298px;
+// 	height: 3.674px;
+// 	left: 32.708px;
+// 	top: 289.791px;
+// 	transform: matrix(1,0,0,1,0,0);
+// }
+// .Line_2 {
+// 	fill: transparent;
+// 	stroke: rgba(0,0,0,1);
+// 	stroke-width: 3px;
+// 	stroke-linejoin: miter;
+// 	stroke-linecap: butt;
+// 	stroke-miterlimit: 4;
+// 	shape-rendering: auto;
+// }
+// .Line_2 {
+// 	overflow: visible;
+// 	position: absolute;
+// 	width: 105.438px;
+// 	height: 3px;
+// 	left: 172.517px;
+// 	top: 344.178px;
+// 	transform: matrix(1,0,0,1,0,0);
+// }
+// .Line_3 {
+// 	fill: transparent;
+// 	stroke: rgba(0,0,0,1);
+// 	stroke-width: 3px;
+// 	stroke-linejoin: miter;
+// 	stroke-linecap: butt;
+// 	stroke-miterlimit: 4;
+// 	shape-rendering: auto;
+// }
+// .Line_3 {
+// 	overflow: visible;
+// 	position: absolute;
+// 	width: 105.438px;
+// 	height: 3px;
+// 	left: 778.513px;
+// 	top: 345.44px;
+// 	transform: matrix(1,0,0,1,0,0);
+// }
+// .Group_1 {
+// 	position: absolute;
+// 	width: 550.051px;
+// 	height: 370.579px;
+// 	left: 24.251px;
+// 	top: 674.264px;
+// 	overflow: visible;
+// }
+// .Pet_name {
+// 	left: 17.765px;
+// 	top: 274.156px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 108px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Microchip_no {
+// 	left: 17.765px;
+// 	top: 316.554px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 155px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Species {
+// 	left: 22.228px;
+// 	top: 19.766px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 91px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Animal_type {
+// 	left: 22.228px;
+// 	top: 62.165px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 143px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Breed {
+// 	left: 22.228px;
+// 	top: 104.563px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 73px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Age {
+// 	left: 22.228px;
+// 	top: 146.961px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 53px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Sex {
+// 	left: 22.228px;
+// 	top: 189.359px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 49px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Registration_no {
+// 	left: 17.765px;
+// 	top: 231.757px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 174px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Rectangle_891 {
+// 	fill: transparent;
+// 	stroke: rgba(0,0,0,1);
+// 	stroke-width: 2px;
+// 	stroke-linejoin: miter;
+// 	stroke-linecap: butt;
+// 	stroke-miterlimit: 4;
+// 	shape-rendering: auto;
+// }
+// .Rectangle_891 {
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 550.051px;
+// 	height: 370.579px;
+// 	left: 0px;
+// 	top: 0px;
+// }
+// .Last_date_of_vaccination {
+// 	left: 604.994px;
+// 	top: 948.42px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 267px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Last_date_of__deworming {
+// 	left: 604.994px;
+// 	top: 990.818px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 272px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Vaccine_type_1 {
+// 	left: 609.456px;
+// 	top: 694.031px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 167px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Last_date_of_vaccination_bh {
+// 	left: 609.456px;
+// 	top: 736.429px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 267px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .if_the_pet_is_vaccinated_with_ {
+// 	left: 609.456px;
+// 	top: 778.827px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 395px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: italic;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Vaccine_type_2 {
+// 	left: 604.994px;
+// 	top: 906.022px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 167px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Rectangle_892 {
+// 	fill: transparent;
+// 	stroke: rgba(0,0,0,1);
+// 	stroke-width: 2px;
+// 	stroke-linejoin: miter;
+// 	stroke-linecap: butt;
+// 	stroke-miterlimit: 4;
+// 	shape-rendering: auto;
+// }
+// .Rectangle_892 {
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 470.717px;
+// 	height: 370.579px;
+// 	left: 591.059px;
+// 	top: 674.264px;
+// }
+//   .databse {
+// 	left: 39.521px;
+// 	top: 1068.264px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 569px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Validity {
+// 	left: 39.521px;
+// 	top: 1403.171px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 921px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .Seal {
+// 	left: 39px;
+// 	top: 1591px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 446px;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }
+// .certify {
+// 	left: 39.521px;
+// 	top: 1124.161px;
+// 	position: absolute;
+// 	overflow: visible;
+// 	width: 974px;
+// 	white-space: nowrap;
+// 	text-align: left;
+// 	font-family: Times New Roman;
+// 	font-style: normal;
+// 	font-weight: normal;
+// 	font-size: 27px;
+// 	color: rgba(0,0,0,1);
+// }

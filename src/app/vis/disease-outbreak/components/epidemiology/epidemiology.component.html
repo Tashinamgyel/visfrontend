@@ -1,0 +1,137 @@
+<mat-card-content>
+  <!-- <div class="form-group row">
+    <div [formGroup]="poultryForm">
+      <div>
+        <table>
+          <tr
+            *ngFor="let poultryDetails of poultryForm.get('poultry')['controls']; let i = index"
+            [formGroup]="poultryDetails"
+          >
+            <td></td>
+            <td>
+              <mat-form-field appearance="outline" style="width: 170px">
+                <mat-label>Species</mat-label>
+                <mat-select
+                  (selectionChange)="getAnimalType($event.value, i)"
+                  disableRipple
+                  formControlName="speciesId"
+                  placeholder="Select a Class"
+                >
+                  <mat-option *ngFor="let species of species[i]" [value]="species.id">
+                    {{ species.speciesName }}</mat-option
+                  >
+                    <mat-option *ngFor="let species of species[i]" [value]="species.id">
+                      {{ species.speciesName }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline" style="width: 170px">
+                  <mat-label>Animal Type</mat-label>
+                  <mat-select disableRipple formControlName="animalTypeId" placeholder="Select a Animal Type">
+                    <mat-option *ngFor="let animalType of animalType[i]" [value]="animalType.id">{{
+                      animalType.animalType
+                    }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline" style="width: 170px">
+                  <mat-label>Number</mat-label>
+                  <input formControlName="female" matInput required type="number" />
+                </mat-form-field>
+              </td>
+              <td>
+                <button (click)="deletePoultryRow(i)" color="warn" mat-raised-button>
+                  <mat-icon>delete</mat-icon>
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <mat-card-actions>
+          <button (click)="addOtherSpeciesDetailRow()" color="primary" mat-raised-button>
+            <mat-icon>add</mat-icon>
+            Add Cases
+          </button>
+        </mat-card-actions>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider> -->
+
+  <!-- <form class="form-horizontal form" [formGroup]="OtherForm">
+    <h5 style="padding-top: 20px" class="p-2">Ownership Transfer</h5>
+    <div class="form-group row">
+      <div class="col-md-6">
+        <label class="col-form-label">No. of household(s) affected</label>
+        <mat-form-field appearance="outline" class="example-full-width">
+          <input type="text" matInput formControlName="householdAffected" placeholder="Name of owner " />
+          <mat-error>Name of owner required</mat-error>
+        </mat-form-field>
+      </div>
+      
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-6">
+        <label class="col-form-label">Number</label>
+        <mat-form-field appearance="outline" class="example-full-width">
+          <input type="text" matInput formControlName="affecdNumbder" placeholder="Number " />
+          <mat-error>Name of owner required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    </div>
+    <h5 style="padding-top: 20px" class="p-2">Outbreak source and control measures.</h5>
+    <div class="form-group row">
+      <div class="col-md-6">
+        <label class="col-form-label">Probable source of Outbreak</label>
+        <mat-form-field appearance="outline" class="example-full-width">
+          <input type="text" matInput formControlName="ownerName" placeholder="Name of owner " />
+          <mat-error>Name of owner required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <label textarea ng-model="col-form-label">Prevention and control measures in brief</label>
+        <mat-form-field appearance="outline" class="example-full-width">
+          <input type="text" matInput formControlName="preventionCase" placeholder="Name of owner " />
+          <mat-error>Name of owner required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <h5 style="padding-top: 20px" class="p-2">Contact details(Contact Person in the Village)</h5>
+    <div class="form-group row">
+      <div class="col-md-6">
+        <label class="col-form-label">Name</label>
+        <mat-form-field appearance="outline" class="example-full-width">
+          <input type="text" matInput formControlName="name " placeholder="Name of owner" />
+          <mat-error>Name of owner required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <label textarea ng-model="col-form-label"> mobile Number </label>
+        <mat-form-field appearance="outline" class="example-full-width">
+          <input type="text" matInput formControlName="mobileNumber" placeholder="mobile number " />
+          <mat-error>number of owner required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-6">
+        <label class="col-form-label">Report By</label>
+        <mat-form-field appearance="outline" class="example-full-width">
+          <input type="text" matInput formControlName="reporterName " placeholder="reporter name" />
+          <mat-error>Reporter Name is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form> -->
+
+  <app-poultry-case></app-poultry-case>
+  <mat-card-actions style="margin-top: 10px">
+    <button (click)="saveFlashReport()" color="primary" mat-raised-button>Submit</button>
+  </mat-card-actions>
+</mat-card-content>

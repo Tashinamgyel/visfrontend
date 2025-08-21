@@ -1,0 +1,56 @@
+<mat-card-header>
+  <span class="border border-white"></span>
+  <mat-card-title>Add Condition</mat-card-title>
+</mat-card-header>
+<mat-dialog-content>
+  <div class="col-md-12 col-lg-12">
+    <form class="form-horizontal" [formGroup]="conditionForm">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label">Condition</label>
+        <div class="col-md-9">
+          <mat-form-field appearance="outline">
+            <mat-label>Condition</mat-label>
+            <input matInput formControlName="conditions" placeholder="" />
+            <mat-error>condition is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label">System</label>
+        <div class="col-md-9">
+          <mat-form-field appearance="outline">
+            <mat-label>System Name</mat-label>
+            <mat-select formControlName="systemId">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let systen of system" [value]="systen.id">
+                {{ systen.systemName }}
+              </mat-option>
+            </mat-select>
+            <mat-error>System is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    *ngIf="actionType === 'ADD'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!conditionForm.valid"
+    (click)="saveConditions()"
+  >
+    Add
+  </button>
+  <button
+    *ngIf="actionType === 'EDIT'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!conditionForm.valid"
+    (click)="updateConditions()"
+  >
+    Update
+  </button>
+  <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

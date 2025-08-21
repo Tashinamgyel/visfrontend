@@ -1,0 +1,1246 @@
+<mat-card>
+  <div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
+    <div fxFlex class="button-component-holder mat-elevation-z4">
+      <mat-toolbar class="titleTopic">
+        <h5 class="p-2;" style="padding-top: 5px; padding-left: 5px">Past Details</h5>
+      </mat-toolbar>
+
+      <mat-expansion-panel (opened)="basicPanelOpenState = true" (opened)="basicPanelOpenState = true">
+        <mat-expansion-panel-header>
+          <mat-panel-title><strong> View Details</strong></mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="outBreakForm" class="form-horizontal form">
+          <div class="container">
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label"> Disease Suspected <span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="diseaseId">
+                    <mat-option *ngFor="let disease of diseases" [value]="disease.id">
+                      {{ disease.diseaseName }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>Disease is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label"> Name of the Owner/ Community </label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="ownerName" matInput name="ownerName" readonly />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Dzongkhag</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="dzongkhagName" matInput name="dzongkhagName" readonly />
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <label class="col-form-label">Gewog</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="gewogName" matInput name="gewogName" readonly />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label"> Village</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="villageName" matInput name="villageName" readonly />
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label"> Locality</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="locality" matInput name="Locality" readonly />
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+            <h5 class="p-2" style="padding-top: 20px">Location (geo-coordinates)</h5>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Latitude</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="latitude" matInput name="latitude" readonly />
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label"> Longitude</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="longitude" matInput name="longitude" readonly />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Index case date</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input [matDatepicker]="picCaseDate" formControlName="caseDate" matInput readonly />
+                  <mat-datepicker-toggle [for]="picCaseDate" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #picCaseDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">LEC/RNR-EC/DVH" to RNR-EC/DVH</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input [matDatepicker]="picReportDate" formControlName="reportDate" matInput readonly />
+                  <mat-datepicker-toggle [for]="picReportDate" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #picReportDate></mat-datepicker>
+                  <mat-error>Index case details required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label"> Date of Report by DVH to RLDC/NCAH</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input [matDatepicker]="picForwardDate" formControlName="forwardDate" matInput readonly />
+                  <mat-datepicker-toggle [for]="picForwardDate" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #picForwardDate></mat-datepicker>
+                  <mat-error>Index case details required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="textarea">Brief History and Observation (signs and symptoms)</label>
+                <mat-form-field
+                  appearance="outline"
+                  class="example-full-width"
+                  matInput
+                  placeholder="briefHistory"
+                  type="text"
+                >
+                  <textarea matInput rows="4" cols="20" matInput formControlName="briefHistory"> </textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <hr />
+            <h4 style="padding-top: 20px">Case Details (Case/Death).</h4>
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z1">
+              <ng-container matColumnDef="slno">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="speciesName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Species</th>
+                <td mat-cell *matCellDef="let element">{{ element.species.speciesName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="animalType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Animal Type</th>
+                <td mat-cell *matCellDef="let element">{{ element.animalType.animalType }}</td>
+              </ng-container>
+              <ng-container matColumnDef="breedName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Breed</th>
+                <td mat-cell *matCellDef="let element">{{ element.breed.breedName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="age">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Age</th>
+                <td mat-cell *matCellDef="let element">{{ element.age }}</td>
+              </ng-container>
+              <ng-container matColumnDef="male">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Male</th>
+                <td mat-cell *matCellDef="let element">{{ element.male }}</td>
+              </ng-container>
+              <ng-container matColumnDef="female">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Female</th>
+                <td mat-cell *matCellDef="let element">{{ element.female }}</td>
+              </ng-container>
+              <ng-container matColumnDef="mixed">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Mixed</th>
+                <td mat-cell *matCellDef="let element">{{ element.mixed }}</td>
+              </ng-container>
+              <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+                <td mat-cell *matCellDef="let element">{{ element.total }}</td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+            <hr />
+            <h4 class="p-3" style="background-color: #327ebd; color: #fff">Epidemiology and Other Details</h4>
+            <h5>Household Affected and Vaccination History</h5>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">No. of household(s) affected </label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="householdAffected" matInput name="householdAffected" readonly />
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Date of Last Vaccination:</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    [matDatepicker]="picVaccinationDate"
+                    formControlName="vaccinationDate"
+                    [max]="maxDate"
+                    matInput
+                    readonly
+                  />
+                  <mat-datepicker-toggle [for]="picVaccinationDate" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #picVaccinationDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <h5 style="padding-top: 20px">Susceptible Animals</h5>
+            <table mat-table [dataSource]="dataSource1" matSort class="mat-elevation-z1">
+              <ng-container matColumnDef="slno">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="speciesName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Species</th>
+                <td mat-cell *matCellDef="let element">{{ element.species.speciesName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="animalType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Animal Type</th>
+                <td mat-cell *matCellDef="let element">{{ element.animalType.animalType }}</td>
+              </ng-container>
+              <ng-container matColumnDef="susceptibleAnimals">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Susceptible Animals</th>
+                <td mat-cell *matCellDef="let element">{{ element.susceptibleAnimals }}</td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+            </table>
+            <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+            <h4>Outbreak Source and Control Measures.</h4>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label"> Probable source of Outbreak </label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="outbreakSource" matInput name="outbreakSource" readonly />
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Prevention and control measures in brief</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="controlMeasures" matInput name="controlMeasures" readonly />
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+            <h5 style="padding-top: 20px">Contact Details(Contact Person in the Village)</h5>
+            <div class="form-group row">
+              <div class="col-md-4">
+                <label class="col-form-label"> Name </label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="contactName" matInput name="contactName" readonly />
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <label class="col-form-label">Mobile Number</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="mobileNumber" matInput name="mobileNumber" readonly />
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <label class="col-form-label">Reported By</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="createdBy" matInput name="createdBy" readonly />
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+            <hr />
+          </div>
+        </form>
+        <!-- </div> -->
+      </mat-expansion-panel>
+      <br />
+      <hr />
+      <br />
+      <form [formGroup]="followUpForm" class="form-horizontal">
+        <mat-card>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label class="col-form-label">Outbreak ID </label>
+              <mat-form-field appearance="outline" class="example-full-width">
+                <input formControlName="outbreakId" matInput name="outbreakId" readonly />
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Index case date </label>
+              <mat-form-field appearance="outline" class="example-full-width">
+                <input [matDatepicker]="pic" formControlName="caseDate" [max]="maxDate" matInput readonly />
+                <mat-datepicker-toggle [for]="pic" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #pic></mat-datepicker>
+                <mat-error>Index case details required</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label class="col-form-label"> Date of Follow-Up<span class="text-danger">*</span> </label>
+              <mat-form-field appearance="outline" class="example-full-width" aria-required="true">
+                <input
+                  [matDatepicker]="pics"
+                  formControlName="followUpDate"
+                  matInput
+                  [max]="maxDate"
+                  readonly
+                  placeholder="Select Follow-Up Date"
+                />
+                <mat-datepicker-toggle [for]="pics" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #pics></mat-datepicker>
+                <mat-error>Date of follow-Up required</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <br />
+        </mat-card>
+
+        <br />
+        <mat-card>
+          <mat-toolbar class="titleTopic">
+            <h5 class="p-2;" style="padding-top: 5px; padding-left: 5px; background-color: #327ebd; color: #fff">
+              Owner Details
+            </h5>
+          </mat-toolbar>
+
+          <br />
+          <mat-dialog-content>
+            <button (click)="stepper.reset()" color="primary" mat-raised-button>
+              <mat-icon>add</mat-icon> Add Owner
+            </button>
+            <mat-horizontal-stepper linear #stepper>
+              <mat-step [stepControl]="firstFormGroup">
+                <!-- <mat-card> -->
+
+                <form class="form-horizontal form" [formGroup]="firstFormGroup">
+                  <ng-template matStepLabel>Fill Owner Details</ng-template>
+                  <div class="form-group row">
+                  <div class="col-md-6">
+                      <label class="col-form-label">Owned/ Stray<span class="text-danger">*</span></label>
+                      <mat-form-field class="example-full-width" appearance="outline" required>
+                        <mat-select formControlName="ownershipStatus">
+                          <mat-option value="">Select</mat-option>
+                          <mat-option value="Owned">Owned</mat-option>
+                          <mat-option value="Stray">Stray</mat-option>
+                        </mat-select>
+                        <mat-error>Ownership Status is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div> 
+                  <div class="form-group row" *ngIf="firstFormGroup.value.ownershipStatus === 'Owned'">
+                    <div class="col-md-6">
+                      <label class="col-form-label">CID Number<span class="text-danger">*</span></label>
+                      <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]="false">
+                        <input
+                          matInput
+                          formControlName="cidNumber"
+                          (change)="getCitizen($event.target.value)"
+                          type="number"
+                          name="cidNumber"
+                          placeholder="CID Number"
+                          maxlength="11"
+                          onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                        />
+                        <mat-error>Enter CID Number</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Owner Name<span class="text-danger">*</span></label>
+                      <mat-form-field appearance="outline" class="example-full-width">
+                        <input
+                          formControlName="ownerName"
+                          id="ownerName"
+                          matInput
+                          name="ownerName"
+                         
+                          placeholder="Owner Name"
+                        />
+                        <mat-error>Enter Valid Owner Name</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="form-group row" *ngIf="firstFormGroup.value.ownershipStatus === 'Stray'">
+                      <div class="col-md-6">
+                        <label class="col-form-label">Stray ID (Enter any random no.)<span class="text-danger">*</span></label>
+                        <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]="false">
+                          <input
+                            matInput
+                            formControlName="cidNumber"
+            
+                            type="number"
+                            name="cidNumber"
+                            placeholder="(Enter any random no.)"
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                          />
+                          <mat-error>Enter CID Number</mat-error>
+                        </mat-form-field>
+                      </div>
+                      </div>
+                  <br /><br />
+                  <h4>Present Address</h4>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Dzongkhag<span class="text-danger">*</span></label>
+                      <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-select (selectionChange)="getGewogs($event.value)" formControlName="dzongkhagId">
+                          <mat-option value="">Select Dzongkhag</mat-option>
+                          <mat-option *ngFor="let dzongkhag of dzongkhags" [value]="dzongkhag.id">{{
+                            dzongkhag.dzongkhagName
+                          }}</mat-option>
+                        </mat-select>
+                        <mat-error>Dzongkhag is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Gewog<span class="text-danger">*</span></label>
+                      <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-select formControlName="gewogId" (selectionChange)="getVillages($event.value)">
+                          <mat-option value="">Select Gewog</mat-option>
+                          <mat-option *ngFor="let gewog of gewogs" [value]="gewog.id">
+                            {{ gewog.gewogName }}</mat-option
+                          >
+                        </mat-select>
+                        <mat-error>Gewog is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label class="col-form-label"> Village</label>
+                      <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-select formControlName="villageId">
+                          <mat-option value="">Select Village</mat-option>
+                          <mat-option *ngFor="let village of villages" [value]="village.id">
+                            {{ village.villageName }}</mat-option
+                          >
+                        </mat-select>
+                        <mat-error>Village is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Locality</label>
+                      <mat-form-field appearance="outline" class="example-full-width">
+                        <input formControlName="locality" matInput name="latitude" placeholder="Locality" />
+                        <mat-error>Locality is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <br />
+
+                  <h5><strong>Geo-Coordinates.</strong></h5>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Latitude<span class="text-danger">*</span></label>
+                      <mat-form-field appearance="outline" class="example-full-width">
+                        <input
+                          formControlName="latitude"
+                          type="number"
+                          onkeyup="if(this.value<0){this.value= this.value * -1}"
+                          matInput
+                          name="latitude"
+                          placeholder="Latitude"
+                        />
+                        <mat-error>Latitude is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Longitude<span class="text-danger">*</span></label>
+                      <mat-form-field appearance="outline" class="example-full-width">
+                        <input
+                          formControlName="longitude"
+                          type="number"
+                          onkeyup="if(this.value<0){this.value= this.value * -1}"
+                          matInput
+                          name="longitude"
+                          placeholder="Longitude"
+                        />
+                        <mat-error>Longitude is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label class="col-form-label"
+                        >Primary Case Date (date of first case during the current follow-up)<span class="text-danger">*</span></label
+                      >
+                      <mat-form-field appearance="outline" class="example-full-width">
+                        <!-- <mat-label><b>Primary case date (date of first case during the current follow-up) </b> <span class="text-danger">*</span>:</mat-label> -->
+                        <input
+                          [matDatepicker]="pica"
+                          formControlName="primaryDate"
+                          matInput
+                          readonly
+                          placeholder="Select Primary Case Date"
+                          [max]="maxDate"
+                        />
+                        <mat-datepicker-toggle [for]="pica" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #pica></mat-datepicker>
+                        <mat-error>Primary Case Date required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label">Farming System</label>
+                      <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-select formControlName="farmingId">
+                          <mat-option value="">Select Farming System</mat-option>
+                          <mat-option *ngFor="let farming of farmingSystem" [value]="farming.id">
+                            {{ farming.farmName }}
+                          </mat-option>
+                        </mat-select>
+                        <!-- <mat-error>Farming System is required</mat-error> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Last Date of Vaccination of the affected animal/herd/flock.</label>
+                      <mat-form-field appearance="outline" class="example-full-width">
+                        <input
+                          [matDatepicker]="picVss"
+                          formControlName="lastVaccinationDate"
+                          matInput
+                          readonly
+                          placeholder="Select Last Date of Vaccination"
+                          [max]="maxDate"
+                        />
+                        <mat-datepicker-toggle [for]="picVss" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #picVss></mat-datepicker>
+                        <!-- <mat-error>Last Date of Vaccination required</mat-error> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <br />
+
+                  <div>
+                    <br />
+                    <!-- <button mat-button matStepperNext>Next</button> -->
+                    <button mat-raised-button
+                    matStepperNext
+                    [disabled]="!firstFormGroup.valid"
+                    color="primary"
+                    (click)="saveCaseOwner()">
+                      <mat-icon>skip_next</mat-icon> Next
+                    </button>
+                  </div>
+                </form>
+                <!-- </mat-card> -->
+              </mat-step>
+              <mat-step [stepControl]="secondFormGroup" [optional]="isOptional">
+                <form [formGroup]="secondFormGroup">
+                  <ng-template matStepLabel>Case Details</ng-template>
+                  <h5 class="p-4" style="padding-top: 20px">Follow Up Case Details <span class="text-danger">*</span>(Case/Death).</h5>
+                  <mat-card-actions>
+                    <button mat-raised-button (click)="openAddModalFollowUpCase()" class="m-3" color="primary">
+                      <mat-icon>add</mat-icon> Add
+                    </button>
+                  </mat-card-actions>
+                  <table mat-table [dataSource]="dataSource3" matSort class="mat-elevation-z1">
+                    <ng-container matColumnDef="slno">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                        {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="cidNumber">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>CID Number/Stray ID</th>
+                      <td mat-cell *matCellDef="let element">{{ element.cidNumber }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="speciesName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Species</th>
+                      <td mat-cell *matCellDef="let element">{{ element.speciesName }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="animalType">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Animal Type</th>
+                      <td mat-cell *matCellDef="let element">{{ element.animalTypeName }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="breedName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Breed</th>
+                      <td mat-cell *matCellDef="let element">{{ element.breedName }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="age">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Age</th>
+                      <td mat-cell *matCellDef="let element">{{ element.age }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="male">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Male</th>
+                      <td mat-cell *matCellDef="let element">{{ element.male }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="female">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Female</th>
+                      <td mat-cell *matCellDef="let element">{{ element.female }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="mixed">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Mixed</th>
+                      <td mat-cell *matCellDef="let element">{{ element.mixed }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="total">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+                      <td mat-cell *matCellDef="let element">{{ element.total }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                      <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="delete">
+                      <th class="table-heading" mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
+                      <td mat-cell *matCellDef="let element">
+                        <button
+                          mat-icon-button
+                          (click)="deleteReport(element.id, 'followUpCase', element.cidNumber)"
+                          class="delete-button"
+                        >
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns3"></tr>
+                  </table>
+                  <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons> </mat-paginator>
+                  <div>
+                    <button mat-raised-button matStepperNext color="primary">
+                      <mat-icon>skip_next</mat-icon> Next
+                    </button>
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step>
+                <ng-template matStepLabel>Outbreak Response</ng-template>
+                <h5 class="p-4" style="padding-top: 20px">
+                  Add Number of Animals Culled/Slaughtered, Examined,Treated and Vaccinated in response to the disease
+                  outbreak.<span class="text-danger">*</span>
+                </h5>
+                <mat-card-actions>
+                  <button mat-raised-button (click)="openAddModalFate()" class="m-3" color="primary">
+                    <mat-icon>add</mat-icon> Add
+                  </button>
+                </mat-card-actions>
+                <table mat-table [dataSource]="dataSource4" matSort class="mat-elevation-z1">
+                  <ng-container matColumnDef="slno">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                      {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="cidNumber">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>CID Number</th>
+                    <td mat-cell *matCellDef="let element">{{ element.cidNumber }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="fate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fate</th>
+                    <td mat-cell *matCellDef="let element">{{ element.fate }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="speciesName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Species</th>
+                    <td mat-cell *matCellDef="let element">{{ element.speciesName }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="animalType">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Animal Type</th>
+                    <td mat-cell *matCellDef="let element">{{ element.animalTypeName }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="breedName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Breed</th>
+                    <td mat-cell *matCellDef="let element">{{ element.breedName }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="numbers">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Number of Animals</th>
+                    <td mat-cell *matCellDef="let element">{{ element.numbers }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="delete">
+                    <th class="table-heading" mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
+                    <td mat-cell *matCellDef="let element">
+                      <button
+                        mat-icon-button
+                        (click)="deleteReport(element.id, 'FateOfAnimal', element.cidNumber)"
+                        class="delete-button"
+                      >
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns4"></tr>
+                </table>
+                <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons> </mat-paginator>
+
+                <div>
+                  <button mat-raised-button matStepperPrevious color="primary">
+                    <mat-icon>skip_previous</mat-icon> Back
+                  </button>
+                  <button mat-raised-button (click)="getOwnerData()" color="primary">
+                    <mat-icon>input</mat-icon> Save
+                  </button>
+                </div>
+              </mat-step>
+            </mat-horizontal-stepper>
+          </mat-dialog-content>
+        </mat-card>
+        <mat-card>
+          <!-- <mat-card-title> </mat-card-title> -->
+          <!-- <mat-toolbar class="titleTopic">
+            <h6 class="p-2;" style="padding-top: 5px; padding-left: 5px">View Owner Details</h6>
+          </mat-toolbar> -->
+          <h4 class="p-3" style="background-color: #327ebd; color: #fff">View Owner Details</h4>
+          <cdk-virtual-scroll-viewport
+            itemSize="5"
+            orientation="horizontal"
+            style="height: 200px"
+            class="example-viewport"
+          >
+            <table mat-table [dataSource]="dataSource2" matSort class="mat-elevation-z1">
+              <ng-container matColumnDef="slno">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="cidNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>CID Number/Stray ID</th>
+                <td mat-cell *matCellDef="let element">{{ element.cidNumber }}</td>
+              </ng-container>
+              <ng-container matColumnDef="ownerName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Owner Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.ownerName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="dzongkhagName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Dzongkhag Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.dzongkhagName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="gewogName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Gewog Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.gewogName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="villageName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Village Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.villageName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="latitude">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Latitude</th>
+                <td mat-cell *matCellDef="let element">{{ element.latitude }}</td>
+              </ng-container>
+              <ng-container matColumnDef="longitude">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Longitude</th>
+                <td mat-cell *matCellDef="let element">{{ element.longitude }}</td>
+              </ng-container>
+              <ng-container matColumnDef="primaryDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Primary Date</th>
+                <td mat-cell *matCellDef="let element">{{ element.primaryDate | date }}</td>
+              </ng-container>
+              <ng-container matColumnDef="farmingName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Farming System</th>
+                <td mat-cell *matCellDef="let element">{{ element.farmingName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="lastVaccinationDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Vaccination Date</th>
+                <td mat-cell *matCellDef="let element">{{ element.lastVaccinationDate | date }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="delete">
+                <th class="table-heading" mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
+                <td mat-cell *matCellDef="let element">
+                  <button
+                    mat-icon-button
+                    (click)="deleteReport(element.id, 'OwnerDetails', element.cidNumber)"
+                    class="delete-button"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="view">
+                <th class="table-heading" mat-header-cell *matHeaderCellDef mat-sort-header>View/Edit</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button (click)="viewReport(element.cidNumber)" class="view-button">
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns2; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns2"></tr>
+            </table>
+          </cdk-virtual-scroll-viewport>
+          <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </mat-card>
+
+        <mat-card *ngIf="view">
+          <mat-expansion-panel (opened)="basicPanelOpenState = true" (opened)="basicPanelOpenState = true">
+            <mat-expansion-panel-header>
+              <mat-panel-title><strong>View Details </strong></mat-panel-title>
+            </mat-expansion-panel-header>
+            <h5 class="p-4" style="padding-top: 20px">Follow Up Case Details (Case/Death).<span class="text-danger">*</span></h5>
+            <mat-card-actions>
+              <button mat-raised-button (click)="openAddModalFollowUpCase()" class="m-3" color="primary">
+                <mat-icon>add</mat-icon> Add
+              </button>
+            </mat-card-actions>
+            <table mat-table [dataSource]="dataSource6" matSort class="mat-elevation-z1">
+              <ng-container matColumnDef="slno">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="cidNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>CID Number/Stray ID</th>
+                <td mat-cell *matCellDef="let element">{{ element.cidNumber }}</td>
+              </ng-container>
+              <ng-container matColumnDef="speciesName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Species</th>
+                <td mat-cell *matCellDef="let element">{{ element.speciesName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="animalType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Animal Type</th>
+                <td mat-cell *matCellDef="let element">{{ element.animalTypeName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="breedName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Breed</th>
+                <td mat-cell *matCellDef="let element">{{ element.breedName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="age">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Age</th>
+                <td mat-cell *matCellDef="let element">{{ element.age }}</td>
+              </ng-container>
+              <ng-container matColumnDef="male">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Male</th>
+                <td mat-cell *matCellDef="let element">{{ element.male }}</td>
+              </ng-container>
+              <ng-container matColumnDef="female">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Female</th>
+                <td mat-cell *matCellDef="let element">{{ element.female }}</td>
+              </ng-container>
+              <ng-container matColumnDef="mixed">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Mixed</th>
+                <td mat-cell *matCellDef="let element">{{ element.mixed }}</td>
+              </ng-container>
+              <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+                <td mat-cell *matCellDef="let element">{{ element.total }}</td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+              </ng-container>
+              <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button (click)="editCase(element.id)" class="edit-button">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="delete">
+                <th class="table-heading" mat-header-cell *matHeaderCellDef mat-sort-header>
+                  <b>Delete</b>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <button
+                    mat-icon-button
+                    (click)="deleteReport(element.id, 'followUpCase', element.cidNumber)"
+                    class="delete-button"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns6"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns6"></tr>
+            </table>
+            <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons> </mat-paginator>
+
+            <h5 class="p-4" style="padding-top: 20px">
+              Add Number of Animals Culled/Slaughtered, Examined,Treated and Vaccinated in response to the Disease
+              Outbreak.<span class="text-danger">*</span>
+            </h5>
+            <mat-card-actions>
+              <button mat-raised-button (click)="openAddModalFate()" class="m-3" color="primary">
+                <mat-icon>add</mat-icon> Add
+              </button>
+            </mat-card-actions>
+            <table mat-table [dataSource]="dataSource7" matSort class="mat-elevation-z1">
+              <ng-container matColumnDef="slno">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="cidNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>CID Number</th>
+                <td mat-cell *matCellDef="let element">{{ element.cidNumber }}</td>
+              </ng-container>
+              <ng-container matColumnDef="fate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Fate</th>
+                <td mat-cell *matCellDef="let element">{{ element.fate }}</td>
+              </ng-container>
+              <ng-container matColumnDef="speciesName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Species</th>
+                <td mat-cell *matCellDef="let element">{{ element.speciesName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="animalType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Animal Type</th>
+                <td mat-cell *matCellDef="let element">{{ element.animalTypeName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="breedName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Breed</th>
+                <td mat-cell *matCellDef="let element">{{ element.breedName }}</td>
+              </ng-container>
+              <ng-container matColumnDef="numbers">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Number of Animals</th>
+                <td mat-cell *matCellDef="let element">{{ element.numbers }}</td>
+              </ng-container>
+              <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button (click)="editFate(element.id)" class="edit-button">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="delete">
+                <th class="table-heading" mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
+                <td mat-cell *matCellDef="let element">
+                  <button
+                    mat-icon-button
+                    (click)="deleteReport(element.id, 'FateOfAnimal', element.cidNumber)"
+                    class="delete-button"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns7"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns7"></tr>
+            </table>
+            <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          </mat-expansion-panel>
+        </mat-card>
+        <mat-card>
+          <h5 style="padding-top: 20px">Clinical signs, lesions and Diagnosis.</h5>
+          <div class="form-group row">
+            <div class="col-md-12">
+              <div class="col-md-2">
+                <label class="textarea">Clinical Signs<span class="text-danger" aria-required="true">*</span></label>
+              </div>
+              <div class="col-md-12">
+                <mat-form-field style="width: 100%" appearance="outline" type="text">
+                  <textarea matInput rows="2" cols="10" matInput formControlName="clinicalSigns"> </textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="form-group row">
+            <div class="col-md-12">
+              <div class="col-md-2">
+                <label class="text">Lesions</label>
+              </div>
+              <div class="col-md-12">
+                <mat-form-field style="width: 100%" appearance="outline" type="text">
+                  <textarea matInput rows="2" cols="10" matInput formControlName="lesions"> </textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <br />
+
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label class="col-form-label">Tentative Diagnosis <span class="text-danger">*</span></label>
+              <mat-form-field appearance="outline" class="example-full-width" aria-required="">
+                <mat-select formControlName="tentativeDiseaseId">
+                  <mat-option value="">Select Tentative Diagnosis</mat-option>
+                  <mat-option *ngFor="let disease of diseases" [value]="disease.id"
+                    >{{ disease.diseaseName }}
+                  </mat-option>
+                </mat-select>
+                <mat-error>Tentative Diagnosis is required</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Differential Diagnosis</label>
+              <mat-form-field appearance="outline" class="example-full-width">
+                <input
+                  formControlName="differentialDiagnosis"
+                  matInput
+                  name="differentialDiagnosis"
+                  placeholder="Differential Diagnosis"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <br />
+          <br />
+          <div class="form-group row">
+            <div class="col-md-12">
+              <label class="col-form-label"><strong>Laboratory Test </strong> <span class="text-danger">*</span> </label>
+              <mat-radio-group
+                (change)="changeSampleCollected($event)"
+                aria-label="Select an option"
+                class="mat-radio-group p-3"
+                formControlName="sampleCollected"
+              >
+                <mat-radio-button [value]="1">Yes</mat-radio-button>
+                <mat-radio-button [value]="2">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <div *ngIf="sampleCollected === true">
+            <h5 style="padding-top: 20px">Sample Details</h5>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Sample Type</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="sampleId">
+                    <mat-option value="">Select Sample Details</mat-option>
+                    <mat-option *ngFor="let sample of sampleType" [value]="sample.id">
+                      {{ sample.sampleName }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>Sample Type is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Type of Test</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="testId">
+                    <mat-option value="">Select Test Type</mat-option>
+                    <mat-option *ngFor="let test of typeOfTest" [value]="test.id">{{ test.typeoftest }} </mat-option>
+                  </mat-select>
+                  <mat-error>Type of Test is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Sample IDs</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="sampleIds" matInput name="sampleIds" />
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Date For Sample Sent</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    [matDatepicker]="picSample"
+                    formControlName="dateSampleSent"
+                    matInput
+                    readonly
+                    placeholder="Select Date of Sample Sent"
+                  />
+                  <mat-datepicker-toggle [for]="picSample" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #picSample></mat-datepicker>
+                  <mat-error>Date For Sample Sent required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Laboratory</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="laboratoryId">
+                    <mat-option value="">Select Laboratory</mat-option>
+                    <mat-option *ngFor="let lab of laboratorys" [value]="lab.id">{{ lab.labName }} </mat-option>
+                  </mat-select>
+                  <mat-error>Laboratory is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Date of Result Received</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    [matDatepicker]="pics"
+                    formControlName="dateResultReceived"
+                    matInput
+                    readonly
+                    placeholder="Select Date of Result Received"
+                  />
+                  <mat-datepicker-toggle [for]="pics" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #pics></mat-datepicker>
+                  <mat-error>Date For Result Received required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Test Result</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="resultId">
+                    <mat-option value="">Select Test Result</mat-option>
+                    <mat-option *ngFor="let result of testResult" [value]="result.id">
+                      {{ result.resultName }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>Test Result is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Final Diagnosis</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="finalDiseaseId">
+                    <mat-option value="">Select Final Diagnosis</mat-option>
+                    <mat-option *ngFor="let disease of diseases" [value]="disease.id">
+                      {{ disease.diseaseName }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>Final Diagnosis is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Basis Of Diagnosis</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="basisDiagnosisId">
+                    <mat-option value="">Select Basis Diagnosis</mat-option>
+                    <mat-option *ngFor="let bas of basis" [value]="bas.id">{{ bas.basisName }} </mat-option>
+                  </mat-select>
+                  <mat-error>Basis Of Diagnosis is required</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <label class="col-form-label">Diagnosing Officer</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    formControlName="diagnosingOfficer"
+                    matInput
+                    name="Diagnosis Officer"
+                    placeholder="Diagnosis Officer"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="form-group row" *ngIf="sampleCollected === false">
+            <div class="col-md-6">
+              <label class="col-form-label">Final Diagnosis<span class="text-danger">*</span></label>
+              <mat-form-field appearance="outline" class="example-full-width">
+                <mat-select formControlName="tentativeDiseaseId" disabled>
+                  <mat-option value="">Select Tentative Diagnosis</mat-option>
+                  <mat-option *ngFor="let disease of diseases" [value]="disease.id"
+                    >{{ disease.diseaseName }}
+                  </mat-option>
+                </mat-select>
+                <mat-error>Final Diagnosis is required</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Basis Of Diagnosis</label>
+              <mat-form-field appearance="outline" class="example-full-width">
+                <mat-select formControlName="finalBasisDiagnosisId">
+                  <mat-option value="">Select Basis Diagnosis</mat-option>
+                  <mat-option *ngFor="let bas of basis" [value]="bas.id">{{ bas.basisName }} </mat-option>
+                </mat-select>
+                <mat-error>Basis Of Diagnosis is required</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <br />
+
+          <hr style="size: 2px" />
+          <!-- <mat-toolbar class="titleTopic">
+            <h6 class="p-2;" style="padding-top: 5px; padding-left: 5px">Epidemiology and Other Details</h6>
+          </mat-toolbar>
+          <br /> -->
+          <h4 class="p-3" style="background-color: #327ebd; color: #fff">Epidemiology and Other Details</h4>
+
+          <h5 style="padding-top: 20px">Susceptible Animals<span class="text-danger">*</span></h5>
+          <mat-card-actions>
+            <button mat-raised-button (click)="openAddModalSusceptibleFollowUp()" color="primary">
+              <mat-icon>add</mat-icon> Add
+            </button>
+          </mat-card-actions>
+          <table mat-table [dataSource]="dataSource5" matSort class="mat-elevation-z1">
+            <ng-container matColumnDef="slno">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="speciesName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Species</th>
+              <td mat-cell *matCellDef="let element">{{ element.speciesName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="animalType">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Animal Type</th>
+              <td mat-cell *matCellDef="let element">{{ element.animalTypeName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="susceptibleAnimals">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Susceptible Animals</th>
+              <td mat-cell *matCellDef="let element">{{ element.susceptibleAnimals }}</td>
+            </ng-container>
+            <ng-container matColumnDef="edit">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="editSusceptibleFollowUp(element.id)" class="edit-button">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="delete">
+              <th class="table-heading" mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
+              <td mat-cell *matCellDef="let element">
+                <button
+                  mat-icon-button
+                  (click)="deleteReport(element.id, 'FollowUpSusceptible', element.cidNumber)"
+                  class="delete-button"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns5"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns5"></tr>
+          </table>
+          <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          <h5>Probable source of the outbreak <span class="text-danger">*</span></h5>
+          <div class="form-group row">
+            <div class="col-md-12">
+              <div class="col-md-12">
+                <mat-form-field style="width: 100%" appearance="outline" type="text">
+                  <textarea matInput rows="2" cols="10" matInput formControlName="probableSource" required> </textarea>
+                  <mat-error>Probable source of the outbreak is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <h4></h4>
+          <h5>Other Control Measures<span class="text-danger">*</span></h5>
+          <div class="form-group row">
+            <div class="col-md-12">
+              <div class="col-md-2"></div>
+              <div class="col-md-12">
+                <mat-form-field style="width: 100%" appearance="outline" type="text">
+                  <textarea matInput rows="2" cols="10" matInput formControlName="controlMeasures" required> </textarea>
+                  <mat-error> Control Measures is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+        <mat-card-actions style="margin-top: 10px; margin-left: 45px">
+          <button (click)="saveFollowUp()" *ngIf="userName === false" color="primary" mat-raised-button>Submit</button>
+        </mat-card-actions>
+      </form>
+    </div>
+  </div>
+</mat-card>

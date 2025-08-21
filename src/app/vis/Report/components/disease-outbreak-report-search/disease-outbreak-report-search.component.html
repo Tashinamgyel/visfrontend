@@ -1,0 +1,367 @@
+<mat-card style="margin-bottom: 5%">
+    <div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
+      <div fxFlex class="button-component-holder mat-elevation-z4">
+        <div *ngIf="!registered">
+          <mat-toolbar class="button-header">
+            <h5 class="p-2" style="padding-top: 10px; margin-left: 16px">Search Disease Outbreak Details</h5>
+          </mat-toolbar>
+          <form [formGroup]="outbreakIDSearch">
+            <div class="col-md-12">
+              <label class="col-form-label"> <h5>Outbreak ID(OID)</h5> </label><br />
+              <mat-form-field appearance="outline" style="width: 50%">
+                <input type="text" matInput formControlName="outbreakId" />
+                <mat-error>Enter Outbreak ID(OID)</mat-error>
+              </mat-form-field>
+              <button (click)="getOutbreakID()" color="primary" mat-raised-button>
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>
+  
+            <mat-card>
+              <h5 class="p-2" style="background-color: #327ebd; color: #fff">View Outbreak Details</h5>
+                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z1">
+                <ng-container matColumnDef="slno">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                  <td mat-cell *matCellDef="let element; let i = index">
+                    {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="outbreak_id">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Outbreak ID</th>
+                  <td mat-cell *matCellDef="let element">{{ element.outbreak_id }}</td>
+                </ng-container>
+                <ng-container matColumnDef="final_name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Disease Name</th>
+                  <td mat-cell *matCellDef="let element">{{ element.final_name }}</td>
+                </ng-container>
+                <ng-container matColumnDef="follow_up_date">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>follow-up Date</th>
+                  <td mat-cell *matCellDef="let element">{{ element.follow_up_date }}</td>
+                </ng-container>
+                <ng-container matColumnDef="report_status">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>follow-up No.</th>
+                  <td mat-cell *matCellDef="let element">{{ element.report_status }}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="view">
+                  <th class="table-heading" mat-header-cell *matHeaderCellDef mat-sort-header>View</th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="viewOwnerDetails(element.outbreak_id,element.report_status)" class="view-button">
+                      <mat-icon>visibility</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+              </table>
+              <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </mat-card>
+  
+            <mat-expansion-panel (opened)="basicPanelOpenState = true" (opened)="basicPanelOpenState = true">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="title"><strong>View Owner Details </strong></mat-panel-title>
+              </mat-expansion-panel-header>
+              <cdk-virtual-scroll-viewport
+              itemSize="5"
+              orientation="horizontal"
+              style="height: 200px"
+              class="example-viewport"
+             >
+              <table mat-table [dataSource]="dataSource1" matSort class="mat-elevation-z1">
+                <ng-container matColumnDef="slno">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                  <td mat-cell *matCellDef="let element; let i = index">
+                    {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="cid_number">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Cid Number</th>
+                  <td mat-cell *matCellDef="let element">{{ element.cid_number }}</td>
+                </ng-container>
+                <ng-container matColumnDef="owner_name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Owner Name</th>
+                  <td mat-cell *matCellDef="let element">{{ element.owner_name }}</td>
+                </ng-container>
+                <ng-container matColumnDef="dzongkhag_name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Dzongkhag Name</th>
+                  <td mat-cell *matCellDef="let element">{{ element.dzongkhag_name }}</td>
+                </ng-container>
+                <ng-container matColumnDef="gewog_name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Gewog Name</th>
+                  <td mat-cell *matCellDef="let element">{{ element.gewog_name }}</td>
+                </ng-container>
+                <ng-container matColumnDef="village_name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Village Name</th>
+                  <td mat-cell *matCellDef="let element">{{ element.village_name }}</td>
+                </ng-container>
+                <ng-container matColumnDef="latitude">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Latitude</th>
+                  <td mat-cell *matCellDef="let element">{{ element.latitude }}</td>
+                </ng-container>
+                <ng-container matColumnDef="longitude">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Longitude</th>
+                  <td mat-cell *matCellDef="let element">{{ element.longitude }}</td>
+                </ng-container>
+                <ng-container matColumnDef="primary_date">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Primary Date</th>
+                  <td mat-cell *matCellDef="let element">{{ element.primary_date }}</td>
+                </ng-container>
+                <ng-container matColumnDef="farm_name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Farming System</th>
+                  <td mat-cell *matCellDef="let element">{{ element.farm_name }}</td>
+                </ng-container>
+                <ng-container matColumnDef="last_vaccination_date">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Vaccination Date.</th>
+                  <td mat-cell *matCellDef="let element">{{ element.last_vaccination_date }}</td>
+                 </ng-container>
+                
+                <ng-container matColumnDef="view">
+                  <th class="table-heading" mat-header-cell *matHeaderCellDef mat-sort-header>View</th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="viewAllDetails(element.outbreak_id,element.report_status,element.cid_number)" class="view-button">
+                      <mat-icon>visibility</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+              </table>
+              </cdk-virtual-scroll-viewport>
+              <br />
+              <mat-expansion-panel (opened)="basicPanelOpenState = true" (opened)="basicPanelOpenState = true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="title"><strong>View Details </strong></mat-panel-title>
+                </mat-expansion-panel-header>
+                <h5 class="p-2">Follow Up Case Details ( Live Case/Dead).</h5>
+                <table mat-table [dataSource]="dataSource2" matSort class="mat-elevation-z1">
+                  <ng-container matColumnDef="slno">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                      {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="species_name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Species Name</th>
+                    <td mat-cell *matCellDef="let element">{{ element.species_name }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="animal_type">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>animal Type</th>
+                    <td mat-cell *matCellDef="let element">{{ element.animal_type }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="breed_name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Breed Name</th>
+                    <td mat-cell *matCellDef="let element">{{ element.breed_name }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="age">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Age</th>
+                    <td mat-cell *matCellDef="let element">{{ element.age }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="male">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Male</th>
+                    <td mat-cell *matCellDef="let element">{{ element.male }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="female">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Female</th>
+                    <td mat-cell *matCellDef="let element">{{ element.female }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="mixed">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Mixed</th>
+                    <td mat-cell *matCellDef="let element">{{ element.mixed }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="total">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+                    <td mat-cell *matCellDef="let element">{{ element.total }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="statuss">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                    <td mat-cell *matCellDef="let element">{{ element.statuss }}</td>
+                  </ng-container>
+                 <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns2"></tr>
+                </table>
+                <br />
+                <br />
+              <h5 class="p-2">Animal Culled/Slaughtered, Examined,Treated and Vaccinated in response to the disease outbreak.</h5>
+                <table mat-table [dataSource]="dataSource3" matSort class="mat-elevation-z1">
+                  <ng-container matColumnDef="slno">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                      {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="fate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Response</th>
+                    <td mat-cell *matCellDef="let element">{{ element.fate }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="species_name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Species Name</th>
+                    <td mat-cell *matCellDef="let element">{{ element.species_name }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="animal_type">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>animal Type</th>
+                    <td mat-cell *matCellDef="let element">{{ element.animal_type }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="breed_name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Breed Name</th>
+                    <td mat-cell *matCellDef="let element">{{ element.breed_name }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="numbers">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Number Of Animals</th>
+                    <td mat-cell *matCellDef="let element">{{ element.numbers }}</td>
+                  </ng-container>
+                  
+                 <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns3"></tr>
+                </table>
+                <br />
+                <br />
+              <h5 class="p-2">Susceptible Animals.</h5>
+                <table mat-table [dataSource]="dataSource4" matSort class="mat-elevation-z1">
+                  <ng-container matColumnDef="slno">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                      {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                    </td>
+                  </ng-container>
+                 <ng-container matColumnDef="species_name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Species Name</th>
+                    <td mat-cell *matCellDef="let element">{{ element.species_name }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="animal_type">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>animal Type</th>
+                    <td mat-cell *matCellDef="let element">{{ element.animal_type }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="susceptible_animals">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Susceptible Animals </th>
+                    <td mat-cell *matCellDef="let element">{{ element.susceptible_animals }}</td>
+                  </ng-container>
+                  
+                 <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns4"></tr>
+                </table>
+                <br />
+            </mat-expansion-panel> 
+              <br />
+            </mat-expansion-panel> 
+            <br />
+
+            <!-- <mat-expansion-panel (opened)="basicPanelOpenState = true" (opened)="basicPanelOpenState = true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="title"><strong>View Details </strong></mat-panel-title>
+                </mat-expansion-panel-header>
+                <h5 class="p-2">Follow Up Case Details ( Live Case/Dead).</h5>
+                <table mat-table [dataSource]="dataSource2" matSort class="mat-elevation-z1">
+                  <ng-container matColumnDef="slno">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                      {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="species_name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Species Name</th>
+                    <td mat-cell *matCellDef="let element">{{ element.species_name }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="animal_type">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>animal Type</th>
+                    <td mat-cell *matCellDef="let element">{{ element.animal_type }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="breed_name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Breed Name</th>
+                    <td mat-cell *matCellDef="let element">{{ element.breed_name }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="age">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Age</th>
+                    <td mat-cell *matCellDef="let element">{{ element.age }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="male">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Male</th>
+                    <td mat-cell *matCellDef="let element">{{ element.male }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="female">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Female</th>
+                    <td mat-cell *matCellDef="let element">{{ element.female }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="mixed">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Mixed</th>
+                    <td mat-cell *matCellDef="let element">{{ element.mixed }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="total">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+                    <td mat-cell *matCellDef="let element">{{ element.total }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="statuss">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                    <td mat-cell *matCellDef="let element">{{ element.statuss }}</td>
+                  </ng-container>
+                 <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns2"></tr>
+                </table>
+                <br />
+                <br />
+              <h5 class="p-2">Animal Culled/Slaughtered, Examined,Treated and Vaccinated in response to the disease outbreak.</h5>
+                <table mat-table [dataSource]="dataSource3" matSort class="mat-elevation-z1">
+                  <ng-container matColumnDef="slno">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                      {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="fate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Response</th>
+                    <td mat-cell *matCellDef="let element">{{ element.fate }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="species_name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Species Name</th>
+                    <td mat-cell *matCellDef="let element">{{ element.species_name }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="animal_type">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>animal Type</th>
+                    <td mat-cell *matCellDef="let element">{{ element.animal_type }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="breed_name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Breed Name</th>
+                    <td mat-cell *matCellDef="let element">{{ element.breed_name }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="numbers">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Number Of Animals</th>
+                    <td mat-cell *matCellDef="let element">{{ element.numbers }}</td>
+                  </ng-container>
+                  
+                 <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns3"></tr>
+                </table>
+                <br />
+                <br />
+              <h5 class="p-2">Susceptible Animals.</h5>
+                <table mat-table [dataSource]="dataSource4" matSort class="mat-elevation-z1">
+                  <ng-container matColumnDef="slno">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                      {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                    </td>
+                  </ng-container>
+                 <ng-container matColumnDef="species_name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Species Name</th>
+                    <td mat-cell *matCellDef="let element">{{ element.species_name }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="animal_type">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>animal Type</th>
+                    <td mat-cell *matCellDef="let element">{{ element.animal_type }}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="susceptible_animals">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Susceptible Animals </th>
+                    <td mat-cell *matCellDef="let element">{{ element.susceptible_animals }}</td>
+                  </ng-container>
+                  
+                 <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns4"></tr>
+                </table>
+                <br />
+            </mat-expansion-panel> 
+              <br />    -->
+          </form>
+        </div>
+      </div>
+     </div>
+  </mat-card>
+  

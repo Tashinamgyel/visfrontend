@@ -1,0 +1,22 @@
+<div>
+  <div style="padding-top: 10px">
+    <label style="color: aliceblue">{{ username }}</label>
+    <button class="user-button" mat-mini-fab [matMenuTriggerFor]="userMenu">
+      <mat-icon>person</mat-icon>
+    </button>
+    <label style="color: aliceblue">{{ userDetails.fullName }}</label>
+  </div>
+  <div style="float: right">
+    <label style="color: aliceblue">{{ userDetails.centre.centre }}</label>
+    <label style="color: aliceblue">{{ userDetails.jurisdiction }}</label>
+  </div>
+</div>
+
+<mat-menu #userMenu="matMenu">
+  <a mat-menu-item class="user-menu__item-title" (click)="userProfile()">
+    <mat-icon class="user-menu-icon">person</mat-icon>Profile
+  </a>
+  <a mat-menu-item class="user-menu__item-title" (click)="signOutEmit()">
+    <mat-icon class="user-menu-icon">logout</mat-icon>Sign out
+  </a>
+</mat-menu>

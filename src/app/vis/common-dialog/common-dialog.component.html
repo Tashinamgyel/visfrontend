@@ -1,0 +1,24 @@
+<h1 mat-dialog-title style="color: black">Acknowledgement</h1>
+
+<div mat-dialog-content>
+  <p *ngIf="patientID">
+    Sent for Follow Up <strong>{{ patientID }}</strong>
+  </p>
+  <h3>
+    <p *ngIf="petRegistrationNumber">
+      Pet Registration Number is: <strong>{{ petRegistrationNumber }} </strong>
+    </p>
+  </h3>
+
+  <h1>
+    <p *ngIf="outbreakId">
+      Outbreak ID is: <strong>{{ outbreakId }} </strong>
+    </p>
+  </h1>
+
+  <p></p>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onConfirm()">OK</button>
+</div>

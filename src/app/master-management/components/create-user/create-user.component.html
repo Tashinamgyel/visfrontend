@@ -1,0 +1,177 @@
+<mat-card style="background-color: #327ebd; margin: 0 auto 0">
+  <h4 style="color: #fff">CREATE USER</h4>
+</mat-card>
+<mat-dialog-content>
+  <div class="col-md-12 col-lg-12">
+    <form class="form-horizontal form" [formGroup]="userForm">
+      <div class="form-group row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-label>CID Number</mat-label>
+            <input
+              matInput
+              formControlName="cid"
+              maxlength="11"
+              onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+              (change)="getCitizen($event.target.value)"
+              maxlength="11"
+              name="cid"
+              placeholder="CID Number"
+            />
+            <mat-error>CID Number is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="fullName" name="fullName" placeholder="" />
+            <mat-error>Full Name is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="form-group row">
+        <div class="col-md-6">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Designation Name</mat-label>
+            <mat-select formControlName="designationId">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let designation of designations" [value]="designation.id">
+                {{ designation.designationName }}
+              </mat-option>
+            </mat-select>
+            <mat-error>role is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-label>Mobile Number</mat-label>
+            <input
+              matInput
+              formControlName="mobileNo"
+              maxlength="8"
+              onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+              name="mobileNo"
+              placeholder="Mobile NUmber"
+            />
+            <mat-error>Mobile Number is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-label>Email ID</mat-label>
+            <input matInput type="email" formControlName="emailId" name="emailId" placeholder="Email ID" />
+            <mat-error>Email ID is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>User Type</mat-label>
+            <mat-select formControlName="userTypeId">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let userTypes of userType" [value]="userTypes.id">
+                {{ userTypes.userType }}
+              </mat-option>
+            </mat-select>
+            <mat-error>User Type is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+        <div class="col-md-6">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Level of User </mat-label>
+            <mat-select (selectionChange)="getCentres($event.value)" formControlName="userLevelId">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let levels of userLevel" [value]="levels.id">
+                {{ levels.levelName }}
+              </mat-option>
+            </mat-select>
+            <mat-error>Level of User is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-label>Centres</mat-label>
+            <mat-select (selectionChange)="getJurisdiction($event.value)" formControlName="centreId">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let centres of centre" [value]="centres.id">{{ centres.centre }}</mat-option>
+            </mat-select>
+            <mat-error>centre is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+        <div class="col-md-6">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Role Name</mat-label>
+            <mat-select multiple formControlName="roleId" (selectionChange)="changeRole()">
+              <mat-option *ngFor="let role of roles" [value]="role.id">
+                {{ role.roleName }}
+              </mat-option>
+            </mat-select>
+            <mat-error>role is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6" *ngIf="hideJurisdiction === true">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Jurisdiction</mat-label>
+            <input
+              type="text"
+              placeholder="Enter Jurisdiction"
+              aria-label="Jurisdiction"
+              matInput
+              formControlName="jurisdiction"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let option of roleAutocomplete | async" [value]="option"> {{ option }}</mat-option>
+            </mat-autocomplete>
+            <mat-error>jurisdiction is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row" *ngIf="!roleChange">
+        <div class="col-md-6">
+          <label class="col-form-label">Program Name<span class="text-danger">*</span></label>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-select formControlName="programId">
+              <mat-option value="">Select Program</mat-option>
+              <mat-option *ngFor="let program of programs" [value]="program.id">{{ program.programName }} </mat-option>
+            </mat-select>
+            <mat-error>Program is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+  <br />
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    *ngIf="actionType === 'ADD'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!userForm.valid"
+    (click)="saveUser()"
+  >
+    Add
+  </button>
+  <button
+    *ngIf="actionType === 'EDIT'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!userForm.valid"
+    (click)="updateUser()"
+  >
+    Update
+  </button>
+  <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

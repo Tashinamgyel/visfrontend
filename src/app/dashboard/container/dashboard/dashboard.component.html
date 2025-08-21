@@ -1,0 +1,12 @@
+<mat-toolbar class="page-header" role="heading"> <h1>Dashboard</h1> </mat-toolbar>
+<app-report-container></app-report-container>
+<div class="row">
+  <div class="col-sm-6 col-lg-12">
+    <app-stats
+      [clinical]="underCorpusData$ | async"
+      [sterilization]="ongoingData$ | async"
+      [deworming]="appealedData$ | async"
+      [vaccination]="closedData$ | async"
+    ></app-stats>
+  </div>
+</div>

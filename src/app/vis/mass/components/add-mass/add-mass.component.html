@@ -1,0 +1,466 @@
+<mat-toolbar class="titleTopic">
+  <h6 class="p-2;" style="padding-top: 5px; padding-left: 5px">Add Animal Details, Service and Medications</h6>
+</mat-toolbar>
+
+<mat-dialog-content>
+  <div class="col-md-12 col-lg-12">
+    <form class="form-horizontal" [formGroup]="addMassForm">
+      <div class="container">
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label class="col-form-label">Date<span class="text-danger">*</span></label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input
+                [matDatepicker]="pics"
+                [max]="today"
+                formControlName="treatementDate"
+                matInput
+                readonly
+                placeholder="Choose Date"
+              />
+              <mat-datepicker-toggle [for]="pics" matSuffix></mat-datepicker-toggle>
+              <mat-datepicker #pics></mat-datepicker>
+              <mat-error>Date required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <label class="col-form-label">Species<span class="text-danger">*</span></label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select (selectionChange)="getAnimalType($event.value)" formControlName="speciesId">
+                <mat-option value="">Select Species</mat-option>
+                <mat-option *ngFor="let specie of species" [value]="specie">{{ specie.speciesName }}</mat-option>
+              </mat-select>
+              <mat-error>Species is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <br />
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label class="col-form-label"> Animal Type<span class="text-danger">*</span></label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select formControlName="animalTypeId">
+                <mat-option value=""> Select Animal Type</mat-option>
+                <mat-option *ngFor="let animalType of animalTypes" [value]="animalType">
+                  {{ animalType.animalType }}</mat-option
+                >
+              </mat-select>
+              <mat-error>Animal Type is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <label class="col-form-label"> Breed<span class="text-danger">*</span></label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select formControlName="breedId">
+                <mat-option value="">Select Breed</mat-option>
+                <mat-option *ngFor="let breed of breeds" [value]="breed"> {{ breed.breedName }}</mat-option>
+              </mat-select>
+              <mat-error>Breed is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <br />
+        <div class="form-group row">
+          <div class="col-md-6" *ngIf="treatmentYesPoultry">
+            <label class="col-form-label"> Service<span class="text-danger">*</span></label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select (selectionChange)="treatmentCheck($event)" formControlName="treatment">
+                <mat-option value="">Select Service</mat-option>
+                <mat-option value="Clinical">Clinical</mat-option>
+                <mat-option value="Deworming">Deworming/Ectoparasitic Control</mat-option>
+                <mat-option value="Vaccination">Vaccination</mat-option>
+              </mat-select>
+              <mat-error>Service is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6" *ngIf="treatmentNoPoultry">
+            <label class="col-form-label"> Service<span class="text-danger">*</span>:</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select (selectionChange)="treatmentCheck($event)" formControlName="treatment">
+                <mat-option></mat-option>
+                <mat-option value="Deworming">Deworming/Ectoparasitic Control</mat-option>
+                <mat-option value="Vaccination">Vaccination</mat-option>
+              </mat-select>
+              <mat-error>Service is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <br />
+
+      
+        <div class="container">
+          <div class="form-group row" *ngIf="numberOfAnimalMedicated">
+            <!-- <div *ngIf="numberOfAnimalMedicated"> -->
+            <h5>Number of Animals</h5>
+            <!-- ************************************************************************************************* -->
+            <!-- <h5>Number of Animals</h5> -->
+            <button mat-raised-button color="primary" (click)="addMoreButton()" style="margin-left: 700px">
+              <mat-icon>add</mat-icon>Add More
+            </button>
+            <div class="container">
+              <div class="form-group row">
+                <div class="row gutters-xs">
+                  <div class="col-6" *ngIf="initialAgeForPoultry">
+                    <label class="col-form-label"> Age<span class="text-danger">*</span></label>
+                    <mat-form-field appearance="outline" class="example-full-width">
+                      <mat-select>
+                        <mat-option></mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6" *ngIf="ageForPoultry">
+                    <label class="col-form-label"> Age<span class="text-danger">*</span></label>
+                    <mat-form-field appearance="outline" class="example-full-width">
+                      <mat-select formControlName="age" (selectionChange)="refreshForm()">
+                        <mat-option></mat-option>
+                        <mat-option value="Chick">Chick</mat-option>
+                        <mat-option value="Pullet">Pullet</mat-option>
+                        <mat-option value="Adult">Adult</mat-option>
+                      </mat-select>
+                      <mat-error>Age is required</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-6" *ngIf="ageForOthers" style="margin-top: 10px">
+                    <label class="col-form-label"> Age<span class="text-danger">*</span></label>
+                    <mat-form-field appearance="outline" class="example-full-width">
+                      <mat-select formControlName="age" (selectionChange)="refreshForm()">
+                        <mat-option value="">Select Age</mat-option>
+                        <mat-option value="Adult">Adult</mat-option>
+                        <mat-option value="Young">Young</mat-option>
+                      </mat-select>
+                      <mat-error>Age is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <br />
+                  <div class="col-md-6" *ngIf="maleHidden" style="margin-top: 10px">
+                    <label class="col-form-label">Male</label>
+                    <mat-form-field appearance="outline" class="example-full-width">
+                      <input
+                        (change)="choose($event.target.name)"
+                        formControlName="male"
+                        matInput
+                        name="male"
+                        min="0"
+                        placeholder="Male"
+                        type="number"
+                        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                      />
+                      <!-- <mat-error>Male is required</mat-error> -->
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6" *ngIf="femaleHidden" style="margin-top: 10px">
+                    <label class="col-form-label">Female </label>
+                    <mat-form-field appearance="outline" class="example-full-width">
+                      <input
+                        (change)="choose($event.target.name)"
+                        formControlName="female"
+                        matInput
+                        name="female"
+                        min="0"
+                        placeholder="Female"
+                        type="number"
+                        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                      />
+                      <!-- <mat-error>Female is required</mat-error> -->
+                    </mat-form-field>
+                  </div>
+                  <br />
+
+                  <div class="col-md-6" *ngIf="mixedHidden" style="margin-top: 10px">
+                    <label class="col-form-label">Mixed</label>
+                    <mat-form-field appearance="outline" class="example-full-width">
+                      <input
+                        (change)="choose($event.target.name)"
+                        formControlName="mixed"
+                        matInput
+                        name="mixed"
+                        min="0"
+                        placeholder="Mixed"
+                        type="number"
+                        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                      />
+                      <!-- <mat-error>Mixed is required</mat-error> -->
+                    </mat-form-field>
+                  </div>
+                  <br />
+                  <div class="col-md-6" style="margin-top: 10px">
+                    <label class="col-form-label">Total</label>
+                    <mat-form-field appearance="outline" class="example-full-width">
+                      <input formControlName="total" matInput name="total" placeholder="Total" readonly />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <!-- </div> -->
+          <!-- ************************************************************************ -->
+
+          <div class="form-group row" *ngIf="numberOfAnimalVaccinated">
+            <h5>Number of Animals</h5>
+            <button mat-raised-button color="primary" (click)="addMoreButton()" style="margin-left: 700px">
+              <mat-icon>add</mat-icon>Add More
+            </button>
+            <div class="row gutters-xs">
+              <div class="col-md-6" style="margin-top: 10px">
+                <label class="col-form-label"> Vaccination Status<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="vaccinationState" (selectionChange)="refreshForm()">
+                    <mat-option></mat-option>
+                    <mat-option value="Vaccinated">Vaccinated</mat-option>
+                    <mat-option value="Not Vaccinated">Not Vaccinated</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6" *ngIf="ageForPoultry">
+                <label class="col-form-label"> Age<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="age" (selectionChange)="refreshForm()">
+                    <mat-option></mat-option>
+                    <mat-option value="Chick">Chick</mat-option>
+                    <mat-option value="Pullet">Pullet</mat-option>
+                    <mat-option value="Adult">Adult</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6" *ngIf="ageForOthers" style="margin-top: 10px">
+                <label class="col-form-label"> Age<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-select formControlName="age" (selectionChange)="refreshForm()">
+                    <mat-option></mat-option>
+                    <mat-option value="Adult">Adult</mat-option>
+                    <mat-option value="Young">Young</mat-option>
+                  </mat-select>
+                  <!-- <mat-error>Age is required</mat-error> -->
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6" *ngIf="maleHidden" style="margin-top: 10px">
+                <label class="col-form-label">Male</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    (change)="choose($event.target.name)"
+                    formControlName="male"
+                    matInput
+                    name="male"
+                    min="0"
+                    placeholder="Male"
+                    type="number"
+                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                  />
+                  <!-- <mat-error>Male is required</mat-error> -->
+                </mat-form-field>
+              </div>
+              <div class="col-md-6" *ngIf="femaleHidden" style="margin-top: 10px">
+                <label class="col-form-label">Female </label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    (change)="choose($event.target.name)"
+                    formControlName="female"
+                    matInput
+                    name="female"
+                    min="0"
+                    placeholder="Female"
+                    type="number"
+                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                  />
+                  <mat-error>Female is required</mat-error>
+                </mat-form-field>
+              </div>
+              <br />
+
+              <div class="col-md-6" *ngIf="mixedHidden" style="margin-top: 10px">
+                <label class="col-form-label">Mixed</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    (change)="choose($event.target.name)"
+                    formControlName="mixed"
+                    matInput
+                    name="mixed"
+                    min="0"
+                    placeholder="Mixed"
+                    type="number"
+                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                  />
+                  <!-- <mat-error>Mixed is required</mat-error> -->
+                </mat-form-field>
+              </div>
+              <br />
+
+              <div class="col-md-6" style="margin-top: 10px">
+                <label class="col-form-label">Total</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="total" matInput name="total" placeholder="Total" readonly />
+                </mat-form-field>
+              </div>
+              <br />
+              <br />
+              <br />
+              <div
+                class="form-group row"
+                style="margin-top: 50px; margin-left: 0.5%"
+                *ngIf="addMassForm.value.vaccinationState === 'Not Vaccinated'"
+              >
+                <div class="col-md-6">
+                  <label class="textarea">Name/IDs of non-vaccinated animals</label>
+                  <mat-form-field style="width: 100%" appearance="outline" type="text">
+                    <textarea
+                      matInput
+                      rows="1"
+                      cols="6"
+                      matInput
+                      formControlName="notVaccinated"
+                      placeholder="Name/IDs of non-vaccinated animals"
+                    >
+                    </textarea>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="textarea">Reasons for not vaccinating</label>
+                  <mat-form-field style="width: 100%" appearance="outline" type="text">
+                    <textarea
+                      matInput
+                      rows="1"
+                      cols="6"
+                      matInput
+                      formControlName="reasons"
+                      placeholder="Reasons for not vaccinating"
+                    >
+                    </textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <br />
+      <!-- <button mat-raised-button color="primary" (click)="addMoreButton()"><mat-icon>add</mat-icon></button> -->
+
+      <table style="width: 100%; border: 1px solid black" border="1" *ngIf="numberOfAnimalsToHide">
+        <tr align="center" style="color: white; background-color: #03a9f4; width: 100%">
+          <th>Age</th>
+          <th>Female</th>
+          <th>Male</th>
+          <th>Mixed</th>
+          <th>Total</th>
+          <th>Vaccination Status</th>
+          <th>Delete</th>
+        </tr>
+        <tr *ngFor="let data of dataFromAddMore; let i = index" align="center">
+          <td>{{ data.age }}</td>
+          <td>{{ data.female }}</td>
+          <td>{{ data.male }}</td>
+          <td>{{ data.mixed }}</td>
+          <td>{{ data.total }}</td>
+          <td>{{ data.vaccinationState }}</td>
+          <!-- <td><mat-icon style="color: red; cursor: pointer" (click)="editDataFromAddMore(i)">edit</mat-icon></td> -->
+          <td><mat-icon style="color: red; cursor: pointer" (click)="deleteDataFromAddMore(i)">delete</mat-icon></td>
+        </tr>
+      </table>
+      <br />
+      <br />
+      <br />
+      <div *ngIf="clinical">
+        <button mat-raised-button color="primary" (click)="addMedication('clinical')">
+          <mat-icon *ngIf="numberOfAnimalsToHide">add</mat-icon> Add Medicine
+        </button>
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <table *ngIf="valueFromFormClinical" style="width: 100%; border: 1px solid black" border="1">
+          <tr align="center" style="color: white; background-color: #03a9f4; width: 100%">
+            <th>Medicine Class</th>
+            <th>Medicine Name</th>
+            <th>Dose</th>
+            <th>Dose Unit</th>
+            <th>Route</th>
+            <th>Frequency</th>
+            <th>Duration</th>
+            <th>Delete</th>
+          </tr>
+          <tr *ngFor="let data of valueFromForm; let i = index" align="center">
+            <td>{{ data.classId.className }}</td>
+            <td>{{ data.medicineId.medicineName }}</td>
+            <td>{{ data.dosage }}</td>
+            <td>{{ data.doseUnitId.unitType }}</td>
+            <td>{{ data.routeId.routeName }}</td>
+            <td>{{ data.frequencyId.frequencyName }}</td>
+            <td>{{ data.duration }}</td>
+            <td><mat-icon style="color: red; cursor: pointer" (click)="delete(i)">delete</mat-icon></td>
+          </tr>
+        </table>
+      </div>
+
+      <div *ngIf="numberOfAnimalsToHide && deworming">
+      <!-- <div *ngIf="numberOfAnimalsToHide && deworming || valueFromFormDeworming"> -->
+        <button mat-raised-button color="primary" (click)="addMedication('deworming')">
+          <mat-icon *ngIf="numberOfAnimalsToHide">add</mat-icon> Add Medicine
+          <!-- <mat-icon *ngIf="numberOfAnimalsToHide && valueFromFormDeworming">add</mat-icon> Add Medicine -->
+        </button>
+        <br />
+        <br />
+        <br />
+
+        <table *ngIf="valueFromFormDeworming" style="width: 100%; border: 1px solid black" border="1">
+          <tr align="center" style="color: white; background-color: #03a9f4; width: 100%">
+            <th>Medicine Class</th>
+            <th>Medicine Name</th>
+            <th>Dose</th>
+            <th>Dose Unit</th>
+            <th>Route</th>
+            <th>Frequency</th>
+            <th>Duration</th>
+            <th>Delete</th>
+          </tr>
+          <tr *ngFor="let data of valueFromForm; let i = index" align="center">
+            <td>{{ data.classId.className }}</td>
+            <td>{{ data.medicineId.medicineName }}</td>
+            <td>{{ data.dosage }}</td>
+            <td>{{ data.doseUnitId.unitType }}</td>
+            <td>{{ data.routeId.routeName }}</td>
+            <td>{{ data.frequencyId.frequencyName }}</td>
+            <td>{{ data.duration }}</td>
+            <td><mat-icon style="color: red; cursor: pointer" (click)="delete(i)">delete</mat-icon></td>
+          </tr>
+        </table>
+      </div>
+<br />
+<br />
+     
+        <div *ngIf="numberOfAnimalsToHide && vaccination">
+        <button mat-raised-button color="primary" (click)="addMedicationForVaccination()">
+          <mat-icon>add</mat-icon>Choose Vaccine Type
+        </button>
+        <br />
+        <br />
+        <table *ngIf="valueFromVaccinationForm != null" style="width: 100%; border: 1px solid black" border="1">
+          <tr style="color: white; background-color: #03a9f4; width: 100%" align="center">
+            <!-- <th>Vaccination Status</th> -->
+            <th>Vaccine Type</th>
+            <th>Delete</th>
+          </tr>
+          <tr *ngFor="let dataFromVaccinationForm of valueFromVaccinationForm; let i = index" align="center">
+            <!-- <td>{{ dataFromVaccinationForm.vaccinationState }}</td> -->
+            <td>{{ dataFromVaccinationForm.vaccineType.vaccineName }}</td>
+            <td><mat-icon style="color: red; cursor: pointer" (click)="deleteForVaccination(i)">delete</mat-icon></td>
+          </tr>
+        </table>
+      </div>
+      
+      <br />
+
+      <button mat-raised-button (click)="addMass()" color="primary" *ngIf="numberOfAnimalsToHide"><mat-icon>add</mat-icon> Save</button>
+     
+      <button mat-raised-button (click)="closeDialog()" style="background-color: red; color: white">Close</button>
+    </form>
+  </div>
+</mat-dialog-content>

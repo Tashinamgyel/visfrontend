@@ -1,0 +1,105 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<div class="card">
+  <form class="form-horizontal form" [formGroup]="dashboadCounts">
+    <mat-card>
+      <div class="form-group row col-sm-12">
+        <div class="col-sm-5">
+          <label class="col-form-label" for="text-input"> From Date<span class="text-danger">*</span></label>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input matInput [matDatepicker]="pic" [max]="maxDate" formControlName="fromDate" readonly />
+            <mat-datepicker-toggle matSuffix [for]="pic"></mat-datepicker-toggle>
+            <mat-datepicker #pic></mat-datepicker>
+            <mat-error>Date is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-5">
+          <label class="col-form-label" for="text-input"> To Date<span class="text-danger">*</span></label>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input matInput [matDatepicker]="pic1" [max]="maxDate" formControlName="toDate" readonly />
+            <mat-datepicker-toggle matSuffix [for]="pic1"></mat-datepicker-toggle>
+            <mat-datepicker #pic1></mat-datepicker>
+            <mat-error>Date is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group row">
+          <button color="accent" (click)="getCounts()" mat-raised-button>Generate</button>
+        </div>
+      </div>
+    </mat-card>
+    <mat-card>
+      <div class="dashboard-stat">
+        <mat-card class="dashboard-stat__item button-component-holder" style="background-color: rgb(61, 73, 175)">
+          <mat-card-title class="dashboard-stat__title">
+            <h5 class="dashboard-stat__title-text">Individual</h5>
+          </mat-card-title>
+          <mat-card-content class="dashboard-stat-content">
+            <div class="dashboard-stat-content__total-info-wrapper">
+              <div class="dashboard-stat-content__total-info">
+                <p class="dashboard-stat-content__total-info-users">Clinical:{{ clinicals }}</p>
+                <p class="dashboard-stat-content__total-info-users">Sterilization:{{ sterilizations }}</p>
+                <p class="dashboard-stat-content__total-info-users">Deworming:{{ dewormings }}</p>
+                <p class="dashboard-stat-content__total-info-users">Vaccination:{{ vaccinations }}</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="dashboard-stat__item button-component-holder" style="background-color: rgb(165, 80, 0)">
+          <mat-card-title class="dashboard-stat__title">
+            <h5 class="dashboard-stat__title-text">Mass</h5>
+          </mat-card-title>
+          <mat-card-content class="dashboard-stat-content">
+            <div class="dashboard-stat-content__total-info-wrapper">
+              <div class="dashboard-stat-content__total-info">
+                <p class="dashboard-stat-content__total-info-users">Clinical:{{ massClinical }}</p>
+                <p class="dashboard-stat-content__total-info-users">Deworming:{{ massDeworming }}</p>
+                <p class="dashboard-stat-content__total-info-users">Vaccination:{{ massVaccination }}</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="dashboard-stat__item button-component-holder" style="background-color: rgb(4, 114, 117)">
+          <mat-card-title class="dashboard-stat__title">
+            <h5 class="dashboard-stat__title-text">Pet Registration</h5>
+          </mat-card-title>
+          <mat-card-content class="dashboard-stat-content">
+            <div class="dashboard-stat-content__total-info-wrapper">
+              <div class="dashboard-stat-content__total-info">
+                <p class="dashboard-stat-content__total-info-users">Dog:{{ dog }}</p>
+                <p class="dashboard-stat-content__total-info-users">Others:{{ others }}</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="dashboard-stat__item button-component-holder" style="background-color: rgb(182, 74, 83)">
+          <mat-card-title class="dashboard-stat__title">
+            <h5 class="dashboard-stat__title-text">DPM and MDV</h5>
+          </mat-card-title>
+          <mat-card-content class="dashboard-stat-content">
+            <div class="dashboard-stat-content__total-info-wrapper">
+              <div class="dashboard-stat-content__total-info">
+                <p class="dashboard-stat-content__total-info-users">DPM:{{ dpmCount }}</p>
+                <p class="dashboard-stat-content__total-info-users">MDV:{{ mdvCount }}</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="dashboard-stat__item button-component-holder" style="background-color: rgb(117, 113, 91)">
+          <mat-card-title class="dashboard-stat__title">
+            <h5 class="dashboard-stat__title-text">Disease Outbreak</h5>
+          </mat-card-title>
+          <mat-card-content class="dashboard-stat-content">
+            <div class="dashboard-stat-content__total-info-wrapper">
+              <div class="dashboard-stat-content__total-info">
+                <p class="dashboard-stat-content__total-info-users">Resolved: {{ resolved }}</p>
+                <p class="dashboard-stat-content__total-info-users">Ongoing: {{ ongoing }}</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card>
+  </form>
+</div>
+<div fxFlex></div>

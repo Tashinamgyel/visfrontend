@@ -1,0 +1,242 @@
+<div *ngIf="showPoultry" class="exampl2e-card">
+  <mat-card-header class="p-3 pl-lg-0">
+    <mat-card-title>Poultry Details</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div [formGroup]="vaccinationPoultryForm">
+      <div>
+        <cdk-virtual-scroll-viewport itemSize="0" orientation="horizontal" style="height: 100px">
+          <table>
+            <tr
+              *ngFor="let poultryDetails of vaccinationPoultryForm.get('poultry')['controls']; let i = index"
+              [formGroup]="poultryDetails"
+            >
+              <td>
+                <mat-form-field appearance="outline" style="width: 140px">
+                  <mat-label>Vaccination Date</mat-label>
+                  <input [matDatepicker]="picker" [readonly]="!editable" formControlName="vaccinationDate" matInput />
+                  <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error>Treatment Date is required</mat-error>
+                </mat-form-field>
+              </td>
+
+              <td>
+                <mat-form-field appearance="outline" style="width: 130px">
+                  <mat-label>Vaccine Type</mat-label>
+
+                  <mat-select disableRipple formControlName="vaccinationStatus" placeholder="Select a Class">
+                    <mat-option *ngFor="let vaccine of vaccineStatus; let i = index" [value]="vaccine.vaccine">{{
+                      vaccine.vaccine
+                    }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+
+              <td>
+                <mat-form-field appearance="outline" style="width: 130px">
+                  <mat-label>Vaccine Type</mat-label>
+                  <mat-select disableRipple formControlName="vaccineTypeId" placeholder="Select a Class">
+                    <mat-option *ngFor="let vaccine of vaccines[i]" [value]="vaccine.id">{{
+                      vaccine.vaccineName
+                    }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+
+              <td>
+                <mat-form-field appearance="outline" style="width: 110px">
+                  <mat-label>Breed</mat-label>
+                  <mat-select disableRipple formControlName="breedId" placeholder="Select a Class">
+                    <mat-option *ngFor="let breed of breeds[i]" [value]="breed.id">{{ breed.breedName }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+
+              <td>
+                <mat-form-field appearance="outline" style="width: 90px">
+                  <mat-label>Age</mat-label>
+
+                  <mat-select disableRipple formControlName="age" placeholder="Select a Class">
+                    <mat-option *ngFor="let age of poultryAges; let i = index" [value]="age.age">{{
+                      age.age
+                    }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+
+              <td>
+                <mat-form-field appearance="outline" style="width: 190px">
+                  <mat-label>Male</mat-label>
+                  <input formControlName="male" matInput required type="text" />
+                </mat-form-field>
+              </td>
+
+              <td>
+                <mat-form-field appearance="outline" style="width: 90px">
+                  <mat-label>Female</mat-label>
+                  <input formControlName="female" matInput required type="text" />
+                </mat-form-field>
+              </td>
+
+              <td>
+                <mat-form-field appearance="outline" style="width: 90px">
+                  <mat-label>Mixed</mat-label>
+                  <input formControlName="mixed" matInput required type="text" />
+                </mat-form-field>
+              </td>
+
+              <td>
+                <mat-form-field [hideRequiredMarker]="true" appearance="outline" style="width: 90px">
+                  <mat-label>Total</mat-label>
+                  <input formControlName="total" matInput required type="text" />
+                </mat-form-field>
+              </td>
+
+              <td>
+                <mat-icon (click)="deletePoetryDetailRow(i)" class="delete-style">delete</mat-icon>
+              </td>
+            </tr>
+          </table>
+        </cdk-virtual-scroll-viewport>
+      </div>
+
+      <mat-card-actions>
+        <button (click)="addNewPoultryDetailRow()" color="primary" mat-raised-button>
+          <mat-icon>add</mat-icon>
+          Add
+        </button>
+      </mat-card-actions>
+    </div>
+  </mat-card-content>
+</div>
+
+<div *ngIf="showOtherSpecies" class="exampl2e-card">
+  <mat-card-header class="p-3 pl-lg-0">
+    <mat-card-title>Other Species Details</mat-card-title>
+  </mat-card-header>
+  <div [formGroup]="vaccinationOtherSpeciesForm">
+    <div>
+      <cdk-virtual-scroll-viewport itemSize="100px" orientation="horizontal" style="height: 200px">
+        <table>
+          <tr
+            *ngFor="
+              let otherSpeciesDetails of vaccinationOtherSpeciesForm.get('otherSpecies')['controls'];
+              let i = index
+            "
+            [formGroup]="otherSpeciesDetails"
+          >
+            <td>
+              <mat-form-field appearance="outline" style="width: 150px">
+                <mat-label>Vaccination Date</mat-label>
+                <input [matDatepicker]="picker" [readonly]="!editable" formControlName="vaccinationDate" matInput />
+                <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error>Treatment Date is required</mat-error>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="outline" style="width: 130px">
+                <mat-label>Vaccine Status</mat-label>
+
+                <mat-select disableRipple formControlName="vaccinationStatus" placeholder="Select a Class">
+                  <mat-option *ngFor="let vaccine of vaccineStatus; let i = index" [value]="vaccine.vaccine">{{
+                    vaccine.vaccine
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+
+            <td>
+              <mat-form-field appearance="outline" style="width: 130px">
+                <mat-label>Vaccine</mat-label>
+                <mat-select disableRipple formControlName="vaccineTypeId" placeholder="Select a Class">
+                  <mat-option *ngFor="let vaccine of vaccines[i]" [value]="vaccine.id">{{
+                    vaccine.vaccineName
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+
+            <td>
+              <mat-form-field appearance="outline" style="width: 130px">
+                <mat-label>Species</mat-label>
+                <mat-select
+                  (selectionChange)="getAnimalType($event.value, i)"
+                  disableRipple
+                  formControlName="speciesId"
+                  placeholder="Select a Class"
+                >
+                  <mat-option *ngFor="let species of species[i]" [value]="species.id">{{
+                    species.speciesName
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+
+            <td>
+              <mat-form-field appearance="outline" style="width: 130px">
+                <mat-label>Animal Type</mat-label>
+                <mat-select disableRipple formControlName="animalTypeId" placeholder="Select a Animal Type">
+                  <mat-option *ngFor="let animalType of animalType[i]" [value]="animalType.id">{{
+                    animalType.animalType
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+
+            <td>
+              <mat-form-field appearance="outline" style="width: 110px">
+                <mat-label>Breed</mat-label>
+                <mat-select disableRipple formControlName="breedId" placeholder="Select a Class">
+                  <mat-option *ngFor="let breed of breeds[i]" [value]="breed.id">{{ breed.breedName }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+
+            <td>
+              <mat-form-field appearance="outline" style="width: 90px">
+                <mat-label>Age</mat-label>
+
+                <mat-select disableRipple formControlName="age" placeholder="Select a Class">
+                  <mat-option *ngFor="let age of otherAnimalAges; let i = index" [value]="age.age">{{
+                    age.age
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+
+            <td>
+              <mat-form-field appearance="outline" style="width: 90px">
+                <mat-label>Male</mat-label>
+                <input formControlName="male" matInput required type="text" />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="outline" style="width: 90px">
+                <mat-label>Female</mat-label>
+                <input formControlName="female" matInput required type="text" />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field [hideRequiredMarker]="true" appearance="outline" style="width: 90px">
+                <mat-label>Total</mat-label>
+                <input formControlName="total" matInput required type="text" />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-icon (click)="deleteOtherSpeciesRow(i)" class="delete-style">delete</mat-icon>
+            </td>
+          </tr>
+        </table>
+      </cdk-virtual-scroll-viewport>
+    </div>
+
+    <mat-card-actions>
+      <button (click)="addOtherSpeciesDetailRow()" color="primary" mat-raised-button>
+        <mat-icon>add</mat-icon>
+        Add
+      </button>
+    </mat-card-actions>
+  </div>
+</div>

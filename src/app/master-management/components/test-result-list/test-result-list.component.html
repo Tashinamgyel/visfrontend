@@ -1,0 +1,47 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>List of Lab Test Result</mat-card-title>
+    <div fxFlex></div>
+    <mat-card-actions>
+      <button mat-raised-button (click)="openAddModal()" color="primary"><mat-icon>add</mat-icon> Add</button>
+    </mat-card-actions>
+  </mat-card-header>
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  <mat-form-field class="px-16" style="width: 25%" appearance="outline">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search" />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z1">
+    <ng-container matColumnDef="slno">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Lab Test Result</th>
+      <td mat-cell *matCellDef="let element">{{ element.resultName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="editTest(element.id)" class="edit-button">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <th class="table-heading" mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="deleteTest(element.id)" class="delete-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</mat-card>

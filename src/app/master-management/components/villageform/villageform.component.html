@@ -1,0 +1,107 @@
+<mat-card-header>
+  <mat-card-title>Add Village </mat-card-title>
+</mat-card-header>
+<mat-dialog-content>
+  <div class="col-md-12 col-lg-12">
+    <form class="form-horizontal" [formGroup]="villageForm">
+      <div class="form-group row">
+        <label class="col-form-label"> Village<span class="text-danger">*</span></label>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label> Village</mat-label>
+            <input matInput formControlName="villageName" placeholder="" />
+            <mat-error>Village is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- <div class="form-group row">
+          <label class="col-md-3 col-form-label">Gewog</label>
+          <div class="col-md-9">
+            <mat-form-field appearance="outline">
+              <mat-label>Gewog</mat-label>
+              <mat-select formControlName="gewogId">
+                <mat-option></mat-option>
+                <mat-option *ngFor="let systen of gewog" [value]="systen.id">
+                  {{ systen.gewogName }}
+                </mat-option>
+              </mat-select>
+              <mat-error>gewog is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label">Dzongkhag</label>
+          <div class="col-md-9">
+            <mat-form-field appearance="outline">
+              <mat-label>Dzongkhag</mat-label>
+              <mat-select formControlName="dzongkhagId">
+                <mat-option></mat-option>
+                <mat-option *ngFor="let systen of dzongkhag" [value]="systen.id">
+                  {{ systen.dzongkhagName }}
+                </mat-option>
+              </mat-select>
+              <mat-error>Dzongkhag is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>    -->
+      <!-- <div class="form-group row">
+          <div class="col-md-6">
+            <label class="col-form-label"> Dzongkhag<span class="text-danger">*</span></label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select (selectionChange)="getGewogs($event.value)" formControlName="dzongkhagId">
+                <mat-option value="">Select Dzongkhag</mat-option>
+                <mat-option *ngFor="let dzongkhag of dzongkhags" [value]="dzongkhag.id">{{
+                  dzongkhag.dzongkhagName
+                }}</mat-option>
+              </mat-select>
+              <mat-error>Dzongkhag is required</mat-error>
+            </mat-form-field>
+          </div>
+          </div> -->
+      <div class="form-group row">
+        <div class="col-md-6">
+          <label class="col-form-label"> Gewog<span class="text-danger">*</span></label>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-select formControlName="gewogId">
+              <mat-option value="">Select Gewog</mat-option>
+              <mat-option *ngFor="let gewogs of gewog" [value]="gewogs.id">{{ gewogs.gewogName }}</mat-option>
+            </mat-select>
+            <mat-error>Gewog is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button *ngIf="actionType === 'ADD'" mat-raised-button color="primary" (click)="saveVillages()">Add</button>
+
+  <button
+    *ngIf="actionType === 'EDIT'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!villageForm.valid"
+    (click)="updateVillages()"
+  >
+    Update
+  </button>
+  <button
+    *ngIf="actionType === 'Delete'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!villageForm.valid"
+    (click)="updateVillages()"
+  >
+    Delete
+  </button>
+  <!-- <button
+      *ngIf="actionType === 'Delete'"
+      mat-raised-button
+      color="warn"
+      [disabled]="!vaccineForm.valid"
+      (click)="updateVaccineType()"
+    >
+      Delete
+    </button> -->
+  <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

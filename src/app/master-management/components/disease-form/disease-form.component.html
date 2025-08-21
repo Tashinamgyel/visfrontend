@@ -1,0 +1,50 @@
+<mat-card-header>
+  <span class="border border-white"></span>
+  <mat-card-title>Add Notifiable Disease</mat-card-title>
+</mat-card-header>
+<mat-dialog-content>
+  <div class="col-md-12 col-lg-12">
+    <form class="form-horizontal" [formGroup]="diseaseForm">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label">Notifiable Disease</label>
+        <div class="col-md-9">
+          <mat-form-field appearance="outline">
+            <mat-label>Notifiable Disease</mat-label>
+            <input matInput formControlName="diseaseName" placeholder="" />
+            <mat-error>Notifiable Diseases is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    *ngIf="actionType === 'ADD'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!diseaseForm.valid"
+    (click)="saveDisease()"
+  >
+    Add
+  </button>
+  <button
+    *ngIf="actionType === 'EDIT'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!diseaseForm.valid"
+    (click)="updateDisease()"
+  >
+    Update
+  </button>
+  <button
+    *ngIf="actionType === 'Delete'"
+    mat-raised-button
+    color="warn"
+    [disabled]="!diseaseForm.valid"
+    (click)="updateDisease()"
+  >
+    Delete
+  </button>
+  <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

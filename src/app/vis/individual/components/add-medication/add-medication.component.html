@@ -1,0 +1,193 @@
+<!-- <mat-card-header>
+  <mat-card-title>Add Medication</mat-card-title>
+</mat-card-header> -->
+<mat-card style="background-color: #327ebd; margin: 0 auto 0">
+  <!-- <mat-card-title>Add Susceptible Animal's Details</mat-card-title> -->
+  <h4 style="color: #fff">Medication</h4>
+</mat-card>
+<mat-dialog-content>
+  <div class="col-md-12 col-lg-12">
+    <form class="form-horizontal form" [formGroup]="medicationForm">
+      <div class="container">
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label class="col-form-label"> Class<span class="text-danger">*</span></label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select (selectionChange)="getMedicine($event.value)" formControlName="classId">
+                <mat-option style="text-emphasis-color: green" value="">Select Medicine Class</mat-option>
+
+                <mat-option *ngFor="let class of classes" [value]="class.id">{{ class.className }}</mat-option>
+              </mat-select>
+              <mat-error>Class is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <label class="col-form-label"> Medicine<span class="text-danger">*</span></label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select formControlName="medicineId" (selectionChange)="getMedicineDetails($event.value)">
+                <mat-option value="">Select Medicine</mat-option>
+                <mat-option *ngFor="let medicine of medicines" [value]="medicine.id">
+                  {{ medicine.medicineName }}</mat-option
+                >
+              </mat-select>
+              <mat-error>Medicine is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <br />
+
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label class="col-form-label">Composition</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input
+                formControlName="composition"
+                matInput
+                name="composition"
+                placeholder="Composition"
+                value="{{ composition }}"
+                readonly
+              />
+              <mat-error>Composition is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <label class="col-form-label">Presentation</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input
+                formControlName="presentation"
+                matInput
+                name="presentation"
+                min="0"
+                placeholder="Presentation"
+                value="{{ presentation }}"
+                readonly
+              />
+              <mat-error>Presentation is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label class="col-form-label"> Stock Unit</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input
+                formControlName="doseUnitId"
+                matInput
+                name="Doseunit"
+                min="0"
+                placeholder="Unit"
+                value="{{ unit }}"
+                readonly
+              />
+              <mat-error> Dose Unit is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <label class="col-form-label">Stock Balance</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input formControlName="stock" matInput name="stock" min="0" placeholder="stock" value="{{ stock }}" />
+              <mat-error>Stock is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label class="col-form-label">Dose <span class="text-danger">*</span></label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input
+                formControlName="dosage"
+                matInput
+                name="Dose"
+                min="0"
+                placeholder="Dose"
+                onkeypress="return event.charCode <= 57"
+              />
+              <mat-error>Dose is required</mat-error>
+            </mat-form-field>
+          </div>
+          <!-- </div>
+        <br />
+        <div class="form-group row"> -->
+          <div class="col-md-6">
+            <label class="col-form-label">Dose Unit<span class="text-danger">*</span>:</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select formControlName="unitId">
+                <mat-option></mat-option>
+                <mat-option *ngFor="let doseUnit of doseUnits" [value]="doseUnit.id">{{
+                  doseUnit.unitType
+                }}</mat-option>
+              </mat-select>
+              <mat-error>Unit is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label class="col-form-label"> Route<span class="text-danger">*</span></label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select formControlName="routeId">
+                <mat-option value="">Select Route</mat-option>
+                <mat-option *ngFor="let route of routes" [value]="route.id">{{ route.routeName }}</mat-option>
+              </mat-select>
+              <mat-error>Route is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <label class="col-form-label">Frequency<span class="text-danger">*</span></label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select formControlName="frequencyId">
+                <mat-option></mat-option>
+                <mat-option value="">Select Frequency</mat-option>
+
+                <mat-option *ngFor="let freq of frequencies" [value]="freq.id">{{ freq.frequencyName }}</mat-option>
+              </mat-select>
+              <mat-error>Frequency is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <br />
+
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label class="col-form-label">Duration (Days)<span class="text-danger">*</span></label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input
+                formControlName="duration"
+                matInput
+                name="duration"
+                min="0"
+                placeholder="Duration"
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+              />
+              <mat-error>Duration is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    *ngIf="actionType === 'ADD'"
+    mat-raised-button
+    [disabled]="!medicationForm.valid"
+    color="primary"
+    (click)="saveMedication()"
+  >
+    Add
+  </button>
+  <button
+    *ngIf="actionType === 'EDIT'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!medicationForm.valid"
+    (click)="updateMedication()"
+  >
+    Update
+  </button>
+
+  <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

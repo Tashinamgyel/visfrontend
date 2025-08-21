@@ -1,0 +1,140 @@
+<mat-card class="example-card">
+  <form class="form-horizontal" [formGroup]="registrationDetails">
+    <div class="col-md-12">
+      <label class="col-form-label"><h5>Patient ID</h5></label><br />
+      <mat-form-field appearance="outline" style="width: 50%">
+        <input type="text" matInput formControlName="registrationNo" />
+      </mat-form-field>
+      <button (click)="getRegistrationNumber()" color="primary" mat-raised-button>
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+    <br /><br />
+    <!-- styleSheetFile="assets/css/custome1.css" -->
+    <button [useExistingCss]="true" mat-raised-button color="accent" printSectionId="printsection" ngxPrint>
+      <mat-icon>print</mat-icon>&nbsp;Print
+    </button>
+    <!-- Certificate -->
+    <mat-card id="printsection">
+      <div class="my-3 my-md-3">
+        <div class="container">
+          <div class="card">
+            <!-- <form class="form-horizontal" [formGroup]="registrationDetails"> -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12" align="center">
+                  <td>
+                    <img class="Header" style="width: 100%; height: auto" src="/assets/print.png " />
+                  </td>
+                </div>
+                <div class="col-md-12">
+                  <hr style="margin-left: 30px; margin-right: 30px" />
+                </div>
+                <div class="col-md-12">
+                  <h5 class="p-2" style="padding-top: 10px; text-align: center">
+                    VACCINATION CERTIFICATE (INDIVIDUAL)
+                  </h5>
+                </div>
+                <br />
+                <div class="col-md-12" style="margin-left: 30px; margin-right: 30px">
+                  <label><b>Date of Issue:</b> <input type="date" /></label>
+                </div>
+                <div class="col-md-12">
+                  <hr style="margin-left: 30px; margin-right: 30px; border-top: 1px solid rgb(0, 0, 0)" />
+                </div>
+                <div class="col-md-12" style="margin-left: 30px; margin-right: 30px">
+                  <h5 class="col-form-label" style="text-align: center"><b>Owner Details</b></h5>
+
+                  <table align="center" style="width: 100%">
+                    <tr>
+                      <td><u>Nationality</u>:{{ nationality }}</td>
+                      <td><u>Country</u>:{{ countryName === '' ? 'NA' : countryName }}</td>
+                      <td><u>CID Number</u>:{{ cidNumber }}</td>
+                    </tr>
+                    <tr>
+                      <td><u>Passport/Work Permit No.</u>:{{ passportNumber }}</td>
+                      <td><u>Name</u>:{{ ownerName }}</td>
+                      <td><u>Dzongkhag</u>:{{ dzongkhagName }}</td>
+                    </tr>
+                    <tr>
+                      <td><u>Gewog</u>:{{ gewogName }}</td>
+                      <td><u>Village</u>:{{ villageName }}</td>
+                      <td><u>Locality</u>:{{ localPlace }}</td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="col-md-12">
+                  <hr style="margin-left: 30px; margin-right: 30px; border-top: 1px solid rgb(0, 0, 0)" />
+                </div>
+                <div class="col-md-12" style="margin-left: 30px; margin-right: 30px">
+                  <h5 class="col-form-label" style="text-align: center"><b>Animal Details</b></h5>
+
+                  <table align="center" style="width: 100%">
+                    <tr>
+                      <td><u>Pet Reg. No.</u>:{{ petRegistrationNumber }}</td>
+                      <td><u>Patient ID</u>:{{ patientId }}</td>
+                      <td><u>Animal Name</u>:{{ animalName }}</td>
+                    </tr>
+                    <tr>
+                      <td><u>Species</u>: {{ speciesName }}</td>
+                      <td><u>Animal Type</u>:{{ animalType }}</td>
+                      <td><u>Breed</u>:{{ breed }}</td>
+                    </tr>
+                    <tr>
+                      <td><u>Age (Y-M-D)</u>:{{ year }}/{{ month }}/{{ day }}</td>
+                      <td><u>Sex</u>:{{ sex }}</td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="col-md-12">
+                  <hr style="margin-left: 30px; margin-right: 30px; border-top: 1px solid rgb(0, 0, 0)" />
+                </div>
+
+                <div class="col-md-12" style="margin-left: 30px; margin-right: 30px">
+                  <h5 class="col-form-label" style="text-align: center"><b>Vaccination Details</b></h5>
+                  <table style="margin-left: 10%; width: 70%; border: 1px solid black" border=".5">
+                    <tr align="center" style="width: 100%">
+                      <th><b>Date of Vaccination</b></th>
+                      <th><b>Type of Vaccines</b></th>
+                    </tr>
+                    <tr align="center" *ngFor="let element of vacineDetails">
+                      <td>{{ element.treatmentDate | date }}</td>
+                      <td>{{ element.vaccineType.vaccineName }}</td>
+                    </tr>
+                  </table>
+                </div>
+                <br />
+                <br />
+                <div class="col-md-12" style="text-align: center">
+                  <label class="col-form-label">
+                    “This is to certify that the above-mentioned animal has been vaccinated as shown in the above
+                    table.”
+                  </label>
+                </div>
+                <br /><br />
+                <div class="col-md-12" style="text-align: center">
+                  <label class="col-form-label" style="margin-left: 20px"
+                    ><b> Validity: Till <input type="date" /></b
+                  ></label>
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <div class="col-md-12">
+                  <p class="col-form-label" style="text-align: center"><b>This is a report electronically generated from the Veterinary Information System (VIS) of Bhutan.<br>To verify the authenticity of this report, please contact National Centre for Animal Health,<br> Serbithang (www.ncah.gov.bt)</b></p>
+                </div>
+              </div>
+            </div>
+            <!-- </form> -->
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </form>
+</mat-card>

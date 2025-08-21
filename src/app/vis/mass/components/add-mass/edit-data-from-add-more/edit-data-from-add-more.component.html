@@ -1,0 +1,133 @@
+<mat-card>
+  <table align="center" [formGroup]="editFrom">
+    <div>
+      <div class="col-md-6" appearance="outline" class="example-full-width">
+        <label class="col-form-label"><b> Date</b> <span class="text-danger">*</span>:</label>
+        <input formControlName="treatementDate" matInput name="male" />
+      </div>
+      <br /><br />
+
+      <div class="col-md-6">
+        <label class="col-form-label">Species</label>
+        <input formControlName="speciesId" matInput name="male" />
+      </div>
+
+      <div class="col-md-6">
+        <label class="col-form-label"> Animal Type<span class="text-danger">*</span>:</label>
+        <input formControlName="animalTypeId" matInput name="male" />
+      </div>
+
+      <div class="col-md-6">
+        <label class="col-form-label"> Breed<span class="text-danger">*</span>:</label>
+        <input formControlName="breedId" matInput name="male" />
+      </div>
+      <br /><br />
+
+      <div class="col-md-6">
+        <label class="col-form-label"> Service<span class="text-danger">*</span>:</label>
+        <input formControlName="treatment" matInput name="male" />
+      </div>
+      <br />
+    </div>
+
+    <mat-toolbar class="titleTopic">
+      <h6 class="p-2;" style="padding-top: 5px; padding-left: 5px">Number of animals</h6>
+    </mat-toolbar>
+    <div class="container">
+      <div class="form-group row">
+        <div class="row gutters-xs">
+          <div class="col-6" *ngIf="initialAgeForPoultry" style="margin-top: 10px">
+            <label class="col-form-label"> Age<span class="text-danger">*</span></label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select>
+                <mat-option></mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6" *ngIf="ageForPoultry" style="margin-top: 10px">
+            <label class="col-form-label"> Age<span class="text-danger">*</span></label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select formControlName="age" (selectionChange)="refreshForm()">
+                <mat-option></mat-option>
+                <mat-option value="chick">Chick</mat-option>
+                <mat-option value="pullet">Pullet</mat-option>
+                <mat-option value="adult">Adult</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6" *ngIf="ageForOthers" style="margin-top: 10px">
+            <label class="col-form-label"> Age<span class="text-danger">*</span></label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-select formControlName="age" (selectionChange)="refreshForm()">
+                <mat-option></mat-option>
+                <mat-option value="Adult">Adult</mat-option>
+                <mat-option value="Young">Young</mat-option>
+              </mat-select>
+              <!-- <mat-error>Age is required</mat-error> -->
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6" *ngIf="maleHidden">
+            <label class="col-form-label">Male</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input
+                (change)="choose($event.target.name)"
+                formControlName="male"
+                matInput
+                name="male"
+                min="0"
+                placeholder="Male"
+                type="number"
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+              />
+              <!-- <mat-error>Male is required</mat-error> -->
+            </mat-form-field>
+          </div>
+          <div class="col-md-6" *ngIf="femaleHidden" style="margin-top: 10px">
+            <label class="col-form-label">Female </label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input
+                (change)="choose($event.target.name)"
+                formControlName="female"
+                matInput
+                name="female"
+                min="0"
+                placeholder="Female"
+                type="number"
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+              />
+              <!-- <mat-error>Female is required</mat-error> -->
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6" *ngIf="mixedHidden" style="margin-top: 10px">
+            <label class="col-form-label">Mixed</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input
+                (change)="choose($event.target.name)"
+                formControlName="mixed"
+                matInput
+                name="mixed"
+                min="0"
+                placeholder="Mixed"
+                type="number"
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+              />
+              <!-- <mat-error>Mixed is required</mat-error> -->
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6" style="margin-top: 10px">
+            <label class="col-form-label">Total</label>
+            <mat-form-field appearance="outline" class="example-full-width">
+              <input formControlName="total" matInput name="total" placeholder="Total" readonly />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="update()">Update</button>
+  </table>
+</mat-card>

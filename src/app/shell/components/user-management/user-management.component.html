@@ -1,0 +1,14 @@
+<div class="mat-list-user" *ngFor="let route of userManagements">
+  <button
+    (click)="(isMobile)"
+    [mat-dialog-close]=""
+    cdkFocusInitial
+    color="white"
+    mat-raised-button
+    routerLink="{{ route.route }}"
+    routerLinkActive="active"
+    class="button-width"
+  >
+    {{ route.name }}
+  </button>
+</div>

@@ -1,0 +1,195 @@
+<div class="card-body" id="printsection">
+  <table align="center">
+    <tr>
+      <td>
+        <img class="BHTAN_SYMBOL" style="width: 163px; height: 147px; margin-left: -30px" src="/assets/Bhutan.png " />
+      </td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>
+        <h5 class="p-2" style="padding-top: 10px; text-align: center; font-size: small">
+          <strong>དཔལ་ལྡན་འབྲུག་གཞུང།</strong>
+        </h5>
+        <h5 class="p-2" style="text-align: center; font-size: small">
+          <strong>སོ་ནམ་དང་ནགས་ཚལ་ལྷན་ཁག།སྒོ་ནོར་ལས་ཁུང།</strong>
+        </h5>
+        <h5 class="p-2" style="text-align: center; font-size: small">Royal Government of Bhutan</h5>
+        <h5 class="p-2" style="text-align: center; font-size: small">Ministry of Agriculture and Forest</h5>
+        <h5 class="p-2" style="text-align: center; font-size: small">Department of Livestock</h5>
+        <h5 class="p-2" style="text-align: center; font-size: small">Thimphu</h5>
+      </td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>
+        <img
+          class="transparent DOL"
+          style="width: 115px; height: 101px; margin-top: -30px"
+          src="/assets/transparent DOL.png "
+        />
+      </td>
+    </tr>
+  </table>
+
+  <div class="col-md-12">
+    <hr style="width: 100%; text-align: left; margin-left: 0" border="1" />
+  </div>
+
+  <div align="center" style="width: 100%">
+    <h5 style="color: white; background-color: #03a9f4">Owner Details</h5>
+
+    <!-- Owner Details to be shown here -->
+    <table>
+      <tr>
+        <td>Nationality:</td>
+        <td colspan="4" align="left">
+          <input value="{{ nationalityChecking }}" readonly />
+        </td>
+      </tr>
+      <tr>
+        <td>CID Number:</td>
+        <td colspan="4" align="left">
+          <input value="{{ ownerDetails.cidNumber }}" readonly />
+        </td>
+      </tr>
+      <tr>
+        <td>Email ID:</td>
+        <td colspan="4" align="left">
+          <input value="{{ ownerDetails.emailId }}" readonly />
+        </td>
+      </tr>
+
+      <tr></tr>
+      <tr></tr>
+      <br />
+
+      <tr>
+        <td>Dzongkhag: <input value="{{ ownerDetails.dzongkhagId.dzongkhagName }}" readonly /></td>
+        <td>Gewog: <input value="{{ ownerDetails.gewogId.gewogName }}" readonly /></td>
+        <td>village: <input value="{{ ownerDetails.villageId.villageName }}" readonly /></td>
+        <td>Locality: <input value="{{ ownerDetails.locality }}" readonly /></td>
+      </tr>
+      <tr>
+        <!-- <td>
+                    Locality: 
+                </td> -->
+        <td>Mobile Number: <input value="{{ ownerDetails.mobileNumber }}" readonly /></td>
+        <td>Animal Ownership Type: <input value="{{ ownerDetails.ownershipTypeId.ownerType }}" readonly /></td>
+      </tr>
+    </table>
+  </div>
+  <br /><br />
+
+  <div align="center" style="width: 100%">
+    <h5 style="color: white; background-color: #03a9f4">Animal Details and Service</h5>
+
+    <!-- animal details and service to be shown here -->
+    <table style="width: 100%">
+      <tr>
+        <td colspan="3" align="center">
+          <table border="1" style="width: 100%">
+            <!-- <tr align="center">
+                           <th colspan="5">General Information</th>
+                       </tr> -->
+            <tr align="center">
+              <th>Date</th>
+              <th>Species</th>
+              <th>Animal Type</th>
+              <th>Breed</th>
+              <th>Service</th>
+            </tr>
+            <tr align="center" *ngFor="let animalDetails of animalDetails">
+              <td>{{ animalDetails.data[0].treatementDate | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ animalDetails.data[0].speciesId.speciesName }}</td>
+              <td>{{ animalDetails.data[0].animalTypeId.animalType }}</td>
+              <td>{{ animalDetails.data[0].breedId.breedName }}</td>
+              <td>{{ animalDetails.data[0].treatment }}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <br />
+      <!-- <tr>
+                <td colspan="3" align="center">
+                    <table border="1" style="width: 100%;">
+                        <tr align="center">
+                            <th colspan="5">Number of Animals</th>
+                        </tr>
+                        <tr align="center">
+                            <th>Age</th>
+                            <th>Female</th>
+                            <th>Male</th>
+                            <th>Mixed</th>
+                            <th>Total</th>
+                        </tr>
+                        <tr align="center" *ngFor="let animalDetails of animalDetails">
+                           <td>{{animalDetails.data[0].age}}</td>
+                           <td>{{animalDetails.data[0].female}}</td>
+                           <td>{{animalDetails.data[0].male}}</td>
+                           <td>{{animalDetails.data[0].mixed}}</td>
+                           <td>{{animalDetails.data[0].total}}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>           -->
+    </table>
+  </div>
+  <br /><br />
+
+  <!-- <div align="center" style="width: 100%">       
+        <h5 style="color: white; background-color: #03a9f4;">Medications</h5>
+
+        <table border="1" style="width: 100%;">
+            <tr align="center">
+                <th>Class Name</th>
+                <th>Composition</th>
+                <th>Presentation</th>
+                <th>Dose</th>
+                <th>Unit</th>
+                <th>Duration</th>
+                <th>Frequency</th>
+                <th>Medicine</th>
+                <th>Route</th>
+                <th>Available Stock</th>
+            </tr>
+            <tr align="center" *ngFor="let medicationDetails of medicationDetails">
+                <td>{{medicationDetails.medicationData[0].classId.className}}</td>
+                <td>{{medicationDetails.medicationData[0].compositionId}}</td>
+                <td>{{medicationDetails.medicationData[0].presentationId}}</td>
+                <td>{{medicationDetails.medicationData[0].dosage}}</td>
+                <td>{{medicationDetails.medicationData[0].unit}}</td>
+                <td>{{medicationDetails.medicationData[0].duration}}</td>
+                <td>{{medicationDetails.medicationData[0].frequencyId.frequencyName}}</td>
+                <td>{{medicationDetails.medicationData[0].medicineId.medicineName}}</td>
+                <td>{{medicationDetails.medicationData[0].routeId.routeName}}</td>
+                <td>{{medicationDetails.medicationData[0].stockAvailability}}</td>
+            </tr>
+        </table>
+    </div><br><br>
+
+    <div align="center" style="width: 100%">       
+        <h5 style="color: white; background-color: #03a9f4;">Vaccination</h5>
+
+
+        <table border="1" style="width: 100%;">
+            <tr align="center">
+                <th>Vaccination State</th>
+                <th>Vaccine</th>
+            </tr>
+            <tr align="center" *ngFor="let vaccinationDetails of vaccinationDetails">
+                <td>{{vaccinationDetails[0].vaccination[0].vaccinationState}}</td>
+                <td>{{vaccinationDetails[0].vaccination[0].vaccineType.vaccineName}}</td>
+            </tr>
+        </table>
+    </div> -->
+</div>
+
+<div>
+  <button mat-raised-button mat-dialog-close color="accent">Cancel</button>
+  <button
+    styleSheetFile="assets/css/custome1.css"
+    mat-raised-button
+    color="accent"
+    printSectionId="printsection"
+    ngxPrint
+  >
+    <mat-icon>print</mat-icon>&nbsp;Print
+  </button>
+</div>

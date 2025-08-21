@@ -1,0 +1,41 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>List of Age Group </mat-card-title>
+    <div fxFlex></div>
+    <mat-card-actions>
+      <button mat-raised-button (click)="openAddModal()" color="primary"><mat-icon>add</mat-icon> Add</button>
+    </mat-card-actions>
+  </mat-card-header>
+  <table mat-table [dataSource]="ageGroup" matSort class="mat-elevation-z1">
+    <ng-container matColumnDef="slno">
+      <!-- here ageName in  -->
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        {{ paginator.pageIndex * paginator.pageSize + (i + 1) }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Animal Age Group</th>
+      <td mat-cell *matCellDef="let element">{{ element.ageName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="editAgeGroup(element.id)" class="edit-button">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <th class="table-heading" mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="deleteAgeGroup(element.id)" class="delete-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20, 100]" showFirstLastButtons></mat-paginator>
+</mat-card>

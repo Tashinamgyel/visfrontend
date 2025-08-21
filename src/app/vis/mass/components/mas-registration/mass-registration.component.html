@@ -1,0 +1,246 @@
+<mat-card>
+  <div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
+    <div fxFlex class="button-component-holder mat-elevation-z4">
+      <div *ngIf="!registered">
+        <mat-toolbar class="button-header">
+          <h5 class="p-2" style="padding-top: 10px; margin-left: 16px">Mass Registration</h5>
+        </mat-toolbar>
+
+        <div *ngIf="clickedData" style="margin: 5% auto auto auto">
+          <form [formGroup]="massRegistrationFormForSearch">
+            <div class="col-md-12">
+              <label class="col-form-label"><h5>Mass Registration Number(MRN)</h5></label><br />
+              <mat-form-field appearance="outline" style="width: 50%">
+                <input type="text" matInput formControlName="massRegistrationNoForSearch" />
+                <mat-error>Enter Mass Registration Number(MRN)</mat-error>
+              </mat-form-field>
+              <button (click)="getMassRegistrationNumber()" color="primary" mat-raised-button>
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="button-container">
+          <form [formGroup]="massRegistrationForm" class="form-horizontal">
+            <div class="container">
+              <h4>Owner Detail</h4>
+              <div class="form-group row">
+                <mat-radio-group
+                  (change)="changeNationality($event.value)"
+                  aria-label="Select an option"
+                  class="mat-radio-group p-3"
+                  formControlName="nationality"
+                >
+                  <mat-radio-button [value]="1">Bhutanese</mat-radio-button>
+                  <mat-radio-button [value]="2">Bhutanese without CID/ Non-Bhutanese</mat-radio-button>
+                </mat-radio-group>
+              </div>
+
+              <div class="form-group row">
+                <div *ngIf="nationality === true" class="col-md-6">
+                  <label class="col-form-label">CID Number<span class="text-danger">*</span></label>
+                  <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]="false">
+                    <input
+                      matInput
+                      formControlName="cidNumber"
+                      (change)="getCitizen($event.target.value)"
+                      maxlength="11"
+                      minlength="11"
+                      name="cidNumber"
+                      placeholder="CID Number"
+                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                    />
+                    <mat-error>Enter Valid CID Number</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div *ngIf="nationality === false" class="col-md-6">
+                  <label class="col-form-label">ID/ Passport/ Permit No<span class="text-danger">*</span></label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <input
+                      formControlName="passportNumber"
+                      matInput
+                      name="passportNumber"
+                      placeholder="Passport/Work Permit Number"
+                    />
+                    <mat-error>Passport/Work Permit Number is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <br />
+                <div class="col-md-6">
+                  <label class="col-form-label">Owner Name<span class="text-danger">*</span></label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <input
+                      formControlName="ownerName"
+                      id="ownerName"
+                      matInput
+                      name="ownerName"
+                      placeholder="Owner Name"
+                    />
+                    <mat-error>Owner Name is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <br />
+              <div class="form-group row">
+                <div align="left" class="col-md-6" *ngIf="nationality === false">
+                  <label class="col-form-label">Country<span class="text-danger">*</span></label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-select formControlName="countryId">
+                      <mat-option *ngFor="let country of countrys" [value]="country.id">{{
+                        country.countryName
+                      }}</mat-option>
+                    </mat-select>
+                    <mat-error>Country is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div align="left" class="col-md-6" *ngIf="nationality === false"></div>
+              </div>
+              <br />
+
+              <h5>Present Address</h5>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label class="col-form-label">Dzongkhag<span class="text-danger">*</span></label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-select
+                      (selectionChange)="getGewogs($event.value.id)"
+                      [compareWith]="compareObjects"
+                      formControlName="dzongkhagId"
+                    >
+                      <mat-option value="">Select Dzongkhag</mat-option>
+                      <mat-option *ngFor="let dzongkhag of dzongkhags" [value]="dzongkhag">{{
+                        dzongkhag.dzongkhagName
+                      }}</mat-option>
+                    </mat-select>
+                    <mat-error>Dzongkhag is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <label class="col-form-label">Gewog<span class="text-danger">*</span></label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-select
+                      (selectionChange)="getVillage($event.value.id)"
+                      [compareWith]="compareObjects"
+                      formControlName="gewogId"
+                    >
+                      <mat-option value="">Select Gewog</mat-option>
+                      <mat-option *ngFor="let gewog of gewogs" [value]="gewog">{{ gewog.gewogName }}</mat-option>
+                    </mat-select>
+                    <mat-error>Gewog is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <br />
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label class="col-form-label">Village</label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-select formControlName="villageId">
+                      <mat-option value="">Select Village</mat-option>
+                      <mat-option *ngFor="let village of villages" [value]="village">{{
+                        village.villageName
+                      }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="col-form-label">Locality</label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <input
+                      appearance="outline"
+                      formControlName="locality"
+                      matInput
+                      name="locality"
+                      placeholder="Locality"
+                    />
+                    <mat-error>Locality is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <br />
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label class="col-form-label">Mobile Number<span class="text-danger">*</span> </label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <input
+                      appearance="outline"
+                      formControlName="mobileNumber"
+                      matInput
+                      minlength="8"
+                      maxlength="8"
+                      name="mobileNumber"
+                      placeholder="Mobile Number"
+                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                    />
+                    <mat-error>Mobile Number is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <label class="col-form-label">Email ID </label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <input
+                      appearance="outline"
+                      formControlName="emailId"
+                      matInput
+                      name="emailId"
+                      placeholder="Email ID"
+                    />
+                    <mat-error>Email ID is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <br />
+
+              <div class="form-group row" *ngIf="forBhutanese">
+                <div class="col-md-6">
+                  <label class="col-form-label">Animal Ownership Type <span class="text-danger">*</span></label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-select formControlName="ownershipTypeId" [compareWith]="compareObjects">
+                      <mat-option></mat-option>
+                      <mat-option *ngFor="let ownershipType of animalTypeForBhutanese" [value]="ownershipType">{{
+                        ownershipType.ownerType
+                      }}</mat-option>
+                    </mat-select>
+                    <mat-error>Animal Ownership Type is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="form-group row" *ngIf="forNonBhutanese">
+                <div class="col-md-6">
+                  <label class="col-form-label">Animal Ownership Type <span class="text-danger">*</span></label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-select formControlName="ownershipTypeId" [compareWith]="compareObjects">
+                      <mat-option value="">Select Animal Ownership Type</mat-option>
+                      <mat-option *ngFor="let ownershipType of animalTypeForNonBhutanese" [value]="ownershipType">{{
+                        ownershipType.ownerType
+                      }}</mat-option>
+                    </mat-select>
+                    <mat-error>Animal Ownership Type is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="form-group row"></div>
+            </div>
+
+            <mat-card-actions>
+              <button (click)="massConfirmation()" class="save-button" style="margin-left: 2em" mat-raised-button>
+                Submit
+              </button>
+
+              <!-- <button (click)="submitMassDog()" class="save-button" style="margin-left: 2em" mat-raised-button>
+                Submit
+              </button> -->
+            </mat-card-actions>
+          </form>
+        </div>
+      </div>
+
+      <treatment-details *ngIf="registered" [massRegistrationDetails]="massRegistrationDetails"></treatment-details>
+    </div>
+  </div>
+</mat-card>

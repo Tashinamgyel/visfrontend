@@ -1,0 +1,176 @@
+<mat-card id="printsection">
+  <div class="my-3 my-md-3">
+    <div class="container">
+      <div class="col-md-12" align="center">
+        <td>
+          <img class="Header" style="width: 95vh; height: 20vh" src="/assets/print.png " />
+        </td>
+      </div>
+
+      <div class="col-md-12">
+        <hr style="width: 100%; text-align: left; margin-left: 0" />
+      </div>
+
+      <div class="col-md-12">
+        <h5 class="p-2" style="padding-top: 10px; text-align: center">VETERINARY CLINICAL CASE SHEET</h5>
+      </div>
+      <br />
+
+      <div align="left">
+        <table style="width: 100%">
+          <tr>
+            <td>Name of the Centre:{{ useCenter }}</td>
+            <td>Dzongkhag:{{ ownerDzongkhang }}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-md-12">
+        <hr style="width: 100%; text-align: left; margin-left: 0" />
+      </div>
+
+      <div align="left">
+        <u><strong>Owner details</strong></u>
+        <table align="center" style="width: 100%">
+          <tr>
+            <td>CID number:{{ ownerCidNumnber }}</td>
+            <td>Name:{{ ownerName }}</td>
+            <td>Dzongkhag:{{ ownerDzongkhang }}</td>
+          </tr>
+          <tr>
+            <td>Gewog:{{ ownerGewog }}</td>
+            <td>Village:{{ ownerVillage }}</td>
+            <td>Locality:{{ ownerLocality }}</td>
+          </tr>
+        </table>
+      </div>
+      <br />
+
+      <div class="col-md-12">
+        <hr style="width: 100%; text-align: left; margin-left: 0" />
+      </div>
+
+      <div align="left">
+        <u><strong>Animal details</strong></u>
+        <table align="center" style="width: 100%">
+          <tr>
+            <td>PID number: {{ animalPIDNumber }}</td>
+            <td>Animal name:{{ animalName }}</td>
+            <td>Species:{{ animalSpecies }}</td>
+            <td>Animal Type:{{ animalType }}</td>
+          </tr>
+          <tr>
+            <td>Breed: {{ animalBreed }}</td>
+            <td>Age (Year/Month/Day):{{ animalYear }}/{{ animalMonth }}/{{ animalDay }}</td>
+            <td>Sex:{{ animalSex }}</td>
+            <td>Body weight:{{ animalBodyWeight }}</td>
+          </tr>
+        </table>
+      </div>
+      <br />
+
+      <div class="col-md-12">
+        <hr style="width: 100%; text-align: left; margin-left: 0" />
+      </div>
+      <div align="left">Date of treatment:{{ treatmentDate | date }}</div>
+      <br />
+      <div
+        class="mat-card-content"
+        style="width: auto; padding: 5px; height: auto; text-align: center; border: 1px solid #787878"
+      >
+        <div align="left">
+          <table align="center" style="width: 100%">
+            <tr>
+              <td>1. Anamnesis (case history):{{ clinicalAnamnesis }}</td>
+            </tr>
+            <tr>
+              <td>2. Observation:{{ clinicalObservation }}</td>
+            </tr>
+            <tr>
+              <td>
+                3. Tentative diagnosis:
+                <div style="margin-left: 4%">
+                  <span>System:{{ systemName }}</span
+                  ><br />
+                  <span>Conditions:{{ conditionName }}</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>4. Diagnostic test(s) request:{{ clinicalTestData }}</td>
+            </tr>
+            <!-- <tr>
+              <td>5. Final diagnosis:{{ clinicalFinalDiagnosis }}</td>
+            </tr> -->
+            <tr>
+              <td>
+                5. Final diagnosis:
+                <div style="margin-left: 4%">
+                  <span>System:{{ finalSystemName }}</span
+                  ><br />
+                  <span>Conditions:{{ finalConditionsName }}</span>
+                  <span *ngIf="dontShow">Conditions:{{ conditionName }}</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                6. Treatment
+                <table align="center">
+                  <li style="list-style-type: none">6.1. Procedure(s):{{ clinicalTreatmentProcedure }}</li>
+                  <li style="list-style-type: none">
+                    6.2. Medications:
+                    <br />
+                    <table align="left" border="1" style="width: 100%">
+                      <tr align="center">
+                        <th>Sl.No</th>
+                        <th>Medicine Class</th>
+                        <th>Medicine Name</th>
+                        <th>Dose</th>
+                        <th>Dose Unit</th>
+                        <th>Route</th>
+                        <th>Frequency</th>
+                        <th>Duration</th>
+                      </tr>
+                      <tr align="center" *ngFor="let mediacDetail of mediacDetails; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ mediacDetail.classEntity.className }}</td>
+                        <td>{{ mediacDetail.medicineEntity.medicineName }}</td>
+                        <td>{{ mediacDetail.dosage }}</td>
+                        <td>{{ mediacDetail.unit.unitType }}</td>
+                        <td>{{ mediacDetail.route.routeName }}</td>
+                        <td>{{ mediacDetail.frequency.frequencyName }}</td>
+                        <td>{{ mediacDetail.duration }}</td>
+                      </tr>
+                    </table>
+                  </li>
+                </table>
+              </td>
+              <td></td>
+            </tr>
+            <br />
+            <tr>
+              <td>7. Advice:{{ clinicalAdvice }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+      <div class="col-md-12">
+        <p class="col-form-label" style="text-align: center"><b>(Seal and signature)</b></p>
+      </div>
+    </div>
+  </div>
+</mat-card>
+
+<button
+  styleSheetFile="assets/css/custome1.css"
+  mat-raised-button
+  color="accent"
+  printSectionId="printsection"
+  ngxPrint
+>
+  <mat-icon>print</mat-icon>&nbsp;Print
+</button>
+<button mat-raised-button color="accent" mat-dialog-close>Close</button>

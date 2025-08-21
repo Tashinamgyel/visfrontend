@@ -1,0 +1,180 @@
+<div class="col-md-12 col-lg-12 custom-example">
+  <mat-card>
+    <mat-card-header class="p-3 pl-lg-0">
+      <mat-card-title>Patient Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="form-group row">
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"><b>Patient ID : </b></mat-label>
+          <mat-label class="col-lg-6">{{ registeredDetails?.patientId }}</mat-label>
+        </div>
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"><b>Ear Tag No. :</b></mat-label>
+          <mat-label class="col-lg-6">{{ registeredDetails?.earTagNumber }}</mat-label>
+        </div>
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"><b>Microchip No. :</b></mat-label>
+          <mat-label class="col-lg-6">{{ registeredDetails?.microchipNumber }}</mat-label>
+        </div>
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"><b>Pet Registration No. :</b></mat-label>
+          <mat-label class="col-lg-6">{{ registeredDetails?.petRegistrationNumber }}</mat-label>
+        </div>
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"><b>Animal Name :</b></mat-label>
+          <mat-label class="col-lg-6">{{ registeredDetails?.animalName }}</mat-label>
+        </div>
+      </div>
+    </mat-card-content>
+    <hr />
+    <mat-card-header class="p-3 pl-lg-0">
+      <mat-card-title>Owner Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="form-group row">
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"> <b> Citizenship ID No:</b></mat-label>
+          <mat-label class="col-lg-6"> {{ registeredDetails?.cidNumber }}</mat-label>
+        </div>
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"> <b>Name:</b></mat-label>
+          <mat-label class="col-lg-6">{{ registeredDetails?.ownerName }}</mat-label>
+        </div>
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"> <b>Dzongkhag:</b></mat-label>
+          <mat-label class="col-lg-6">{{ registeredDetails?.dzongkhag['dzongkhagName'] }}</mat-label>
+        </div>
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"> <b>Gewog:</b></mat-label>
+          <mat-label class="col-lg-6">{{ registeredDetails?.gewog['gewogName'] }}</mat-label>
+        </div>
+
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"><b>Locality:</b> </mat-label>
+          <mat-label class="col-lg-6">{{ registeredDetails?.locality }}</mat-label>
+        </div>
+
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"> <b>Mobile Number:</b></mat-label>
+          <mat-label class="col-lg-6">{{ registeredDetails?.mobileNumber }}</mat-label>
+        </div>
+
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"> <b>Email:</b></mat-label>
+          <mat-label class="col-lg-6">{{ registeredDetails?.emailId }}</mat-label>
+        </div>
+      </div>
+    </mat-card-content>
+    <hr />
+
+    <mat-card-header class="p-3 pl-lg-0">
+      <mat-card-title>Treatment Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="form-group row">
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"> <b>Treatment Date :</b></mat-label>
+          <mat-label class="col-lg-6"> {{ caseDetails?.treatmentDate | date }}</mat-label>
+        </div>
+      </div>
+      <h5 class="p-4" style="padding-top: 20px">Case History</h5>
+      <br />
+      <div class="form-group row">
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-2"> <b>Anamnesis(Case History) :</b></mat-label>
+          <mat-label class="col-lg-10">{{ caseDetails?.anamnesisHistory }}</mat-label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-2"><b>Observation :</b> </mat-label>
+          <mat-label class="col-lg-10">{{ caseDetails?.observation }}</mat-label>
+        </div>
+      </div>
+      <h5 style="padding-top: 20px">Tentative Diagnosis</h5>
+      <br />
+      <div class="form-group row">
+        <div appearance="outline" class="col-lg-6 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"> <b>System :</b></mat-label>
+          <mat-label class="col-lg-6">{{ caseDetails?.systems['systemName'] }}</mat-label>
+        </div>
+        <div appearance="outline" class="col-lg-6 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"> <b>Conditions :</b></mat-label>
+          <mat-label class="col-lg-6">{{ caseDetails?.conditions['conditions'] }}</mat-label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-2"><b>Differntial Diagnosis :</b></mat-label>
+          <mat-label class="col-lg-10">{{ caseDetails?.clinicalCondition }}</mat-label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"> <b>Diagnostic test(s) requests :</b> </mat-label>
+          <mat-label class="col-lg-6"> {{ caseDetails?.testRequest }}</mat-label>
+        </div>
+      </div>
+      <h5 class="p-4" style="padding-top: 20px">Final Diagnosiss</h5>
+      <br />
+      <div class="form-group row">
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-6"><b>Diagnostic test :</b> </mat-label>
+          <mat-label class="col-lg-6">{{ caseDetails?.clinicalTest }}</mat-label>
+        </div>
+      </div>
+    </mat-card-content>
+    <hr />
+    <mat-card-header class="p-3 pl-lg-0">
+      <mat-card-title>Treatment</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="form-group row">
+        <div appearance="outline" class="col-lg-12 col-md-12 margin-bottom">
+          <mat-label class="col-lg-2"> <b>Procedure: </b></mat-label>
+          <mat-label class="col-lg-10"> {{ caseDetails?.procedures }}</mat-label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div appearance="outline" class="col-lg-4 col-md-12 margin-bottom">
+          <mat-label class="col-lg-2"> <b>Remarks: </b></mat-label>
+          <mat-label class="col-lg-10"> {{ caseDetails?.remarks }}</mat-label>
+        </div>
+      </div>
+      <!-- <h5 class="p-4" style="padding-top: 20px">Medications</h5>
+      <table align="left" border="1" style="width: 100%">
+          <tr align="center" style="color: white; background-color: #03a9f4; width: 100%">
+            <th>Class </th>
+            <th>Medicines</th>
+            <th>Composition</th>
+            <th>Presentation</th>
+            <th>Duration </th>
+            <th>Dosage</th>
+          </tr>
+           <tr align="center" *ngFor="let medicine of medicineDetails" > 
+            <tr> 
+            <td> {{medicine?.dosage}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr> 
+        </table> -->
+      <br />
+
+      <div class="form-group row">
+        <div appearance="outline" class="col-lg-12 col-md-12 margin-bottom">
+          <mat-label class="col-lg-2"> <b>Advice: </b></mat-label>
+          <mat-label class="col-lg-10"> {{ caseDetails?.advice }}</mat-label>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="align-center">
+      <button (click)="treatmentDetails()" color="" mat-raised-button>
+        <mat-icon class="user-button__icon"></mat-icon>&nbsp; Type of Service
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <treatment-registration *ngIf="showDetails" [registrationDetails]="registeredDetails"></treatment-registration>
+</div>

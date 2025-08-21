@@ -1,0 +1,363 @@
+<mat-card style="margin-bottom: 11%">
+  <div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
+    <div fxFlex class="button-component-holder mat-elevation-z4">
+      <mat-toolbar class="button-header">
+        <h5 class="p-2" style="padding-top: 20px; margin-left: 20px">Disease Outbreak Report</h5>
+      </mat-toolbar>
+      <div class="button-container">
+        <div class="container">
+          <form class="form-horizontal form" [formGroup]="outBreakReport">
+            <div class="container">
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label class="col-form-label" for="text-input"> From Date<span class="text-danger">*</span></label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <input matInput [matDatepicker]="pic" [max]="maxDate" readonly formControlName="fromDate" />
+                    <mat-datepicker-toggle matSuffix [for]="pic"></mat-datepicker-toggle>
+                    <mat-datepicker #pic></mat-datepicker>
+                    <mat-error>Date is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <label class="col-form-label" for="text-input"> To Date<span class="text-danger">*</span></label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <input matInput [matDatepicker]="pic1" [max]="maxDate" readonly formControlName="toDate" />
+                    <mat-datepicker-toggle matSuffix [for]="pic1"></mat-datepicker-toggle>
+                    <mat-datepicker #pic1></mat-datepicker>
+                    <mat-error>Date is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <br />
+
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label class="col-form-label" for="text-input">Dzongkhag </label>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-select formControlName="dzongkhagId" (selectionChange)="getGewogs($event.value)">
+                      <mat-option value="All">All</mat-option>
+                      <mat-option *ngFor="let dzongkhag of dzongkhags" [value]="dzongkhag.id">{{
+                        dzongkhag.dzongkhagName
+                      }}</mat-option>
+                    </mat-select>
+                    <mat-error>Dzongkhag is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <label class="col-form-label">Gewog </label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-select formControlName="gewogId">
+                      <mat-option value="All">All</mat-option>
+                      <mat-option *ngFor="let gewog of gewogs" [value]="gewog.id">{{ gewog.gewogName }}</mat-option>
+                    </mat-select>
+                    <mat-error>Gewog is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label class="col-form-label">Status (Ongoing/Resolved) </label>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-select formControlName="status">
+                      <mat-option value="All">All</mat-option>
+                      <mat-option value="Ongoing">Ongoing</mat-option>
+                      <mat-option value="Resolved">Resolved</mat-option>
+                    </mat-select>
+                    <mat-error>Status is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="form-group row">
+              <button color="accent" (click)="getReport()" mat-raised-button>Generate</button>
+            </div>
+          </form>
+        </div>
+        <div *ngIf="showReport">
+          <div *ngIf="loading" class="loader">
+            <span>Please wait, loading data...</span>
+          </div>
+          <div align="center">
+            <h5 class="p-4" style="padding-top: 20px"><b>Disease Outbreak Report</b></h5>
+          </div>
+          <mat-card-header>
+            <span class="element-spacer"></span>
+            <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+              <mat-button-toggle
+                value="excel"
+                (click)="exporter.exportTable('xlsx',{fileName:'Veterinary_Information_System_Report'})"
+                matTooltip="Export as excel"
+                matTooltipPosition="above"
+              >
+                <img src="../../assets/excel.svg" style="height: 50px; width: 50px" />
+              </mat-button-toggle>
+              <mat-button-toggle
+                value="excel"
+                (click)="exporter.exportTable('csv',{fileName:'Veterinary_Information_System_Report'})"
+                matTooltip="Export as csv"
+                matTooltipPosition="above"
+                ><img src="../../assets/csv-svgrepo-com.svg" style="height: 50px; width: 50px"
+              /></mat-button-toggle>
+            </mat-button-toggle-group>
+            &nbsp;
+            <mat-form-field class="px-16" style="width: 25%" appearance="outline">
+              <mat-label>Search</mat-label>
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search" />
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </mat-card-header>
+
+          <cdk-virtual-scroll-viewport
+            itemSize="5"
+            orientation="horizontal"
+            style="height: 400px"
+            class="example-viewport"
+          >
+            <table
+              mat-table
+              [dataSource]="dataSource"
+              matSort
+              class="mat-elevation-z1"
+              matTableExporter
+              #exporter="matTableExporter"
+            >
+              <!-- Position Column -->
+              <ng-container matColumnDef="slno">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="bboutbreak_id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>OID Number</th>
+                <td mat-cell *matCellDef="let element">{{ element.bboutbreak_id }}</td>
+              </ng-container>
+              <ng-container matColumnDef="caseDate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Index Case Date</th>
+                  <td mat-cell *matCellDef="let element">{{ element.caseDate }}</td>
+              </ng-container>
+              <ng-container matColumnDef="report">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Status (ongoing/resolved)</th>
+                  <td mat-cell *matCellDef="let element">{{ element.report }}</td>
+              </ng-container>
+              <ng-container matColumnDef="date_resolved">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Resolved Date</th>
+                <td mat-cell *matCellDef="let element">{{ element.date_resolved }}</td>
+              </ng-container> 
+              
+              <ng-container matColumnDef="aareport_status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Follow-up No.</th>
+               
+                <td mat-cell *matCellDef="let element">{{ element.aareport_status }}</td> 
+              </ng-container>
+
+              <ng-container matColumnDef="aafollow_up_date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Follow-up Date</th>
+                <td mat-cell *matCellDef="let element">{{ element.aafollow_up_date }}</td>
+              </ng-container>
+              
+              
+              <ng-container matColumnDef="bbcid_number">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>CID No.</th>
+                <td mat-cell *matCellDef="let element">{{ element.bbcid_number }}</td>
+              </ng-container> 
+
+              
+
+
+              <ng-container matColumnDef="bbowner_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Owner Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.bbowner_name }}</td> 
+              </ng-container>
+              <ng-container matColumnDef="bbdzongkhag_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Dzongkhag</th>
+                <td mat-cell *matCellDef="let element">{{ element.bbdzongkhag_name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="bbgewog_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Gewog</th>
+
+                <td mat-cell *matCellDef="let element">{{ element.bbgewog_name }}</td> 
+              </ng-container>
+              <ng-container matColumnDef="bbvillage_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Village</th>
+                 <td mat-cell *matCellDef="let element">{{ element.bbvillage_name }}</td> 
+              </ng-container>
+              <ng-container matColumnDef="bblocality">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Locality</th>
+                <td mat-cell *matCellDef="let element">{{ element.bblocality }}</td>
+              </ng-container>
+              <ng-container matColumnDef="bblatitude">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Latitude</th>
+                  <td mat-cell *matCellDef="let element">{{ element.bblatitude }}</td> 
+              </ng-container>
+              <ng-container matColumnDef="bblongitude">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Longitude</th>
+                   <td mat-cell *matCellDef="let element">{{ element.bblongitude }}</td>
+              </ng-container>
+              <ng-container matColumnDef="bbprimary_date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Primary Case Date</th>
+                   <td mat-cell *matCellDef="let element">{{ element.bbprimary_date }}</td> 
+              </ng-container> 
+              <ng-container matColumnDef="bbfarm_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Farming System</th>
+                   <td mat-cell *matCellDef="let element">{{ element.bbfarm_name }}</td> 
+              </ng-container>
+              <ng-container matColumnDef="bblast_vaccination_date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Date of Vaccination</th>
+                 <td mat-cell *matCellDef="let element">{{ element.bblast_vaccination_date }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="hhspecies_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Species</th>
+                <td mat-cell *matCellDef="let element">{{ element.hhspecies_name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="ccanimal_type">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Animal Type</th>
+                <td mat-cell *matCellDef="let element">{{ element.ccanimal_type }}</td>
+              </ng-container>
+              <ng-container matColumnDef="ccbreed_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Breed</th>
+                <td mat-cell *matCellDef="let element">{{ element.ccbreed_name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="ccstatus">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Status (Live/Dead)</th>
+                <td mat-cell *matCellDef="let element">{{ element.ccstatus }}</td>
+              </ng-container>
+              <ng-container matColumnDef="ccage">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Age</th>
+                <td mat-cell *matCellDef="let element">{{ element.ccage }}</td>
+              </ng-container>
+              <ng-container matColumnDef="ccmale">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Male</th>
+                <td mat-cell *matCellDef="let element">{{ element.ccmale }}</td>
+              </ng-container>
+              <ng-container matColumnDef="ccfemale">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Female</th>
+                <td mat-cell *matCellDef="let element">{{ element.ccfemale }}</td>
+              </ng-container>
+              <ng-container matColumnDef="ccmixed">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Mixed</th>
+                <td mat-cell *matCellDef="let element">{{ element.ccmixed }}</td>
+              </ng-container>
+              <ng-container matColumnDef="cctotal">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+                <td mat-cell *matCellDef="let element">{{ element.cctotal }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="ddfate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Response to Outbreak</th>
+                <td mat-cell *matCellDef="let element">{{ element.ddfate }}</td>
+              </ng-container>
+              <ng-container matColumnDef="ddspecies_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Species</th>
+                <td mat-cell *matCellDef="let element">{{ element.ddspecies_name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="ddanimal_type">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Animal Type</th>
+                <td mat-cell *matCellDef="let element">{{ element.ddanimal_type }}</td>
+              </ng-container>
+              <ng-container matColumnDef="ddbreed_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Breed</th>
+                <td mat-cell *matCellDef="let element">{{ element.ddbreed_name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="ddnumbers">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>No. of Animals (response)</th>
+                <td mat-cell *matCellDef="let element">{{ element.ddnumbers }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="aaclinical_signs">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Clinical signs</th>
+                <td mat-cell *matCellDef="let element">{{ element.aaclinical_signs }}</td>
+              </ng-container>
+              <ng-container matColumnDef="aalesions">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Lesions</th>
+                <td mat-cell *matCellDef="let element">{{ element.aalesions }}</td>
+              </ng-container>
+              <ng-container matColumnDef="aatentative_disease_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Tentative Diagnosis</th>
+                <td mat-cell *matCellDef="let element">{{ element.aatentative_disease_name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="differential_diagnosis">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Differential Diagnosis</th>
+                <td mat-cell *matCellDef="let element">{{ element.differential_diagnosis }}</td>
+              </ng-container>
+              
+              <ng-container matColumnDef="aasample_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Sample Type</th>
+                <td mat-cell *matCellDef="let element">{{ element.aasample_name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="aatypeoftest">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Type of Test</th>
+                <td mat-cell *matCellDef="let element">{{ element.aatypeoftest }}</td>
+              </ng-container>
+
+              <!-- <ng-container matColumnDef="duration">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Sample IDs</th>
+                <td mat-cell *matCellDef="let element">{{ element.duration }}</td>
+              </ng-container> -->
+              <ng-container matColumnDef="aadate_sample_sent">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Date of Sample Sent</th>
+                <td mat-cell *matCellDef="let element">{{ element.aadate_sample_sent }}</td>
+              </ng-container>
+              <ng-container matColumnDef="aalab_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Laboratory</th>
+                <td mat-cell *matCellDef="let element">{{ element.aalab_name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="aadate_result_received">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Result Received Date</th>
+                <td mat-cell *matCellDef="let element">{{ element.aadate_result_received }}</td>
+              </ng-container>
+              <ng-container matColumnDef="aaresult_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Test Result</th>
+                <td mat-cell *matCellDef="let element">{{ element.aaresult_name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="aafinal_disease_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Final Diagnosis</th>
+                <td mat-cell *matCellDef="let element">{{ element.aafinal_disease_name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="aabasis_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Basis of Diagnosis</th>
+                <td mat-cell *matCellDef="let element">{{ element.aabasis_name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="diagnosing_officer">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Diagnosing Officer</th>
+                <td mat-cell *matCellDef="let element">{{ element.diagnosing_officer }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="eespecies_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Susceptible Species</th>
+                <td mat-cell *matCellDef="let element">{{ element.eespecies_name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="eeanimal_type">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Susceptible Animal Type</th>
+                <td mat-cell *matCellDef="let element">{{ element.eeanimal_type }}</td>
+              </ng-container>
+              <ng-container matColumnDef="eesusceptible_animals">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>No. of Susceptible Animals</th>
+                <td mat-cell *matCellDef="let element">{{ element.eesusceptible_animals }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="aoutbreak_source">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Probable Source of Outbreak</th>
+                <td mat-cell *matCellDef="let element">{{ element.aoutbreak_source }}</td>
+              </ng-container>
+              <ng-container matColumnDef="acontrol_measures">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Other Control Measures</th>
+                <td mat-cell *matCellDef="let element">{{ element.acontrol_measures }}</td>
+              </ng-container>
+              <ng-container matColumnDef="user_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>User Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.user_name }}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          </cdk-virtual-scroll-viewport>
+          <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

@@ -1,0 +1,16 @@
+<mat-card style="background-color: #327ebd; margin: 0 auto 0">
+  <h4 style="color: #fff">Master List</h4>
+</mat-card>
+<br />
+<div class="mat-list-user" *ngFor="let route of masterUserRoutes">
+  <button
+    (click)="(isMobile)"
+    [mat-dialog-close]=""
+    cdkFocusInitial
+    mat-raised-button
+    routerLink="{{ route.route }}"
+    class="button-width"
+  >
+    {{ route.name }}
+  </button>
+</div>

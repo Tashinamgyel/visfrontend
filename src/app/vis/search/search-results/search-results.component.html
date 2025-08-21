@@ -1,0 +1,861 @@
+<mat-card style="margin-top: -15%">
+  <div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
+    <div fxFlex class="button-component-holder mat-elevation-z4">
+      <mat-toolbar class="button-header">
+        <h5 class="p-2" style="padding-top: 20px; margin-left: 20px">Search Details</h5>
+      </mat-toolbar>
+
+      <table align="left" border="1" style="width: 100%">
+        <tr align="center">
+          <!-- <td colspan="7">
+            <header style="color: white; background-color: #03a9f4; width: 100%">Add Mass Table</header>
+          </td> -->
+        </tr>
+
+        <tr align="center" style="color: white; background-color: #03a9f4; width: 100%">
+          <th>Patient ID</th>
+          <th>Ear Tag No.</th>
+          <th>Microchip No.</th>
+          <th>Pet Registration No.</th>
+          <th>Animal Name</th>
+          <th>Action</th>
+        </tr>
+        <tr align="center" *ngFor="let searchDetail of searchDetails">
+          <td>{{ searchDetail?.patientId }}</td>
+          <td>{{ searchDetail?.earTagNumber }}</td>
+          <td>{{ searchDetail?.microchipNumber }}</td>
+          <td>{{ searchDetail?.petRegistrationNumber }}</td>
+          <td>{{ searchDetail?.animalName }}</td>
+          <!-- <td> 
+              <button (click)="viewDetails(searchDetail.id)" color="primary" style="width: 8em" mat-raised-button>
+               View Detials
+             </button>
+          </td>  -->
+          <td>
+            <button
+              (click)="viewCases(searchDetail.patientId, searchDetail.id)"
+              color="primary"
+              style="width: 8em"
+              mat-raised-button
+            >
+              View Cases
+            </button>
+          </td>
+        </tr>
+      </table>
+      <br />
+      <div class="form-group row"></div>
+
+      <div class="container" *ngIf="viewCase">
+        <div>Patient ID: {{ patientIDToShow }}</div>
+
+        <mat-card *ngIf="viewCase">
+          <mat-expansion-panel (opened)="basicPanelOpenState = true" (opened)="basicPanelOpenState = true">
+            <mat-expansion-panel-header>
+              <mat-panel-title><strong>Owner and Patient Details </strong></mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-card-content>
+              <div class="my-2 my-md-2">
+                <form [formGroup]="registrationDetails">
+                  <div class="card-body">
+                    <h5>Owner Details</h5>
+                    <hr />
+
+                    <div class="form-group row">
+                      <div class="col-md-6" *ngIf="nationality == false">
+                        <label class="col-form-label">CID Number </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input formControlName="cidNumber" matInput name="cidNumber" readonly />
+                          <mat-error>Enter Valid Owner Name</mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-6" *ngIf="nationality">
+                        <label class="col-form-label">Passport Number </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input formControlName="passportNumber" matInput name="passportNumber" readonly />
+                          <mat-error>Enter Valid Owner Name</mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-6">
+                        <label class="col-form-label">Owner Name </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input formControlName="ownerName" id="ownerName" matInput name="ownerName" readonly />
+                          <mat-error>Enter Valid Owner Name</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="form-group row" *ngIf="nationality">
+                      <div class="col-md-6">
+                        <label class="col-form-label">Country</label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input formControlName="countryName" id="countryName" matInput name="countryName" readonly />
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-md-6">
+                        <label class="col-form-label">Dzongkhag </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input formControlName="dzongkhag" id="ownerName" matInput name="ownerName" readonly />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label">Gewog </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input formControlName="gewog" id="ownerName" matInput name="ownerName" readonly />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="form-group row">
+                      <div class="col-md-6">
+                        <label class="col-form-label">Village </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input formControlName="village" id="village" matInput name="village" readonly />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label">Locality </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input formControlName="locality" id="locality" matInput name="locality" readonly />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <br />
+
+                    <div class="form-group row">
+                      <div class="col-md-6">
+                        <label class="col-form-label">Mobile Number</label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input
+                            formControlName="mobileNumber"
+                            id="mobileNumber"
+                            matInput
+                            name="mobileNumber"
+                            readonly
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label">Email ID </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input formControlName="emailId" id="emailId" matInput name="emailId" readonly />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <br />
+
+                    <h5>Patient Details</h5>
+                    <hr />
+                    <div class="form-group row">
+                      <div class="col-md-6">
+                        <label class="col-form-label">Animal Ownership Type <span class="text-danger">*</span></label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input
+                            formControlName="ownershipType"
+                            id="ownershipType"
+                            matInput
+                            name="ownershipType"
+                            readonly
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label">Species </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input formControlName="species" matInput readonly />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="form-group row">
+                      <div class="col-md-6">
+                        <label class="col-form-label">Animal Type </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input formControlName="animalType" matInput readonly />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label">Pet Registration Number <span class="text-danger">*</span></label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input
+                            formControlName="petRegistrationNumber"
+                            id="petRegistrationNumber"
+                            matInput
+                            name="petRegistrationNumber"
+                            readonly
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-md-6">
+                        <label class="col-form-label">Ear Tag Number </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input
+                            formControlName="earTagNumber"
+                            id="earTagNumber"
+                            matInput
+                            name="earTagNumber"
+                            readonly
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label">Microchip Number </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input
+                            formControlName="microchipNumber"
+                            id="microchipNumber"
+                            matInput
+                            name="microchipNumber"
+                            readonly
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <br />
+
+                    <div class="form-group row">
+                      <div class="col-md-6">
+                        <label class="col-form-label">Animal Name </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input formControlName="animalName" matInput readonly />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label">Neuter status </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input
+                            formControlName="neuterStatus"
+                            id="neuterStatus"
+                            matInput
+                            name="neuterStatus"
+                            readonly
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <br />
+
+                    <div class="form-group row">
+                      <div class="col-md-6">
+                        <label class="col-form-label">Breed </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input formControlName="breed" id="breed" matInput name="breed" readonly />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label">Age </label><br />
+                        <div class="row gutters-xs">
+                          <div class="col-3">
+                            <mat-form-field appearance="outline" style="width: 90px">
+                              <mat-label>Year</mat-label>
+                              <input
+                                formControlName="year"
+                                matInput
+                                required
+                                type="number"
+                                id="number"
+                                min="0"
+                                max="12"
+                              />
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-3">
+                            <mat-form-field appearance="outline" style="width: 90px">
+                              <mat-label>Month</mat-label>
+                              <input
+                                formControlName="month"
+                                matInput
+                                required
+                                type="number"
+                                id="number"
+                                min="0"
+                                max="31"
+                                (change)="validateYear('month')"
+                                placeholder="Month(1-11)"
+                              />
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-3">
+                            <mat-form-field appearance="outline" style="width: 90px">
+                              <mat-label>Day</mat-label>
+                              <input formControlName="day" matInput required type="number" id="number" min="0" />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-md-6">
+                        <label class="col-form-label">Sex </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input formControlName="sex" matInput name="bodyweight" type="float" readonly />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label">Body weight (KG) </label>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <input
+                            formControlName="bodyweight"
+                            matInput
+                            name="bodyweight"
+                            type="float"
+                            onkeypress="return event.charCode <= 57"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <p style="color: crimson"><b>Note :</b> Age and body weight can be updated.</p>
+                    <hr />
+                    <mat-card-actions>
+                      <input type="hidden" formControlName="patientId" />
+                      <button (click)="updateRegistration()" color="primary" mat-raised-button>Update</button>
+                    </mat-card-actions>
+                  </div>
+                </form>
+              </div>
+            </mat-card-content>
+          </mat-expansion-panel>
+          <!-- </mat-card> -->
+        </mat-card>
+
+        <mat-card *ngIf="viewCase">
+          <mat-expansion-panel (opened)="basicPanelOpenState = true" (opened)="basicPanelOpenState = true">
+            <mat-expansion-panel-header>
+              <mat-panel-title><strong>Case Details </strong></mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-card-content>
+              <mat-tab-group>
+                <!-- starting of clinical tab -->
+                <mat-tab label="Clinical">
+                  <div class="my-2 my-md-2">
+                    <form [formGroup]="registrationDetails">
+                      <div class="card-body">
+                        <br />
+
+                        <!-- <mat-card> -->
+
+                        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z1" align="center">
+                          <ng-container matColumnDef="slno">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                            <td mat-cell *matCellDef="let element; let i = index">
+                              {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="treatmentDate">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                            <td mat-cell *matCellDef="let element">{{ element.treatmentDate | date }}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                            <!-- <td mat-cell *matCellDef="let element">{{ element.status }} </td> -->
+                            <td mat-cell *matCellDef="let element; let i = index">
+                              {{ element.status }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="registrationId">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>View/Edit</th>
+                            <td mat-cell *matCellDef="let element">
+                              <!-- <button mat-icon-button (click)="viewDetails(element.registrationId, element.id)" class="edit-button"> -->
+                              <button
+                                *ngIf="element.status === 'Completed'"
+                                mat-icon-button
+                                (click)="editDetails(element)"
+                                class="edit-button"
+                              >
+                                <mat-icon>visibility</mat-icon>
+                              </button>
+                              <button
+                                *ngIf="element.status === 'Ongoing'"
+                                mat-icon-button
+                                (click)="editDetails(element)"
+                                class="edit-button"
+                              >
+                                <mat-icon>edit</mat-icon>
+                              </button>
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                        </table>
+                        <mat-paginator
+                          #paginatorRef
+                          [pageSizeOptions]="[5, 10, 20]"
+                          showFirstLastButtons
+                        ></mat-paginator>
+
+                        <!-- OngoingTable -->
+                        <div *ngIf="OngoingTable">
+                          <table
+                            mat-table
+                            [dataSource]="dataSourceForOngoing"
+                            matSort
+                            class="mat-elevation-z1"
+                            align="center"
+                          >
+                            <ng-container matColumnDef="slno">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                              <td mat-cell *matCellDef="let element; let i = index">
+                                {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="date">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                              <td mat-cell *matCellDef="let element">{{ element.treatmentDate | date }}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="view">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header>View</th>
+                              <td mat-cell *matCellDef="let element">
+                                <!-- <button mat-icon-button (click)="viewDetails(element.registrationId, element.id)" class="edit-button"> -->
+                                <button mat-icon-button (click)="viewDetails(element)" class="edit-button">
+                                  <mat-icon>visibility</mat-icon>
+                                </button>
+                              </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns2"></tr>
+                          </table>
+                          <mat-paginator
+                            #paginatorRef
+                            [pageSizeOptions]="[5, 10, 20]"
+                            showFirstLastButtons
+                          ></mat-paginator>
+
+                          <button
+                            *ngIf="addFollowupButtonHide"
+                            color="primary"
+                            (click)="showOngoingFollowup()"
+                            mat-raised-button
+                          >
+                            <mat-icon>add</mat-icon>Add Follow-Up
+                          </button>
+
+                          <button
+                            style="background-color: orangered; color: white"
+                            *ngIf="ongoingFollowup"
+                            (click)="closeOngoingFollowup()"
+                            mat-raised-button
+                          >
+                            <mat-icon>highlight_off</mat-icon>
+                          </button>
+
+                          <app-clinical
+                            *ngIf="ongoingFollowup"
+                            [registrationDetails]="sendingDataToOngoing"
+                          ></app-clinical>
+                        </div>
+                        <!-- end -->
+
+                        <!-- treatmentDetails -->
+                        <hr />
+                        <div class="form-group row"></div>
+                        <mat-card *ngIf="viewTreatment">
+                          <mat-expansion-panel
+                            (opened)="basicPanelOpenState = true"
+                            (opened)="basicPanelOpenState = true"
+                          >
+                            <mat-expansion-panel-header>
+                              <mat-panel-title><strong>Treatment Details </strong></mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-card-content>
+                              <div class="my-2 my-md-2">
+                                <form [formGroup]="treatmentDetails">
+                                  <div class="card-body">
+                                    <hr />
+                                    <div class="form-group row">
+                                      <div class="col-md-6">
+                                        <label class="col-form-label">Treatment Date </label>
+                                        <mat-form-field appearance="outline" class="example-full-width">
+                                          <input
+                                            [matDatepicker]="picker"
+                                            formControlName="treatmentDate"
+                                            matInput
+                                            readonly
+                                          />
+                                          <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                                          <mat-datepicker #picker></mat-datepicker>
+                                        </mat-form-field>
+                                      </div>
+                                    </div>
+                                    <hr />
+                                    <h5>Case History</h5>
+                                    <div class="form-group row">
+                                      <div class="col-md-12">
+                                        <div class="col-md-3">
+                                          <label class="textarea">Anamnesis(Case History)</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                          <mat-form-field style="width: 1000px" appearance="outline" type="text">
+                                            <textarea
+                                              matInput
+                                              rows="1"
+                                              cols="10"
+                                              matInput
+                                              formControlName="anamnesisHistory"
+                                            >
+                                            </textarea>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+
+                                      <div class="col-md-12">
+                                        <div class="col-md-3">
+                                          <label class="textarea">Observation</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                          <mat-form-field style="width: 1000px" appearance="outline" type="text">
+                                            <textarea
+                                              matInput
+                                              rows="1"
+                                              cols="10"
+                                              formControlName="observation"
+                                            ></textarea>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <h5>Tentative Diagnosis</h5>
+                                    <div class="form-group row">
+                                      <div class="col-md-6">
+                                        <label class="col-form-label">System</label>
+                                        <mat-form-field appearance="outline" class="example-full-width">
+                                          <input
+                                            formControlName="systemName"
+                                            id="systemName"
+                                            matInput
+                                            name="systemName"
+                                            readonly
+                                          />
+                                        </mat-form-field>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <label class="col-form-label">
+                                          Condition<span class="text-danger">*</span>:</label
+                                        >
+                                        <mat-form-field appearance="outline" class="example-full-width">
+                                          <input
+                                            formControlName="conditions"
+                                            id="conditions"
+                                            matInput
+                                            name="conditions"
+                                            readonly
+                                          />
+                                        </mat-form-field>
+                                      </div>
+                                    </div>
+                                    &nbsp;
+                                    <div class="form-group row">
+                                      <div class="col-md-9">
+                                        <h5>Differential Diagnosis</h5>
+                                        <div class="col-md-9">
+                                          <mat-form-field style="width: 1000px" appearance="outline" type="text">
+                                            <textarea
+                                              matInput
+                                              rows="1"
+                                              cols="10"
+                                              formControlName="differentialDiagnosis"
+                                            ></textarea>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                      <label class="col-form-label">Diagnostic test</label>
+                                      <mat-form-field appearance="outline" class="example-full-width">
+                                        <input
+                                          formControlName="clinicalTest"
+                                          id="clinicalTest"
+                                          matInput
+                                          name="clinicalTest"
+                                          readonly
+                                        />
+                                      </mat-form-field>
+                                    </div>
+                                    &nbsp;
+                                    <hr />
+                                    <h5>Procedure</h5>
+                                    <div class="form-group row">
+                                      <div class="col-md-9">
+                                        <label class="col-form-label"></label>
+                                        <mat-form-field appearance="outline" class="example-full-width">
+                                          <input
+                                            formControlName="procedures"
+                                            id="procedures"
+                                            matInput
+                                            name="procedures"
+                                            readonly
+                                          />
+                                        </mat-form-field>
+                                      </div>
+                                    </div>
+                                    &nbsp;
+                                    <div class="form-group row">
+                                      <div class="col-md-9">
+                                        <h5>Remarks</h5>
+                                        <div class="col-md-9">
+                                          <mat-form-field style="width: 1000px" appearance="outline" type="text">
+                                            <textarea matInput rows="1" cols="10" formControlName="remarks"></textarea>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <h5 class="p-4" style="padding-top: 20px; align-content: center">Medications</h5>
+                                    <table
+                                      mat-table
+                                      [dataSource]="dataSource1"
+                                      matSort
+                                      class="mat-elevation-z1"
+                                      align="center"
+                                    >
+                                      <ng-container matColumnDef="slno">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                                        <td mat-cell *matCellDef="let element; let i = index">
+                                          {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                                        </td>
+                                      </ng-container>
+                                      <ng-container matColumnDef="className">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Class Name</th>
+                                        <td mat-cell *matCellDef="let element">{{ element.classEntity.className }}</td>
+                                      </ng-container>
+                                      <ng-container matColumnDef="medicineName">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Medicine Name</th>
+                                        <td mat-cell *matCellDef="let element">
+                                          {{ element.medicineEntity.medicineName }}
+                                        </td>
+                                      </ng-container>
+                                      <ng-container matColumnDef="composition">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Composition</th>
+                                        <td mat-cell *matCellDef="let element">
+                                          {{ element.medicineEntity.composition }}
+                                        </td>
+                                      </ng-container>
+                                      <ng-container matColumnDef="presentation">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Presentation</th>
+                                        <td mat-cell *matCellDef="let element">
+                                          {{ element.medicineEntity.presentation }}
+                                        </td>
+                                      </ng-container>
+                                      <ng-container matColumnDef="unitType">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Unit</th>
+                                        <td mat-cell *matCellDef="let element">{{ element.doseUnit.unitType }}</td>
+                                      </ng-container>
+                                      <ng-container matColumnDef="routeName">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Route</th>
+                                        <td mat-cell *matCellDef="let element">{{ element.route.routeName }}</td>
+                                      </ng-container>
+                                      <ng-container matColumnDef="frequencyName">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Frequency</th>
+                                        <td mat-cell *matCellDef="let element">
+                                          {{ element.frequency.frequencyName }}
+                                        </td>
+                                      </ng-container>
+                                      <ng-container matColumnDef="dosage">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Dose</th>
+                                        <td mat-cell *matCellDef="let element">{{ element.dosage }}</td>
+                                      </ng-container>
+                                      <ng-container matColumnDef="duration">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration</th>
+                                        <td mat-cell *matCellDef="let element">{{ element.duration }}</td>
+                                      </ng-container>
+                                      <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                                      <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+                                    </table>
+                                    <mat-paginator
+                                      #paginatorRef
+                                      [pageSizeOptions]="[5, 10, 20]"
+                                      showFirstLastButtons
+                                    ></mat-paginator>
+                                    <div class="form-group row">
+                                      <div class="col-md-9">
+                                        <h5>Advice</h5>
+                                        <div class="col-md-9">
+                                          <mat-form-field style="width: 1000px" appearance="outline" type="text">
+                                            <textarea matInput rows="1" cols="10" formControlName="advice"></textarea>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </mat-card-content>
+                          </mat-expansion-panel>
+                        </mat-card>
+                      </div>
+                    </form>
+                  </div>
+                </mat-tab>
+                <!-- end of clinical tab -->
+
+                <!-- starting of Sterilization tab -->
+                <mat-tab label="Sterilization">
+                  <div class="my-2 my-md-2">
+                    <div class="card-body">
+                      <br />
+
+                      <!-- <mat-card> -->
+                      <table
+                        mat-table
+                        [dataSource]="dataSourceForSterilization"
+                        matSort
+                        class="mat-elevation-z1"
+                        align="center"
+                      >
+                        <ng-container matColumnDef="slno">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                          <td mat-cell *matCellDef="let element; let i = index">
+                            {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="treatmentDate">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                          <td mat-cell *matCellDef="let element">{{ element.treatmentDate | date }}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="status">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                          <!-- <td mat-cell *matCellDef="let element">{{ element.status }} </td> -->
+                          <td mat-cell *matCellDef="let element; let i = index">Completed</td>
+                        </ng-container>
+                        <ng-container matColumnDef="registrationId">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>View</th>
+                          <td mat-cell *matCellDef="let element">
+                            <!-- <button mat-icon-button (click)="viewDetails(element.registrationId, element.id)" class="edit-button"> -->
+                            <button mat-icon-button (click)="viewDetailsForSterilization(element)" class="edit-button">
+                              <mat-icon>visibility</mat-icon>
+                            </button>
+                          </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsForSterilization"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsForSterilization"></tr>
+                      </table>
+                      <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                    </div>
+                  </div>
+                </mat-tab>
+                <!-- end of sterilization Tab -->
+
+                <!-- Starting of Deworming tab -->
+                <mat-tab label="Deworming">
+                  <div class="my-2 my-md-2">
+                    <div class="card-body">
+                      <br />
+
+                      <!-- <mat-card> -->
+                      <table
+                        mat-table
+                        [dataSource]="dataSourceForDeworming"
+                        matSort
+                        class="mat-elevation-z1"
+                        align="center"
+                      >
+                        <ng-container matColumnDef="slno">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                          <td mat-cell *matCellDef="let element; let i = index">
+                            {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="treatmentDate">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                          <td mat-cell *matCellDef="let element">{{ element.treatmentDate | date }}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="status">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                          <!-- <td mat-cell *matCellDef="let element">{{ element.status }} </td> -->
+                          <td mat-cell *matCellDef="let element; let i = index">Completed</td>
+                        </ng-container>
+                        <ng-container matColumnDef="registrationId">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>View</th>
+                          <td mat-cell *matCellDef="let element">
+                            <!-- <button mat-icon-button (click)="viewDetails(element.registrationId, element.id)" class="edit-button"> -->
+                            <button mat-icon-button (click)="viewDetailsForDeworming(element)" class="edit-button">
+                              <mat-icon>visibility</mat-icon>
+                            </button>
+                          </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsForDeworming"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsForDeworming"></tr>
+                      </table>
+                      <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                    </div>
+                  </div>
+                </mat-tab>
+                <!-- end of deworming tab -->
+
+                <!-- starting of vaccination tab -->
+                <mat-tab label="Vaccination">
+                  <div class="my-2 my-md-2">
+                    <div class="card-body">
+                      <br />
+
+                      <!-- <mat-card> -->
+
+                      <table
+                        mat-table
+                        [dataSource]="dataSourceForVaccination"
+                        matSort
+                        class="mat-elevation-z1"
+                        align="center"
+                      >
+                        <ng-container matColumnDef="slno">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                          <td mat-cell *matCellDef="let element; let i = index">
+                            {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="treatmentDate">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                          <td mat-cell *matCellDef="let element">{{ element.treatmentDate | date }}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="status">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                          <!-- <td mat-cell *matCellDef="let element">{{ element.status }} </td> -->
+                          <td mat-cell *matCellDef="let element; let i = index">Completed</td>
+                        </ng-container>
+                        <ng-container matColumnDef="registrationId">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>View</th>
+                          <td mat-cell *matCellDef="let element">
+                            <!-- <button mat-icon-button (click)="viewDetails(element.registrationId, element.id)" class="edit-button"> -->
+                            <button mat-icon-button (click)="viewDetailsForVaccination(element)" class="edit-button">
+                              <mat-icon>visibility</mat-icon>
+                            </button>
+                          </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsForVaccination"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsForVaccination"></tr>
+                      </table>
+                      <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                    </div>
+                  </div>
+                </mat-tab>
+                <!-- ending of vaccination tab -->
+              </mat-tab-group>
+
+              <treatment-registration
+                *ngIf="showDetails"
+                [registrationDetails]="registeredDetails"
+              ></treatment-registration>
+              <!-- end here -->
+
+              <button (click)="viewTreatmentDetails()" mat-raised-button color="primary">
+                <mat-icon>touch_app</mat-icon>&nbsp; Add New Case
+              </button>
+            </mat-card-content>
+          </mat-expansion-panel>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</mat-card>
+
+<!-- <app-registered-details *ngIf="seeDetails" [registeredDetails]="registeredDetails" [caseDetails]="caseDetails"
+  [medicineDetails]="medicineDetails"></app-registered-details> -->

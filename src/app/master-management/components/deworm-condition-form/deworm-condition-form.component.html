@@ -1,0 +1,42 @@
+<mat-card-header>
+  <span class="border border-white"></span>
+  <mat-card-title>Add Deworming Condition</mat-card-title>
+</mat-card-header>
+<mat-dialog-content>
+  <div class="col-md-12 col-lg-12">
+    <form class="form-horizontal" [formGroup]="desginForm">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label">Deworming Condition</label>
+        <div class="col-md-9">
+          <mat-form-field appearance="outline">
+            <mat-label>Deworming Condition</mat-label>
+            <input matInput formControlName="conditionsName" placeholder="" />
+            <mat-error>Desigantion conditions is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    *ngIf="actionType === 'ADD'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!desginForm.valid"
+    (click)="saveDeworming()"
+  >
+    Add
+  </button>
+  <button
+    *ngIf="actionType === 'EDIT'"
+    mat-raised-button
+    color="primary"
+    [disabled]="!desginForm.valid"
+    (click)="updateDeworming()"
+  >
+    Update
+  </button>
+
+  <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

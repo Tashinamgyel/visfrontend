@@ -1,0 +1,33 @@
+<form [formGroup]="emailForm" class="form-horizontal">
+  <div class="form-group row">
+    <div class="col-md-10">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label><b>To.. </b> <span class="text-danger">*</span></mat-label>
+        <mat-select multiple formControlName="mailTo">
+          <mat-option *ngFor="let email of emails" [value]="email.emailAddress">{{ email.emailAddress }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-10">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label><b>CC..</b> </mat-label>
+        <mat-select multiple formControlName="mailCc">
+          <mat-option *ngFor="let email of emails" [value]="email.emailAddress">{{ email.emailAddress }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onConfirm()">Yes</button>
+  <button mat-stroked-button color="accent" (click)="onDismiss()">No</button>
+</div>

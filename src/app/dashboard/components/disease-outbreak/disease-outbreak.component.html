@@ -1,0 +1,49 @@
+<div class="dashboard-stat">
+  <mat-card>
+    <table mat-table [dataSource]="flashTaskList" matSort class="mat-elevation-z1">
+      <ng-container matColumnDef="slno">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="outbreakId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Outbreak ID</th>
+        <td mat-cell *matCellDef="let element">{{ element.outbreakId }}</td>
+      </ng-container>
+      <ng-container matColumnDef="dzongKhagName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Dzongkhag</th>
+        <td mat-cell *matCellDef="let element">{{ element.dzongKhagName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="gewogName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Gewog</th>
+        <td mat-cell *matCellDef="let element">{{ element.gewogName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="ownerName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Owner Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.ownerName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="report">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Report</th>
+        <td mat-cell *matCellDef="let element">{{ element.report }}</td>
+      </ng-container>
+      <ng-container matColumnDef="flashId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="edit(element.flashId)" class="edit-button">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- <mat-card-actions class="right">
+              <button (click)="edit(element.flashId)" color="primary" mat-raised-button>
+                <mat-icon class="edit-button">edit</mat-icon>&nbsp; View Details
+              </button>
+            </mat-card-actions> -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </mat-card>
+</div>

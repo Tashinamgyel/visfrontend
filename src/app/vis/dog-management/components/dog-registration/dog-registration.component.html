@@ -1,0 +1,122 @@
+<div class="col-md-12 col-lg-12 custom-example">
+  <mat-card class="example-card" *ngIf="!registered">
+    <mat-toolbar>
+      <h4>Registration</h4>
+    </mat-toolbar>
+    <mat-divider></mat-divider>
+    <form class="form-horizontal form" [formGroup]="dogRegistrationForm">
+      <h5 class="p-2" style="padding-top: 2px">Owner Details</h5>
+      <div class="form-group row">
+        <mat-radio-group
+          class="mat-radio-group p-3"
+          aria-label="Select an option"
+          formControlName="nationality"
+          (change)="changeNationality($event)"
+        >
+          <mat-radio-button [value]="1">Bhutanese </mat-radio-button>
+          <mat-radio-button [value]="2">Non-Bhutanese </mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-md-6" *ngIf="nationality === true">
+          <label class="col-form-label" for="text-input">CID Number<span class="text-danger">*</span>:</label>
+          <mat-form-field appearance="outline" class="example-full-width" appearance="fill">
+            <input matInput formControlName="cidNumber" name="cidNumber" placeholder="CID Number" />
+            <mat-error>CID Number is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6" *ngIf="nationality === false">
+          <label class="col-form-label" for="text-input">Passport Number<span class="text-danger">*</span>:</label>
+          <mat-form-field appearance="outline" class="example-full-width" appearance="fill">
+            <input matInput formControlName="passportNumber" name="passportNumber" placeholder="Passport Number" />
+            <mat-error>CID Number is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <label class="col-form-label" for="text-input">Owner Name<span class="text-danger">*</span>:</label>
+          <mat-form-field appearance="outline" class="example-full-width" appearance="fill">
+            <input matInput formControlName="ownerName" name="ownerName" placeholder="Owner Name" />
+            <mat-error>Owner Name is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <h5 class="p-2" style="padding-top: 20px">Present Address</h5>
+      <div class="form-group row">
+        <div class="col-md-6">
+          <label class="col-form-label" for="text-input">Dzongkhag<span class="text-danger">*</span>:</label>
+          <mat-form-field class="example-full-width" appearance="outline" appearance="fill">
+            <mat-select formControlName="dzongkhagId" (selectionChange)="getGewogs($event.value)">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let dzongkhag of dzongkhags" [value]="dzongkhag.id">{{
+                dzongkhag.dzongkhagName
+              }}</mat-option>
+            </mat-select>
+            <mat-error>Dzongkhag is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <label class="col-form-label" for="text-input">Gewog<span class="text-danger">*</span>:</label>
+          <mat-form-field class="example-full-width" appearance="outline" appearance="fill">
+            <mat-select formControlName="gewogId">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let gewog of gewogs" [value]="gewog.id">{{ gewog.gewogName }} </mat-option>
+            </mat-select>
+            <mat-error>Gewog is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6">
+          <label class="col-form-label" for="text-input">Mobile Number<span class="text-danger">*</span>:</label>
+          <mat-form-field appearance="outline" class="example-full-width" appearance="fill">
+            <input
+              matInput
+              formControlName="mobileNumber"
+              name="mobileNumber"
+              placeholder="Mobile Number"
+              appearance="fill"
+            />
+            <mat-error>CID Number is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <label class="col-form-label" for="text-input">Email ID <span class="text-danger">*</span>:</label>
+          <mat-form-field appearance="outline" class="example-full-width" appearance="fill">
+            <input matInput formControlName="emailId" name="emailId" placeholder="Email ID" appearance="fill" />
+            <mat-error>Email ID is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Locality<span class="text-danger">*</span>:</label>
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" class="example-full-width" appearance="fill">
+            <textarea matInput formControlName="locality" name="locality"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <label class="col-form-label" for="text-input"
+            >Animal Ownership Type <span class="text-danger">*</span>:</label
+          >
+          <mat-form-field class="example-full-width" appearance="outline" appearance="fill">
+            <mat-select formControlName="petRegistrationTypeId">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let ownershipType of ownershipTypes" [value]="ownershipType.id">{{
+                ownershipType.ownerType
+              }}</mat-option>
+            </mat-select>
+            <mat-error>Animal Ownership Type is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-divider [inset]="true"></mat-divider>
+    </form>
+
+    <mat-card-actions>
+      <button mat-raised-button class="save-button" (click)="saveDogRegistration()">Save</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<app-treatment-details *ngIf="registered"></app-treatment-details>

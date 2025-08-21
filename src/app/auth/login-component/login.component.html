@@ -1,0 +1,78 @@
+<div fxFlex>
+  <mat-toolbar color="primary" style="text-align: end">
+    <div fxLayoutAlign="center" style="margin: 0 auto">
+      <h3 translate>Veterinary Information System</h3>
+    </div>
+  </mat-toolbar>
+  <div fxFill fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1.5rem" class="mat-typography">
+    <img src="../../../assets/vis-logo-black.png" style="width: 100px; height: 110px" alt="logo" />
+    <p class="text">
+      The Veterinary Information System (VIS) is an online animal health information management system in Bhutan. <br />
+      It records data concerning veterinary services delivery in all the animal health extension centres, regional and
+      <br />
+      central livestock farms, and other relevant agencies in the country. The technical services available in the
+      system are<br />
+      Individual (clinical, vaccination, deworming and sterilization), Mass (clinical, vaccination and deworming), Pet
+      <br />
+      Information Management, Dog Population Management/ Mass Dog Vaccination, and Disease Outbreaks.The system can
+      <br />
+      generate reports on all the services to inform policy decisions on animal health. The system also archives all<br />
+      the past animal health data, including the notifiable disease outbreaks reported in the country since 1996.
+      <br />
+      <br />
+      For any queries related to the operation and functionalities of the system, please contact the system
+      administrator, <br />
+      DPCU, NCAH, at +975 02 351083/351093.
+    </p>
+    <div class="login-container" fxLayout="row" fxLayoutAlign="center">
+      <mat-card fxFlex="120%" fxFlex.sm="66%" fxFlex.md="50%" fxFlex.gt-md="33%" class="login-box">
+        <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
+          <!-- <div class="login-error" [hidden]="!error || isLoading" translate>Username or password incorrect.</div> -->
+          <!-- <br /> -->
+          <div class="login-fields" fxLayout="column">
+            <mat-form-field appearance="fill" class="example-full-width" hideRequiredMarker>
+              <mat-label>Username</mat-label>
+              <input
+                type="text"
+                matInput
+                appearance="outline"
+                formControlName="userName"
+                autocomplete="userName"
+                [placeholder]="'Username'"
+                required
+              />
+              <mat-error *ngIf="loginForm.controls.userName.invalid && loginForm.controls.userName.touched">
+                {{ titleAlert }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="example-full-width" hideRequiredMarker>
+              <mat-label>Password</mat-label>
+              <input
+                type="password"
+                matInput
+                formControlName="password"
+                autocomplete="current-password"
+                [placeholder]="'Password'"
+                [type]="getType()"
+                required
+              />
+              <mat-error *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">
+                {{ getErrorPassword() }}
+              </mat-error>
+              <mat-icon matSuffix (click)="toggleTextPassword()" (click)="togglePasswordVisibility()" 
+              >  {{showPassword?'visibility_off':'visibility'}}</mat-icon>
+            </mat-form-field>
+            <!-- <mat-slide-toggle color="accent" formControlName="remember" translate>Remember me</mat-slide-toggle> -->
+            <!-- <div style="cursor: pointer; color: blue; text-decoration: underline">
+              <div class="control-label" (click)="forgotPassword()">Forgot password</div>
+            </div> -->
+            <br />
+            <button mat-raised-button class="login-button" type="submit" [disabled]="loginForm.invalid || isLoading">
+              <span translate>Login</span>
+            </button>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>

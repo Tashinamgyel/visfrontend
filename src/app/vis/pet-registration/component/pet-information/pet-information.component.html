@@ -1,0 +1,610 @@
+<mat-card>
+  <div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
+    <div fxFlex class="button-component-holder mat-elevation-z4">
+      <mat-toolbar class="button-header">
+        <h5 class="p-2" style="padding-top: 20px; margin-left: 20px">Pet Information</h5>
+      </mat-toolbar>
+      <div class="button-container">
+        <div class="container">
+          <form class="form-horizontal form" [formGroup]="petInforForm">
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Search<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="petRegistrationNoOrMicrochip"
+                    placeholder="Pet Registration Number/Microchip Number"
+                    required
+                  />
+                  <mat-error> Pet Registration Number required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-2" style="margin-top: 38px; margin-left: -30px">
+                <label class="col-form-label"></label>
+                <button (click)="getPetRegistrationNumber()" color="primary" mat-raised-button>
+                  <mat-icon>search</mat-icon>
+                </button>
+              </div>
+            </div>
+            <br />
+            <br />
+
+            <div class="row">
+              <div class="form-group row" *ngIf="imageShow" style="margin: 0 auto">
+                <div class="col-md-6">
+                  <img
+                    style="width: 200px; height: 60%; float: right"
+                    src="data:image/jpeg;base64,{{ showingImage }}"
+                  />
+                </div>
+                <div class="col-md-6" *ngIf="barcodeshow">
+                  <img
+                    style="width: 200px; height: 60%; float: right"
+                    src="data:image/jpeg;base64,{{ showingBarCode }}"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Registration Number<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="petRegistrationNo"
+                    readonly
+                    (change)="getPetRegistrationNumber()"
+                    placeholder="Registration Number"
+                  />
+                </mat-form-field>
+              </div>
+
+              <!-- <div class="col-md-6">
+                <label class="col-form-label">Animal Ownership Type <span class="text-danger">*</span>:</label>
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-select formControlName="petRegistrationTypeId" readonly>
+                    <mat-option></mat-option>
+                    <mat-option *ngFor="let ownershipType of ownershipTypes" [value]="ownershipType.id">
+                      {{ ownershipType.ownerType }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div> -->
+
+              <div class="col-md-6">
+                <label class="col-form-label">Animal Ownership Type</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    formControlName="petRegistrationTypeId"
+                    matInput
+                    name="ownerType"
+                    placeholder="Animal Ownership Type"
+                    readonly
+                  />
+                  <!-- <mat-error>Owner Type is required</mat-error> -->
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Date of Registration<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    matInput
+                    [matDatepicker]="pic"
+                    formControlName="registrationDate"
+                    readonly
+                    placeholder="Registration Date"
+                    disabled
+                  />
+                  <mat-datepicker-toggle matSuffix [for]="pic"></mat-datepicker-toggle>
+                  <mat-datepicker #pic></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+            <h4 class="color:black">Owner Details</h4>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Nationality<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="nationality" matInput readonly placeholder="Nationality" />
+                  <!-- <mat-error>Owner Type is required</mat-error> -->
+                </mat-form-field>
+              </div>
+              <div class="col-md-6" *ngIf="showCidForm">
+                <label class="col-form-label">CID Number<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="cid" matInput name="dzongkhag" placeholder="CID" readonly />
+                  <!-- <mat-error>Cid is required</mat-error> -->
+                </mat-form-field>
+              </div>
+              <div *ngIf="nationality === false" class="col-md-6">
+                <label class="col-form-label"
+                  >Passport Number/Work Permit number<span class="text-danger">*</span></label
+                >
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    formControlName="passportNumber"
+                    matInput
+                    name="passportNumber"
+                    placeholder="Passport Number"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Owner Name<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="ownerName" matInput name="dzongkhag" placeholder="Owner Name" readonly />
+                </mat-form-field>
+              </div>
+            </div>
+            <div *ngIf="nationality === false">
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label class="col-form-label">Country<span class="text-danger">*</span></label>
+                  <mat-form-field appearance="outline" class="example-full-width">
+                    <input formControlName="countryName" matInput name="country" placeholder="" readonly />
+                  </mat-form-field>
+                  <!-- <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-select formControlName="countryId" disabled>
+                      <mat-option value="">Select Country</mat-option>
+                      <mat-option *ngFor="let country of countrys" [value]="country.id">{{
+                        country.countryName
+                      }}</mat-option>
+                    </mat-select>
+                  </mat-form-field> -->
+                </div>
+              </div>
+            </div>
+            <br />
+            <h5>Present Address</h5>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Dzongkhag</label>
+                <!-- <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-select formControlName="dzongkhagId" (selectionChange)="getGewogs($event.value)" readonly>
+                    <mat-option></mat-option>
+                    <mat-option *ngFor="let dzongkhag of dzongkhags" [value]="dzongkhag.id">{{
+                      dzongkhag.dzongkhagName
+                    }}</mat-option>
+                  </mat-select>
+                  <!-- <mat-error>Dzongkhag is required</mat-error> -->
+                <!-- </mat-form-field> -->
+
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="dzongkhagId" matInput name="dzongkhag" placeholder="Dzongkhag" readonly />
+                  <!-- <mat-error>Owner Type is required</mat-error> -->
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Gewog</label>
+                <!-- <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-select formControlName="gewogId">
+                    <mat-option></mat-option>
+                    <mat-option *ngFor="let gewog of gewogs" [value]="gewog.id">{{ gewog.gewogName }}</mat-option>
+                  </mat-select>
+                  <mat-error>Gewog is required</mat-error>
+                </mat-form-field> -->
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="gewogId" matInput name="gewog" placeholder="Gewog" readonly />
+                  <!-- <mat-error>Owner Type is required</mat-error> -->
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Village</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="villageId" matInput name="village" placeholder="Village" readonly />
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <label class="col-form-label">Locality</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <textarea
+                    matInput
+                    formControlName="locality"
+                    name="locality"
+                    readonly
+                    placeholder="Locality"
+                  ></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Mobile Number<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    matInput
+                    formControlName="mobileNumber"
+                    name="mobileNumber"
+                    placeholder="Mobile Number"
+                    readonly
+                  />
+                  <mat-error>Mobile Number is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Email ID<span class="text-danger">*</span> </label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input matInput formControlName="emailId" name="emailId" placeholder="Email ID" readonly />
+                  <!-- <mat-error>Email ID is required</mat-error> -->
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+            <h4>Pet Details</h4>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Pet Name<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input matInput formControlName="petName" name="mobileNumber" placeholder="Pet Name" readonly />
+                  <!-- <mat-error>Pet Name is required</mat-error> -->
+                </mat-form-field>
+              </div>
+              <div class="col-md-6" *ngIf="dontshowIT">
+                <label class="col-form-label">Microchip Number<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    matInput
+                    formControlName="microchipNumber"
+                    name="microchipNumber"
+                    placeholder="Microchip Number"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Species<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="speciesName" matInput name="speciesName" readonly placeholder="Species" />
+                  <!-- <mat-error>Species is required</mat-error> -->
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Breed<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="breed" matInput name="breed" readonly placeholder="Breed" />
+                  <mat-error>Breed is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Colour<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input matInput formControlName="colour" placeholder="Colour" readonly />
+                  <!-- <mat-error>Colour is required</mat-error> -->
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label">Distinguishing mark<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input matInput formControlName="distinguishingMark" placeholder="Distinguishing mark" readonly />
+                </mat-form-field>
+              </div>
+            </div>
+            <br />
+            <div class="form-group row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="col-form-label">Age<span class="text-danger">*</span></label>
+                  <div class="row gutters-xs">
+                    <div class="col-3">
+                      <mat-form-field appearance="outline" style="width: 100px">
+                        <mat-label>Year</mat-label>
+                        <input
+                          formControlName="year"
+                          matInput
+                          type="number"
+                          id="number"
+                          min="0"
+                          readonly
+                          placeholder="Year"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                      <mat-form-field appearance="outline" style="width: 100px">
+                        <mat-label>Month</mat-label>
+                        <input
+                          formControlName="month"
+                          matInput
+                          type="number"
+                          id="number"
+                          min="0"
+                          readonly
+                          placeholder="Month"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                      <mat-form-field appearance="outline" style="width: 100px">
+                        <mat-label>Day</mat-label>
+                        <input
+                          formControlName="day"
+                          matInput
+                          type="number"
+                          id="number"
+                          min="0"
+                          readonly
+                          placeholder="Day"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="col-form-label" for="text-input">Sex<span class="text-danger">*</span> </label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="sex" matInput readonly placeholder="Sex" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label" for="text-input">Neuter Status<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input formControlName="neuterStatus" matInput readonly placeholder="Neuter Status" />
+                </mat-form-field>
+              </div>
+              <div class="col-md-6" *ngIf="neuterStatusFlag">
+                <label class="col-form-label">Breeder Status<span class="text-danger">*</span></label>
+                <mat-radio-group
+                  class="mat-radio-group p-3"
+                  aria-label="Select an option"
+                  formControlName="breederStatus"
+                  disabled
+                >
+                  <mat-radio-button value="Yes">Yes </mat-radio-button>
+                  <mat-radio-button value="No">No </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            &nbsp; &nbsp;
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Status<span class="text-danger">*</span></label>
+                <mat-radio-group class="mat-radio-group p-3" aria-label="Select an option" formControlName="status">
+                  <mat-radio-button value="alive" [checked]="true">Alive </mat-radio-button>
+                  <mat-radio-button value="dead">Dead </mat-radio-button>
+                  <mat-radio-button value="abandoned">De-registration Dat</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="petInforForm.value.status === 'abandoned'">
+              <div class="col-md-6">
+                <label class="col-form-label">De-registration Dat</label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    matInput
+                    formControlName="abandonedDate"
+      
+                    disabled
+                  />
+                
+                  <mat-datepicker #picks></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="col-form-label">Date of Renewal <span class="text-danger">*</span> </label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input
+                    matInput
+                    [matDatepicker]="pic1"
+                    formControlName="dateRenewal"
+                    disabled
+                    placeholder="Renewal Date"
+                  />
+                  <mat-datepicker-toggle matSuffix [for]="pic1"></mat-datepicker-toggle>
+                  <mat-datepicker #pic1></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <label class="col-form-label"> Revenue Receipt Number<span class="text-danger">*</span></label>
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <input matInput formControlName="receiptNumber" placeholder=" Revenue Receipt Number" readonly />
+                  <mat-error Revenue Receipt Number></mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            &nbsp;
+            <hr style="margin-top: 10px" />
+            &nbsp; &nbsp;
+
+            <div class="container">
+              <mat-accordion>
+                <mat-expansion-panel (opened)="basicPanelOpenState = true" (opened)="basicPanelOpenState = true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title><strong>Deworming </strong></mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <mat-card-header class="p-3 pl-lg-0">
+                    <mat-panel-title>Deworming Detail</mat-panel-title>
+                  </mat-card-header>
+                  <table mat-table [dataSource]="dataSource2" matSort class="mat-elevation-z1">
+                    <ng-container matColumnDef="slno">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                        {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                      </td>
+                      <ng-container matColumnDef="petRegistrationNumber">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                        <td mat-cell *matCellDef="let element">{{ element.petRegistrationNumber }}</td>
+                      </ng-container>
+                    </ng-container>
+                    <ng-container matColumnDef="treatmentDate">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date of last deworming</th>
+                      <td mat-cell *matCellDef="let element">{{ element.treatmentDate | date }}</td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns2"></tr>
+                  </table>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel (opened)="basicPanelOpenState = true" (opened)="basicPanelOpenState = true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title><strong>Vaccination </strong></mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <mat-card-header class="p-3 pl-lg-0">
+                    <mat-panel-title>Vaccination Detail</mat-panel-title>
+                  </mat-card-header>
+                  <table mat-table [dataSource]="dataSource3" matSort class="mat-elevation-z1">
+                    <ng-container matColumnDef="slno">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                        {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="vaccine_name">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Type of Vaccines</th>
+                      <!-- <td mat-cell *matCellDef="let element">ARV</td> -->
+                      <td mat-cell *matCellDef="let element">{{ element.vaccine_name }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="treatment_date">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date of Vaccinaion</th>
+                      <td mat-cell *matCellDef="let element">{{ element.treatment_date | date }}</td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns3"></tr>
+                  </table>
+
+                  <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel (opened)="basicPanelOpenState = true" (opened)="basicPanelOpenState = true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title><strong>De-Registration Owner Details </strong></mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <mat-card-header class="p-3 pl-lg-0">
+                    <mat-panel-title>Vaccination Detail</mat-panel-title>
+                  </mat-card-header>
+                  <table mat-table [dataSource]="dataSource4" matSort class="mat-elevation-z1">
+                    <ng-container matColumnDef="slno">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                        {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                      </td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="abandonedDate">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>De-registration Date/Re-Registration Date</th>
+                      <td mat-cell *matCellDef="let element">{{ element.abandonedDate | date }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="petRegistrationNo">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Owner CID</th>
+                      <td mat-cell *matCellDef="let element">{{ element.petRegistrationNo}}</td>
+                    </ng-container>
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns4"></tr>
+                  </table>
+                  <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel (opened)="basicPanelOpenState = true" (opened)="basicPanelOpenState = true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title><strong> Owner Transfer Details </strong></mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <mat-card-header class="p-3 pl-lg-0">
+                    <mat-panel-title>Vaccination Detail</mat-panel-title>
+                  </mat-card-header>
+                  <table mat-table [dataSource]="dataSource5" matSort class="mat-elevation-z1">
+                    <ng-container matColumnDef="slno">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sl.No.</th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                        {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
+                      </td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="transferDate">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date of owner Transfer</th>
+                      <td mat-cell *matCellDef="let element">{{ element.transferDate | date }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="cidNumber">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Owner name</th>
+                      <td mat-cell *matCellDef="let element">{{ element.cidNumber}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="ownerName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Owner CID</th>
+                      <td mat-cell *matCellDef="let element">{{ element.ownerName}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="dzongkhagName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Dzongkhag</th>
+                      <td mat-cell *matCellDef="let element">{{ element.dzongkhagName}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="gewogName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Gewog</th>
+                      <td mat-cell *matCellDef="let element">{{ element.gewogName}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="village_name">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Village</th>
+                      <td mat-cell *matCellDef="let element">{{ element.village_name}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="mobileNumber">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Mobile Number</th>
+                      <td mat-cell *matCellDef="let element">{{ element.mobileNumber}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="owner_type">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ownership Type</th>
+                      <td mat-cell *matCellDef="let element">{{ element.owner_type}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="emailId">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email Id</th>
+                      <td mat-cell *matCellDef="let element">{{ element.emailId}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="locality">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Locality</th>
+                      <td mat-cell *matCellDef="let element">{{ element.locality}}</td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns5"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns5"></tr>
+                  </table>
+
+                  <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                </mat-expansion-panel> 
+                
+                
+              </mat-accordion>
+            </div>
+         
+     
+
+
+          </form>
+        </div>
+        &nbsp; &nbsp;
+        <mat-card-actions>
+          <!-- <button mat-raised-button color="primary" (click)="sendMail()">
+            <mat-icon>email</mat-icon>&nbsp;Send Email
+          </button> -->
+          <button mat-raised-button color="primary" (click)="printPage()">
+            <mat-icon>print </mat-icon>&nbsp;Print
+          </button>
+        </mat-card-actions>
+      </div>
+    </div>
+  </div>
+</mat-card>

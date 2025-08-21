@@ -1,0 +1,257 @@
+<!-- Certificate -->
+<mat-card>
+  <div class="my-3 my-md-3">
+    <div class="card" id="print">
+      <form class="form-horizontal" [formGroup]="petCertificate">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <h5 class="p-1" style="padding-top: 10px; text-align: center"><strong>དཔལ་ལྡན་འབྲུག་གཞུང།</strong></h5>
+              <h5 class="p-1" style="padding-top: 10px; text-align: center">
+                <strong>སོ་ནམ་དང་ནགས་ཚལ་ལྷན་ཁག།སྒོ་ནོར་ལས་ཁུང།</strong>
+              </h5>
+              <h5 class="p-1" style="padding-top: 10px; text-align: center">Royal Government of Bhutan</h5>
+              <h5 class="p-1" style="padding-top: 10px; text-align: center">Ministry of Agriculture and Forest</h5>
+              <h5 class="p-1" style="padding-top: 10px; text-align: center">Department of Livestock</h5>
+              <h5 class="p-1" style="padding-top: 10px; text-align: center">Thimphu</h5>
+              <img
+                class="BHTAN_SYMBOL"
+                style="width: 197.887px; height: 183.781px; position: absolute; left: 50px; top: 50px"
+                src="/assets/Bhutan.png "
+              />
+              <img
+                class="transparent DOL"
+                style="width: 145.489px; height: 123.831px; left: 805px; top: 50px; position: absolute"
+                src="/assets/transparent DOL.png "
+              />
+            </div>
+            <div class="col-md-12">
+              <hr style="width: 100%; text-align: left; margin-left: 0" />
+            </div>
+            <div class="col-md-12">
+              <h5 class="p-3">
+                <table align="center">
+                  <tr>
+                    <td>rer. no....................</td>
+                    <td style="width: 75%"></td>
+                    <td>date:...............</td>
+                  </tr>
+                </table>
+              </h5>
+            </div>
+            <div class="col-md-12">
+              <h5 class="p-2" style="padding-top: 10px; text-align: center">Pet Health Certificate</h5>
+            </div>
+
+            <!-- <div class="form-group row" style="padding-left: 15px">
+                          <div class="col-md-12">
+                            <label class="col-form-label"><b>Owners' Details</b></label>
+                          </div>
+                          <div class="form-group row col-md-6">
+                            <tr>
+                              <label class="col-form-label" style="padding-left: 15px"><b>Name of Owner:</b> {{ personName }}</label>
+                              <label class="col-form-label" style="padding-left: 15px"><b>CID Number: </b>{{ personCID }}</label>
+                              <label class="col-form-label" style="padding-left: 15px"><b>Address: </b> {{ personAddress }}</label>
+                            </tr>
+                          </div>
+                        </div>
+                        <br> -->
+
+            <div class="col-md-12">
+              <label class="col-form-label"><b>Owners' Details</b></label
+              ><br />
+              <table>
+                <td>
+                  <tr>
+                    <label class="col-form-label" style="padding-left: 15px"><b>Name of Owner:</b></label>
+                  </tr>
+                  <tr>
+                    <label class="col-form-label" style="padding-left: 15px"><b>CID Number: </b></label>
+                  </tr>
+                  <tr>
+                    <label class="col-form-label" style="padding-left: 15px"><b>Address: </b> </label>
+                  </tr>
+                </td>
+                <td>
+                  <tr>
+                    <label class="col-form-label" style="padding-left: 15px">{{ personName }}</label>
+                  </tr>
+                  <tr>
+                    <label class="col-form-label" style="padding-left: 15px">{{ personCID }}</label>
+                  </tr>
+                  <tr>
+                    <label class="col-form-label" style="padding-left: 15px">{{ personAddress }}</label>
+                  </tr>
+                </td>
+              </table>
+            </div>
+
+            <div class="col-md-12" style="margin-top: 30px; margin-bottom: 30px">
+              <table align="center">
+                <tr>
+                  <td>
+                    <strong>Pet's Details</strong>
+                  </td>
+                  <td style="width: 55%"></td>
+                  <td>
+                    <strong>Vaccination and Deworming</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <table>
+                      <td>
+                        <!-- <tr><strong>Species:</strong></tr> -->
+                        <tr>
+                          <strong>Animal Type:</strong>
+                        </tr>
+                        <!-- <tr><strong>Breed:</strong></tr> -->
+                        <tr>
+                          <strong>Age:</strong>
+                        </tr>
+                        <!-- <tr><strong>Sex:</strong></tr> -->
+                        <tr>
+                          <strong>Registration No:</strong>
+                        </tr>
+                        <tr>
+                          <strong>Pet Name:</strong>
+                        </tr>
+                      </td>
+                      <td>
+                        <!-- <tr>{{ speciesName }}Species</tr> -->
+                        <tr>
+                          {{
+                            animalType
+                          }}
+                        </tr>
+                        <!-- <tr>{{ breed }}asd</tr> -->
+                        <tr>
+                          {{
+                            age
+                          }}
+                        </tr>
+                        <!-- <tr>Male/Female</tr> -->
+                        <tr>
+                          {{
+                            registrationNumber
+                          }}
+                        </tr>
+                        <tr>
+                          {{
+                            petName
+                          }}
+                        </tr>
+                      </td>
+                    </table>
+                  </td>
+                  <td></td>
+                  <td>
+                    <table>
+                      <td>
+                        <!-- <tr><strong>Type:</strong></tr> -->
+                        <tr>
+                          <strong>Last Vaccination Date:</strong>
+                        </tr>
+                        <tr>
+                          <strong>Last Deworming Date:</strong>
+                        </tr>
+                      </td>
+                      <td>
+                        <!-- <tr>type here</tr> -->
+                        <tr>
+                          {{
+                            clinicalDetailsDate | date
+                          }}
+                        </tr>
+                        <tr>
+                          {{
+                            clinicalDetailsAdvice
+                          }}
+                        </tr>
+                      </td>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- start -->
+            <!-- <div class="col-md-6">
+                          <label class="col-form-label"><strong>Pet's Details</strong>:</label>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="col-form-label"><strong>Vaccination and Deworming.</strong>:</label>
+                        </div>
+                        <div class="col-mad-6 form-group row" style="padding-left: 15px; border-color: black; width: 410px">
+                          <div class="card">
+                            <label class="col-form-label" style="padding-left: 15px"><b>Species:</b> {{ speciesName }}</label>
+                            <td>
+                              <label class="col-form-label" style="padding-left: 15px"><b>Animal Type:</b> {{ animalType }}</label>
+                            </td>
+                            <td>
+                              <label class="col-form-label" style="padding-left: 15px"><b>Breed: </b>{{ breed }}</label>
+                            </td>
+                            <td>
+                              <label class="col-form-label" style="padding-left: 15px"><b>Age:</b> {{ age }}</label>
+                            </td>
+                            <td>
+                              <label class="col-form-label" style="padding-left: 15px"><b>Sex:</b></label>
+                            </td>
+                            <td>
+                              <label class="col-form-label" style="padding-left: 15px"><b>Registration No:</b>{{ registrationNumber }}</label>
+                            </td>
+                            <td>
+                              <label class="col-form-label" style="padding-left: 15px"><b>Pet Name:</b>{{ petName }}</label>
+                            </td>
+                          </div>
+                        </div>
+                        &nbsp;&nbsp;
+                        <div class="col-mad-6 form-group row" style="padding-left: 15px; border-color: black; width: 410px">
+                          <div class="card">
+                            <label class="col-form-label" style="padding-left: 15px"><b>Type:</b> </label>
+                            <label class="col-form-label" style="padding-left: 15px"><b>Last Vaccination Date:</b>{{ clinicalDetailsDate | date }}</label>
+                            <label class="col-form-label" style="padding-left: 15px"><b>Last Deworming Date:</b>{{ clinicalDetailsAdvice }}</label>
+                          </div>
+                        </div> -->
+            <!-- end -->
+
+            <div class="col-md-12">
+              <label class="col-form-label">** all the details should be pulled from the database.</label>
+            </div>
+            <div class="col-md-12">
+              <label class="col-form-label"
+                >This is to certify that the above mentioned pet has been vaccinated and dewormed as per the recommended
+                schedule, and the pet is free from any kind of disease/ infection infestation. The pet does not come
+                from a place endemic to any infection disease.At the time of examination, the pet was not pregnant and
+                did not show signs or lesions suggestive of any disease. Therefore, the pet is deemed "Fit to travel".
+                All the details provided above are correct, and for reference, the pet registration booklet is also
+                attached herewith.
+              </label>
+            </div>
+            <div class="col-md-12">
+              <label class="col-form-label"
+                >Validity:.................................. days/months/year (Select) from the date of issue of the
+                certificate.</label
+              >
+            </div>
+
+            <br />
+            <br />
+
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <div class="col-md-12">
+              <label class="col-form-label">Seal and signature (Competent authority)</label>
+            </div>
+          </div>
+          <button (click)="printPage()" mat-raised-button color="accent"><mat-icon>print</mat-icon>&nbsp;Print</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</mat-card>

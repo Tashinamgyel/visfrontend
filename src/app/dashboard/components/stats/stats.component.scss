@@ -1,0 +1,103 @@
+@import "src/app/styles/colors";
+@import "src/app/styles/variables";
+@import "src/app/styles/font";
+
+.dashboard-stat {
+  display: flex;
+  justify-content: space-around;
+  //width: calc(100% - 16px);
+  // height: 90%;
+
+  &__item {
+    height: 150px;
+    margin: 10px;
+    width: 90%;
+    box-shadow: 0 3px 11px 0 $shadow-white, 0 3px 3px -2px $shadow-grey, 0 1px 8px 0 $shadow-dark-grey;
+  }
+
+  &__title {
+    text-align: center;
+  }
+
+  &__title-text {
+    font-weight: $fw-lighter;
+    font-size: large;
+    color: white;
+    margin: 0;
+  }
+
+  @media (min-width: $small) and (max-width: $normal) {
+    justify-content: start;
+  }
+
+  @media (max-width: $normal) {
+    flex-wrap: wrap;
+  }
+}
+@media only screen and (device-width: 768px) {
+  .card {
+    border: 1px solid #327ebd;
+    background-color: white;
+    width: 100%;
+    min-height: 510px;
+    max-height: 1300px;
+    margin-left: 10px;
+    margin-right: 20px;
+    margin-bottom: 0 auto;
+  }
+}
+
+.dashboard-stat-content {
+  padding: 8px;
+  height: 5px;
+  width: 100%;
+
+  &__total-info-users {
+    color: white;
+    font-weight: $fw-lighter;
+    font-size: medium;
+    height: 5px;
+    letter-spacing: 0.15px;
+    text-align: center;
+  }
+
+  &__stat__title-text {
+    color: white;
+    font-weight: $fw-lighter;
+    font-size: xx-large;
+    margin: 0;
+  }
+}
+.card {
+  border: 1px solid #327ebd;
+  background-color: white;
+  width: 100%;
+  min-height: 510px;
+  max-height: 1300px;
+  margin-left: 10px;
+  margin-right: 20px;
+  margin-bottom: auto auto;
+  // height: 510px;
+}
+// @media only screen
+//   and (min-width: 1024px)
+//   and (max-height: 1366px)
+//   and (-webkit-min-device-pixel-ratio: 1.5) {
+// }
+
+// /* Portrait */
+// @media only screen
+//   and (min-width: 1024px)
+//   and (max-height: 1366px)
+//   and (orientation: portrait)
+//   and (-webkit-min-device-pixel-ratio: 1.5) {
+// }
+
+// /* Landscape */
+// @media only screen
+//   and (min-width: 1024px)
+//   and (max-height: 1366px)
+//   and (orientation: landscape)
+//   and (-webkit-min-device-pixel-ratio: 1.5) {
+
+// }

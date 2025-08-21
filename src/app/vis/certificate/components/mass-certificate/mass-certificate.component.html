@@ -1,0 +1,231 @@
+<mat-card class="example-card">
+  <div class="card">
+    <form class="form-horizontal" [formGroup]="massForm">
+      <div class="form-group row" style="margin-left: 1%; margin-top: 1%">
+        <div class="col-md-6">
+          <label class="col-form-label">Mass Registration Number </label>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input type="text" matInput formControlName="massRegistrationNo" />
+            <mat-error>Enter Mass Registration Number(MRN)</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <label class="col-form-label">Species <span class="text-danger">*</span></label>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-select formControlName="speciesId">
+              <mat-option value="All">All</mat-option>
+              <mat-option *ngFor="let specie of species" [value]="specie.id">{{ specie.speciesName }}</mat-option>
+            </mat-select>
+            <mat-error>Species is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group row" style="margin-left: 1%">
+        <div class="col-md-6">
+          <label class="col-form-label" for="text-input">From Date<span class="text-danger">*</span></label>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input matInput [matDatepicker]="pic" [max]="maxDate" readonly formControlName="fromDate" />
+            <mat-datepicker-toggle matSuffix [for]="pic"></mat-datepicker-toggle>
+            <mat-datepicker #pic></mat-datepicker>
+            <mat-error>Date is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <label class="col-form-label" for="text-input"> To Date<span class="text-danger">*</span></label>
+          <mat-form-field appearance="outline" class="example-full-width">
+            <input matInput [matDatepicker]="pic1" [max]="maxDate" readonly formControlName="toDate" />
+            <mat-datepicker-toggle matSuffix [for]="pic1"></mat-datepicker-toggle>
+            <mat-datepicker #pic1></mat-datepicker>
+            <mat-error>Date is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <button
+          (click)="getMassRegistrationNumberCid()"
+          color="primary"
+          mat-raised-button
+          style="float: right; margin-bottom: 1%; margin-right: 1%"
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <br /><br />
+  <!-- styleSheetFile="assets/css/custome1.css" -->
+  <button [useExistingCss]="true" mat-raised-button color="accent" printSectionId="printsection" ngxPrint>
+    <mat-icon>print</mat-icon>&nbsp;Print
+  </button>
+  <!-- Certificate -->
+  <mat-card id="printsection">
+    <div class="my-3 my-md-3">
+      <div class="container">
+        <div class="card">
+          <form class="form-horizontal" [formGroup]="massCertificate">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12" align="center">
+                  <td>
+                    <img class="Header" style="width: 100%; height: auto" src="/assets/print.png " />
+                  </td>
+                </div>
+                <div class="col-md-12">
+                  <hr style="margin-left: 30px; margin-right: 30px" />
+                </div>
+                <div class="col-md-12">
+                  <h5 class="p-2" style="padding-top: 10px; text-align: center">VACCINATION CERTIFICATE (MASS)</h5>
+                </div>
+                <br />
+                <div class="col-md-12" style="margin-left: 30px; margin-right: 30px">
+                  <label><b>Date of Issue:</b> <input type="date" /></label>
+                </div>
+                <div class="col-md-12">
+                  <hr style="margin-left: 30px; margin-right: 30px; border-top: 1px solid rgb(0, 0, 0)" />
+                </div>
+
+                <div class="col-md-12" style="margin-left: 30px; margin-right: 30px">
+                  <h5 class="col-form-label" style="text-align: center"><b>Owner Details</b></h5>
+
+                  <table align="center" style="width: 100%">
+                    <tr>
+                      <td><u>Nationality</u>:{{ nationality }}</td>
+                      <td><u>Country</u>:{{ country_name === '' ? 'NA' : country_name }}</td>
+                      <td><u>CID Number</u>:{{ cid_number === '' ? 'NA' : cid_number }}</td>
+                    </tr>
+                    <tr>
+                      <td><u>Passport/Work Permit No.</u>:{{ passport_number === '' ? 'NA' : passport_number }}</td>
+                      <td><u>Name</u>:{{ owner_name }}</td>
+                      <td><u>Dzongkhag</u>:{{ dzongkhag_name }}</td>
+                    </tr>
+                    <tr>
+                      <td><u>Gewog</u>:{{ gewog_name }}</td>
+                      <td><u>Village</u>:{{ village_name }}</td>
+                      <td><u>Locality</u>:{{ locality }}</td>
+                    </tr>
+                  </table>
+                </div>
+
+                <div class="col-md-12">
+                  <hr style="margin-left: 30px; margin-right: 30px; border-top: 1px solid rgb(0, 0, 0)" />
+                </div>
+
+                <div class="col-md-12">
+                  <h5 class="col-form-label" style="text-align: center"><b>Vaccine and Animal Details</b></h5>
+
+                  <label class="col-form-label" style="padding-left: 30px"
+                    ><u> Mass Reg No.</u>:{{ mass_registration_id }}
+                  </label>
+                </div>
+
+                <div class="col-md-12" style="margin-top: 30px; margin-bottom: 30px">
+                  <table
+                    class="applyingBorder"
+                    align="center"
+                    style="font-size: smaller; border: 1px solid rgb(0, 0, 0)"
+                    border="1"
+                  >
+                    <tr align="center">
+                      <th>Vaccine and Animal Details</th>
+                      <th>No. of Animals Vaccinated</th>
+                    </tr>
+
+                    <tr class="tableData">
+                      <td>
+                        <table
+                          class="applyingBorder"
+                          style="border-collapse: collapse; border-style: hidden; border-spacing: 0; width: 100%"
+                          border="1"
+                        >
+                          <tr class="tableData" align="center" style="border: 1px solid rgb(0, 0, 0)">
+                            <th class="tableData">Date of Vaccination</th>
+                            <th class="tableData">Vaccine Type</th>
+                            <th class="tableData">Species</th>
+                            <th class="tableData">Animal Type</th>
+                            <th class="tableData">Breed</th>
+                          </tr>
+                          <tr
+                            class="tableData"
+                            align="center"
+                            *ngFor="let element of onlyVaccinated"
+                            style="border: 1px solid rgb(0, 0, 0)"
+                          >
+                            <td class="tableData">{{ element.treatment_date }}</td>
+                            <td class="tableData">
+                              <div *ngFor="let element of onlyVaccinated">{{ element.vaccine_name }}</div>
+                            </td>
+                            <td class="tableData">{{ element.species_name }}</td>
+                            <td class="tableData">{{ element.animal_type }}</td>
+                            <td class="tableData">{{ element.breed_name }}</td>
+                          </tr>
+                        </table>
+                      </td>
+
+                      <td>
+                        <table
+                          class="applyingBorder"
+                          style="border-collapse: collapse; border-style: hidden; border-spacing: 0; width: 100%"
+                          border="1"
+                        >
+                          <tr class="tableData" align="center" border="1" style="border: 1px solid rgb(0, 0, 0)">
+                            <th class="tableData">Age</th>
+                            <th class="tableData">Male</th>
+                            <th class="tableData">Female</th>
+                            <th class="tableData">Mixed</th>
+                            <th class="tableData">Total</th>
+                          </tr>
+                          <tr
+                            class="tableData"
+                            align="center"
+                            *ngFor="let element of onlyVaccinated"
+                            style="border: 1px solid rgb(0, 0, 0)"
+                          >
+                            <td class="tableData">{{ element.age }}</td>
+                            <td class="tableData">{{ element.male }}</td>
+                            <td class="tableData">{{ element.female }}</td>
+                            <td class="tableData">{{ element.mixed }}</td>
+                            <td class="tableData">{{ element.total }}</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="col-md-12">
+                  <hr style="margin-left: 30px; margin-right: 30px; border-top: 1px solid rgb(0, 0, 0)" />
+                </div>
+                <div class="col-md-12" style="text-align: center">
+                  <label class="col-form-label">
+                    “This is to certify that the above-mentioned animal has been vaccinated as shown in the above
+                    table.”
+                  </label>
+                </div>
+                <br /><br />
+                <div class="col-md-12" style="text-align: center">
+                  <label class="col-form-label" style="margin-left: 20px"
+                    ><b> Validity: Till <input type="date" /></b
+                  ></label>
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <div class="col-md-12">
+                  <p class="col-form-label" style="text-align: center"><b>This is a report electronically generated from the Veterinary Information System (VIS) of Bhutan.<br>To verify the authenticity of this report, please contact National Centre for Animal Health,<br> Serbithang (www.ncah.gov.bt)</b></p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</mat-card>

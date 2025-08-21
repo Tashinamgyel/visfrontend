@@ -1,0 +1,61 @@
+.mat-divider {
+  border-top-color: darkblue;
+}
+@import "../../../../styles/colors";
+.form {
+  min-width: 350px;
+  // max-width: 750px;
+  width: 100%;
+}
+
+.example-full-width {
+  min-width: 350px;
+  max-width: 800px;
+  width: 100%;
+  height: 0;
+  padding-right: 18px;
+  padding-bottom: 20px;
+}
+
+.example-custom-width {
+  min-width: 300px;
+  max-width: 800px;
+  width: 100%;
+  height: 0px;
+  padding-right: 18px;
+}
+
+.form-responsive {
+  margin-left: 2em;
+  margin-right: 2em;
+  overflow: auto;
+  position: relative;
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+.mat-form-field {
+  margin-right: 12px;
+}
+
+//table
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.save-button {
+  //color: wheat;
+  background-color: greenyellow;
+}
+.follow-button {
+  //color: wheat;
+  background-color: burlywood;
+}
+.mat-divider {
+  color: blue;
+  margin-top: 10px;
+}

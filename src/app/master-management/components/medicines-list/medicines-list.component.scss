@@ -1,0 +1,30 @@
+@import "src/app/styles/colors";
+
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.edit-button {
+  color: $blue;
+}
+
+.delete-button {
+  color: $dark-pink;
+}
+.mat-card {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.mat-header-cell {
+  color: #03a9f4;
+  text-align: center;
+}
+.mat-card {
+  margin-bottom: 6%;
+}
