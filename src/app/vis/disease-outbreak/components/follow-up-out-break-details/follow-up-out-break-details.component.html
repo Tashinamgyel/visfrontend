@@ -325,7 +325,7 @@
                 <form class="form-horizontal form" [formGroup]="firstFormGroup">
                   <ng-template matStepLabel>Fill Owner Details</ng-template>
                   <div class="form-group row">
-                  <div class="col-md-6">
+                    <div class="col-md-6">
                       <label class="col-form-label">Owned/ Stray<span class="text-danger">*</span></label>
                       <mat-form-field class="example-full-width" appearance="outline" required>
                         <mat-select formControlName="ownershipStatus">
@@ -336,7 +336,7 @@
                         <mat-error>Ownership Status is required</mat-error>
                       </mat-form-field>
                     </div>
-                  </div> 
+                  </div>
                   <div class="form-group row" *ngIf="firstFormGroup.value.ownershipStatus === 'Owned'">
                     <div class="col-md-6">
                       <label class="col-form-label">CID Number<span class="text-danger">*</span></label>
@@ -362,7 +362,6 @@
                           id="ownerName"
                           matInput
                           name="ownerName"
-                         
                           placeholder="Owner Name"
                         />
                         <mat-error>Enter Valid Owner Name</mat-error>
@@ -370,22 +369,23 @@
                     </div>
                   </div>
                   <div class="form-group row" *ngIf="firstFormGroup.value.ownershipStatus === 'Stray'">
-                      <div class="col-md-6">
-                        <label class="col-form-label">Stray ID (Enter any random no.)<span class="text-danger">*</span></label>
-                        <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]="false">
-                          <input
-                            matInput
-                            formControlName="cidNumber"
-            
-                            type="number"
-                            name="cidNumber"
-                            placeholder="(Enter any random no.)"
-                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                          />
-                          <mat-error>Enter CID Number</mat-error>
-                        </mat-form-field>
-                      </div>
-                      </div>
+                    <div class="col-md-6">
+                      <label class="col-form-label"
+                        >Stray ID (Enter any random no.)<span class="text-danger">*</span></label
+                      >
+                      <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]="false">
+                        <input
+                          matInput
+                          formControlName="cidNumber"
+                          type="number"
+                          name="cidNumber"
+                          placeholder="(Enter any random no.)"
+                          onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                        />
+                        <mat-error>Enter CID Number</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
                   <br /><br />
                   <h4>Present Address</h4>
                   <div class="form-group row">
@@ -473,7 +473,9 @@
                   <div class="form-group row">
                     <div class="col-md-6">
                       <label class="col-form-label"
-                        >Primary Case Date (date of first case during the current follow-up)<span class="text-danger">*</span></label
+                        >Primary Case Date (date of first case during the current follow-up)<span class="text-danger"
+                          >*</span
+                        ></label
                       >
                       <mat-form-field appearance="outline" class="example-full-width">
                         <!-- <mat-label><b>Primary case date (date of first case during the current follow-up) </b> <span class="text-danger">*</span>:</mat-label> -->
@@ -527,11 +529,13 @@
                   <div>
                     <br />
                     <!-- <button mat-button matStepperNext>Next</button> -->
-                    <button mat-raised-button
-                    matStepperNext
-                    [disabled]="!firstFormGroup.valid"
-                    color="primary"
-                    (click)="saveCaseOwner()">
+                    <button
+                      mat-raised-button
+                      matStepperNext
+                      [disabled]="!firstFormGroup.valid"
+                      color="primary"
+                      (click)="saveCaseOwner()"
+                    >
                       <mat-icon>skip_next</mat-icon> Next
                     </button>
                   </div>
@@ -541,7 +545,9 @@
               <mat-step [stepControl]="secondFormGroup" [optional]="isOptional">
                 <form [formGroup]="secondFormGroup">
                   <ng-template matStepLabel>Case Details</ng-template>
-                  <h5 class="p-4" style="padding-top: 20px">Follow Up Case Details <span class="text-danger">*</span>(Case/Death).</h5>
+                  <h5 class="p-4" style="padding-top: 20px">
+                    Follow Up Case Details <span class="text-danger">*</span>(Case/Death).
+                  </h5>
                   <mat-card-actions>
                     <button mat-raised-button (click)="openAddModalFollowUpCase()" class="m-3" color="primary">
                       <mat-icon>add</mat-icon> Add
@@ -781,7 +787,9 @@
             <mat-expansion-panel-header>
               <mat-panel-title><strong>View Details </strong></mat-panel-title>
             </mat-expansion-panel-header>
-            <h5 class="p-4" style="padding-top: 20px">Follow Up Case Details (Case/Death).<span class="text-danger">*</span></h5>
+            <h5 class="p-4" style="padding-top: 20px">
+              Follow Up Case Details (Case/Death).<span class="text-danger">*</span>
+            </h5>
             <mat-card-actions>
               <button mat-raised-button (click)="openAddModalFollowUpCase()" class="m-3" color="primary">
                 <mat-icon>add</mat-icon> Add
@@ -986,7 +994,9 @@
           <br />
           <div class="form-group row">
             <div class="col-md-12">
-              <label class="col-form-label"><strong>Laboratory Test </strong> <span class="text-danger">*</span> </label>
+              <label class="col-form-label"
+                ><strong>Laboratory Test </strong> <span class="text-danger">*</span>
+              </label>
               <mat-radio-group
                 (change)="changeSampleCollected($event)"
                 aria-label="Select an option"

@@ -17,7 +17,7 @@ export class GewogFormComponent implements OnInit {
   gewogName: string;
   gewogs: Gewogs[];
   dzongkhag: Dzongkhags[];
-  dzongkhagId:number;
+  dzongkhagId: number;
 
   constructor(
     public dialogRef: MatDialogRef<GewogFormComponent>,
@@ -44,8 +44,8 @@ export class GewogFormComponent implements OnInit {
     if (this.actionType === 'EDIT' || this.actionType === 'Delete') {
       this.service.loadGewogById(this.id).subscribe(
         (response) => {
-          console.log("cccsss",response);
-          
+          console.log('cccsss', response);
+
           this.gewogForm.patchValue({
             gewogName: response.gewogName,
             dzongkhagId: response.dzongkhag.id,
@@ -80,7 +80,7 @@ export class GewogFormComponent implements OnInit {
       const gewogs = new Gewogs();
       Object.assign(gewogs, this.gewogForm.value);
       gewogs.id = this.id;
-      gewogs.dzongkhagId =this.gewogForm.value.dzongkhagId;
+      gewogs.dzongkhagId = this.gewogForm.value.dzongkhagId;
 
       if (this.actionType === 'EDIT') {
         gewogs.status = 'Y';

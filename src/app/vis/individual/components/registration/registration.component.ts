@@ -4,7 +4,16 @@ import { NotificationService } from '@core';
 import { MatRadioChange } from '@angular/material/radio';
 import { Observable } from 'rxjs';
 import { routes } from '@app/shell/consts';
-import {AnimalTypes,Breeds,Country,Dzongkhags,Gewogs,OwnershipTypes,Species,Villages,} from '@app/master-management/models/master';
+import {
+  AnimalTypes,
+  Breeds,
+  Country,
+  Dzongkhags,
+  Gewogs,
+  OwnershipTypes,
+  Species,
+  Villages,
+} from '@app/master-management/models/master';
 import { SharedService } from '@app/vis/shared/services/shared.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MasterService } from '@app/master-management/services/master.service';
@@ -68,24 +77,23 @@ export class RegistrationComponent implements OnInit {
   formFillUp() {
     var registrationFormData = JSON.parse(localStorage.getItem('registrationFormData'));
 
-    console.log(registrationFormData,"registrationFormData");
-    
+    console.log(registrationFormData, 'registrationFormData');
+
     this.data = JSON.parse(localStorage.getItem('registrationFormData'));
     if (this.data.nationality === 1) {
       this.registrationForm.patchValue({
-       nationality: 1,
-       cidNumber: registrationFormData.cidNumber,
-       
-     });
-     this.loadDraftNationality(true);
-   }else{
-     this.registrationForm.patchValue({
-       nationality: 2,
-       passportNumber: registrationFormData.passportNumber,
+        nationality: 1,
+        cidNumber: registrationFormData.cidNumber,
+      });
+      this.loadDraftNationality(true);
+    } else {
+      this.registrationForm.patchValue({
+        nationality: 2,
+        passportNumber: registrationFormData.passportNumber,
         countryId: registrationFormData.countryId,
-     });
-     this.loadDraftNationality(false);
-   }
+      });
+      this.loadDraftNationality(false);
+    }
     this.registrationForm.patchValue({
       //nationality: registrationFormData.nationality,
       //passportNumber: registrationFormData.passportNumber,
@@ -115,27 +123,25 @@ export class RegistrationComponent implements OnInit {
       month: registrationFormData.month,
       bodyweight: registrationFormData.bodyweight,
       weightUnit: registrationFormData.weightUnit,
-      neuterStatus:registrationFormData.neuterStatus,
-      
-
+      neuterStatus: registrationFormData.neuterStatus,
     });
     this.getGewogs(registrationFormData.dzongkhagId);
     this.getVillage(registrationFormData.gewogId);
     this.getAnimalTypes(registrationFormData.speciesId);
   }
-  
 
   initializeForm() {
     this.registrationForm = this.fb.group({
       nationality: new FormControl(''),
       passportNumber: new FormControl('', Validators.required),
-      cidNumber: new FormControl( '',Validators.required),
+      cidNumber: new FormControl('', Validators.required),
 
       ownerName: new FormControl('', Validators.required),
       dzongkhagId: new FormControl('', Validators.required),
       gewogId: new FormControl('', Validators.required),
       villageId: new FormControl(''),
-      mobileNumber: new FormControl('',
+      mobileNumber: new FormControl(
+        '',
         Validators.compose([Validators.required, Validators.minLength(8), Validators.minLength(8)])
       ),
       emailId: new FormControl(''),
@@ -196,7 +202,7 @@ export class RegistrationComponent implements OnInit {
 
   getAnimalTypes(speciesId: number) {
     this.visMasterService.getAnimalTypes(speciesId).subscribe((response) => {
-    this.animalTypes = response;
+      this.animalTypes = response;
     });
   }
 
@@ -232,20 +238,20 @@ export class RegistrationComponent implements OnInit {
   }
 
   saveRegistration() {
-    if(this.registrationForm.value.sex === '') {
+    if (this.registrationForm.value.sex === '') {
       this.statusFlag = true;
       this.notification.openErrorSnackBar('Enter required fields');
       return;
-    }else {
+    } else {
       this.statusFlag = false;
     }
-    if(this.registrationForm.value.animalTypeId === 14 || this.registrationForm.value.animalTypeId === 15)
-      if(this.registrationForm.value.neuterStatus === '') {
+    if (this.registrationForm.value.animalTypeId === 14 || this.registrationForm.value.animalTypeId === 15)
+      if (this.registrationForm.value.neuterStatus === '') {
         this.notification.openErrorSnackBar('Enter required fields');
         return;
       }
-      if (this.registrationForm.value.nationality === 1) {
-      if(
+    if (this.registrationForm.value.nationality === 1) {
+      if (
         this.registrationForm.value.cidNumber != '' &&
         this.registrationForm.value.ownerName != '' &&
         this.registrationForm.value.dzongkhagId != '' &&
@@ -263,10 +269,14 @@ export class RegistrationComponent implements OnInit {
         registration.levelUserId = this.userDetails.levelUser.id;
         registration.jurisdiction = this.userDetails.jurisdiction;
         registration.fullName = this.userDetails.fullName;
-        if (this.registrationForm.value.cidNumber.length < 11  || this.registrationForm.value.mobileNumber < 8  || this.registrationForm.value.sex === '') {
+        if (
+          this.registrationForm.value.cidNumber.length < 11 ||
+          this.registrationForm.value.mobileNumber < 8 ||
+          this.registrationForm.value.sex === ''
+        ) {
           this.notification.openErrorSnackBar('Enter all required fields');
           // this.statusFlag = true;
-         }else {
+        } else {
           Object.assign(registration, this.registrationForm.value);
           const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             width: '500px',
@@ -324,7 +334,7 @@ export class RegistrationComponent implements OnInit {
         registration.levelUserId = this.userDetails.levelUser.id;
         registration.jurisdiction = this.userDetails.jurisdiction;
         registration.fullName = this.userDetails.fullName;
-        
+
         if (this.registrationForm.value.mobileNumber.length < 8) {
           this.notification.openErrorSnackBar('Enter all required fields');
         } else {
@@ -387,16 +397,16 @@ export class RegistrationComponent implements OnInit {
     this.notification.openSuccessSnackBar('Successfully saved as draft');
   }
 
-  validateNumber(type:any){
-    if(type =='cidNumber'){
-      if ( this.registrationForm.value.cidNumber == 0) {
+  validateNumber(type: any) {
+    if (type == 'cidNumber') {
+      if (this.registrationForm.value.cidNumber == 0) {
         this.registrationForm.get('cidNumber').reset();
       }
     }
   }
   validateYear(type: any) {
-    if(type == 'year') {
-      if( this.registrationForm.value.year == 0) {
+    if (type == 'year') {
+      if (this.registrationForm.value.year == 0) {
         this.registrationForm.get('year').reset();
       }
     }

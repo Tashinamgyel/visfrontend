@@ -1,6 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { OwnershipTypes, Gewogs, Species, AnimalTypes, Breeds, Medicines, Country } from '@app/master-management/models/master';
+import {
+  OwnershipTypes,
+  Gewogs,
+  Species,
+  AnimalTypes,
+  Breeds,
+  Medicines,
+  Country,
+} from '@app/master-management/models/master';
 import { Dzongkhags, ReportRequest } from '@app/vis/shared/model/model';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -12,12 +20,12 @@ import { CredentialsService } from '@app/auth';
 @Component({
   selector: 'app-disease-outbreak-report-summary',
   templateUrl: './disease-outbreak-report-summary.component.html',
-  styleUrls: ['./disease-outbreak-report-summary.component.scss']
+  styleUrls: ['./disease-outbreak-report-summary.component.scss'],
 })
 export class DiseaseOutbreakReportSummaryComponent implements OnInit {
   outBreakReportSummary: FormGroup;
   outReport: any;
-  dataOut: any
+  dataOut: any;
   fromDate: string;
   toDate: string;
   ownershipTypes: OwnershipTypes[];
@@ -32,7 +40,7 @@ export class DiseaseOutbreakReportSummaryComponent implements OnInit {
   countrys: Country[];
   maxDate = new Date();
   userDetails: any;
-  
+
   displayedColumns = [
     'slno',
     'outbreak_id',
@@ -42,7 +50,7 @@ export class DiseaseOutbreakReportSummaryComponent implements OnInit {
     'dzongkhag_name',
     'gewog_name',
     'caseDate',
-   // 'ddcid_number',
+    // 'ddcid_number',
     'householdAffected',
     'liveTotal',
     'deadTotal',
@@ -52,24 +60,22 @@ export class DiseaseOutbreakReportSummaryComponent implements OnInit {
     'culled',
     'vaccinated',
     'report',
-   
-];
+  ];
 
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  
+
   constructor(
     private fb: FormBuilder,
     private visMasterService: SharedService,
     private service: MasterService,
-    private credentialsService: CredentialsService,
+    private credentialsService: CredentialsService
   ) {}
-  
-populateForm() {
+
+  populateForm() {
     this.service.loadAllUserDetails(this.credentialsService.credentials.userName).subscribe((res) => {
       this.userDetails = res;
-      
     });
     this.visMasterService.loadOwnershipType().subscribe((response) => {
       this.ownershipTypes = response;
@@ -87,13 +93,12 @@ populateForm() {
     this.visMasterService.loadBreeds().subscribe((response) => {
       this.breeds = response;
     });
-    
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-   }
+  }
   getGewogs(dzongkhagId: number) {
     this.visMasterService.getGewogs(dzongkhagId).subscribe((response) => {
       this.gewogs = response;
@@ -104,8 +109,6 @@ populateForm() {
       this.animalTypes = response;
     });
   }
-  
-  
 
   ngOnInit(): void {
     this.initializeForm();
@@ -136,15 +139,15 @@ populateForm() {
     reportRequest.levelUser = this.userDetails.levelUser.levelName;
     reportRequest.centreId = this.userDetails.centre.id;
     reportRequest.levelUserId = this.userDetails.levelUser.id;
-    if(this.userDetails.jurisdiction==='TVH&SL Phuentshogling'){
+    if (this.userDetails.jurisdiction === 'TVH&SL Phuentshogling') {
       reportRequest.jurisdiction = 'RLDC Tsimasham ';
-    }else if(this.userDetails.jurisdiction==='TVH&SL Gelegphu'){
+    } else if (this.userDetails.jurisdiction === 'TVH&SL Gelegphu') {
       reportRequest.jurisdiction = 'RLDC Zhemgang';
-    }else if(this.userDetails.jurisdiction==='TVH&SL Nganglam'){
+    } else if (this.userDetails.jurisdiction === 'TVH&SL Nganglam') {
       reportRequest.jurisdiction = 'RLDC Kanglung';
-    }else if(this.userDetails.jurisdiction==='TVH&SL Dewathang'){
+    } else if (this.userDetails.jurisdiction === 'TVH&SL Dewathang') {
       reportRequest.jurisdiction = 'RLDC Kanglung';
-    }else{
+    } else {
       reportRequest.jurisdiction = this.userDetails.jurisdiction;
     }
     reportRequest.userName = this.userDetails.userName;
@@ -156,5 +159,5 @@ populateForm() {
       this.loading = false;
       console.log(this.outReport, 'sdddssddssdsdd');
     });
-}
+  }
 }

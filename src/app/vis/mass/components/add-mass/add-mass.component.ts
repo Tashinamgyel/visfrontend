@@ -29,8 +29,8 @@ export class AddMassComponent implements OnInit {
   mixedHidden: boolean = true;
   femaleHidden: boolean = true;
   maleHidden: boolean = true;
-  totalData: any
-  addmoreId:any
+  totalData: any;
+  addmoreId: any;
   ageForPoultry: boolean = false;
   ageForOthers: boolean = false;
   initialAgeForPoultry: boolean = true;
@@ -94,7 +94,7 @@ export class AddMassComponent implements OnInit {
       this.animalTypes = response;
     });
 
-    if (speciesId.speciesName === 'Poultry' || speciesId.speciesName === 'poultry' ) {
+    if (speciesId.speciesName === 'Poultry' || speciesId.speciesName === 'poultry') {
       this.treatmentYesPoultry = true;
       this.treatmentNoPoultry = false;
 
@@ -105,8 +105,16 @@ export class AddMassComponent implements OnInit {
       this.ageForPoultry = true;
       this.ageForOthers = false;
       this.initialAgeForPoultry = false;
-
-    }else if ( speciesId.speciesName === 'Swine' || speciesId.speciesName === 'Swine'  || speciesId.speciesName === 'Ovine' || speciesId.speciesName === 'Ovine' || speciesId.speciesName === 'Aquatic' || speciesId.speciesName === 'Aquatic' || speciesId.speciesName === 'Bovine' || speciesId.speciesName === 'Bovine') {
+    } else if (
+      speciesId.speciesName === 'Swine' ||
+      speciesId.speciesName === 'Swine' ||
+      speciesId.speciesName === 'Ovine' ||
+      speciesId.speciesName === 'Ovine' ||
+      speciesId.speciesName === 'Aquatic' ||
+      speciesId.speciesName === 'Aquatic' ||
+      speciesId.speciesName === 'Bovine' ||
+      speciesId.speciesName === 'Bovine'
+    ) {
       this.treatmentYesPoultry = true;
       this.treatmentNoPoultry = false;
 
@@ -117,7 +125,6 @@ export class AddMassComponent implements OnInit {
       this.ageForPoultry = false;
       this.ageForOthers = true;
       this.initialAgeForPoultry = false;
-      
     } else {
       this.treatmentYesPoultry = false;
       this.treatmentNoPoultry = true;
@@ -269,7 +276,7 @@ export class AddMassComponent implements OnInit {
     this.dataFromAddMore.splice(element, 1);
   }
 
-  addMass() { 
+  addMass() {
     if (
       this.addMassForm.value.animalTypeId != '' &&
       this.addMassForm.value.breedId != '' &&

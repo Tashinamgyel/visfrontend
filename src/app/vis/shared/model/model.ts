@@ -69,7 +69,7 @@ export class PetRegistration {
   microchipNumber: string;
   petBreedId: number;
   colour: string;
-  abandonedate:Date;
+  abandonedate: Date;
   petRegistrationNumber: string;
   receiptNumber: string;
   distinguishingMark: string;
@@ -102,8 +102,8 @@ export class PetRegistration {
   dewormingDetails: any;
   dewormingDetailsDate: any;
   countryName: any;
-  registerDate:Date;
-  transferDate:Date
+  registerDate: Date;
+  transferDate: Date;
 
   //userDetails
   userName: string;
@@ -157,7 +157,7 @@ export class OwnershipTransfer {
   animalName: string;
   speciesName: string;
   breed: string;
-  transferDate:Date;
+  transferDate: Date;
 }
 export class PetRenwal {
   [x: string]: any;
@@ -203,14 +203,13 @@ export class PetRenwal {
   speciesName: string;
   breed: string;
   countryId: any;
-  abandonedDate:Date;
+  abandonedDate: Date;
   userName: string;
   centreId: number;
   levelUserId: number;
   jurisdiction: string;
   fullName: string;
-  registerDate:Date;
-  
+  registerDate: Date;
 }
 
 export class MassDogVaccination {
@@ -300,8 +299,8 @@ export class DogSterilization {
   levelUserId: number;
   jurisdiction: string;
   fullName: string;
-  base64Image:any;
-  image:any;
+  base64Image: any;
+  image: any;
 }
 export class DogRegistration {
   mass_id: number;
@@ -354,7 +353,7 @@ export class ReportRequest {
   jurisdiction: string;
   levelUserId: string;
   centreId: number;
-  
+
   status: string;
   massRegistrationNo: string;
   outbreakId: string;
@@ -362,8 +361,8 @@ export class ReportRequest {
   systemId: string;
   conditionsId: string;
   reactionId: string;
-  composition:string;
-  centreAgencies:string
+  composition: string;
+  centreAgencies: string;
 }
 export interface RegistrationId {
   id: string;
@@ -404,8 +403,7 @@ export class Clinical {
   clinicalTest: any;
   finalSystemsId: number;
   finalConditionsId: number;
-  reactionDetail:string
-
+  reactionDetail: string;
 }
 
 export class Sterilization {
@@ -452,9 +450,6 @@ export class MedicationData {
   countryId: number;
 }
 
-
-
-
 export class VisReport {
   fromDate: string;
   toDate: string;
@@ -498,7 +493,7 @@ export class FlashReport {
   userName: string;
   centreId: number;
   levelUserId: number;
-  villageId:number;
+  villageId: number;
   jurisdiction: string;
   fullName: string;
   ownershipStatus: string;

@@ -160,12 +160,12 @@ export class CreateUser {
   designation: any;
   userLevelId: number;
   // centreId: number;
-  centreAgenciesId:number;
+  centreAgenciesId: number;
   levelUser: any;
   centre: any;
   jurisdiction: any;
   program: any;
-  userTypeId:number;
+  userTypeId: number;
   userType: any;
 }
 
@@ -212,7 +212,7 @@ export class Cases {
   notVaccinated: string;
   treatementDate: Date;
   dateDate: Date;
-  ownershipStatus:string;
+  ownershipStatus: string;
 }
 
 export class FlashTaskList {
@@ -332,19 +332,14 @@ export class Medicines {
   composition: string;
   presentation: string;
   classEntity: Class;
-  medicinesId:number
-  status:string;
-
+  medicinesId: number;
+  status: string;
 }
-
-
-
 
 export class MedClass {
   id: number;
   name: string;
-  classId:number;
-
+  classId: number;
 }
 
 export interface TreatmentData {

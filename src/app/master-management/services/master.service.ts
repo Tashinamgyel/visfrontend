@@ -487,7 +487,7 @@ export class MasterService {
   // }
 
   public saveMedicines(medicines: Medicines) {
-    debugger
+    debugger;
     return this.http.post(`${environment.serverUrl}/medicine/`, medicines, this.httpOptions);
   }
 
@@ -496,7 +496,7 @@ export class MasterService {
   }
 
   public deleteMedicines(id: number) {
-    alert("ddd")
+    alert('ddd');
     return this.http.post(`${environment.serverUrl}/medicine/${id}/delete`, this.httpOptions);
   }
 
@@ -1287,10 +1287,9 @@ export class MasterService {
 
   public loadUserById(id: number): Observable<CreateUser> {
     return new Observable<CreateUser>((observer) => {
-   
       this.http.get<CreateUser>(`${environment.serverUrl}/userDtls/${id}`, this.httpOptions).subscribe(
         (response) => {
-          console.log("zxzxzxzx")
+          console.log('zxzxzxzx');
           observer.next(response);
         },
         () => observer.error()
@@ -1308,8 +1307,8 @@ export class MasterService {
     });
   }
   public getCitizen(cid: number): Observable<CreateUser> {
-    debugger
-    console.log(cid)
+    debugger;
+    console.log(cid);
     return new Observable<CreateUser>((observer) => {
       this.http.get<CreateUser>(`${environment.serverUrl}/api/getcitizendetails/${cid}`, this.httpOptions).subscribe(
         (response) => {

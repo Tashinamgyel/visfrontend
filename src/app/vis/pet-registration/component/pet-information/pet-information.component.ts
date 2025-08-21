@@ -69,10 +69,22 @@ export class PetInformationComponent implements OnInit {
   displayedColumns3: string[] = ['slno', 'vaccine_name', 'treatment_date'];
   dataSource3 = new MatTableDataSource();
 
-  displayedColumns4: string[] = ['slno', 'abandonedDate','petRegistrationNo'];
+  displayedColumns4: string[] = ['slno', 'abandonedDate', 'petRegistrationNo'];
   dataSource4 = new MatTableDataSource();
 
-  displayedColumns5: string[] = ['slno', 'transferDate','cidNumber','ownerName','dzongkhagName','gewogName','village_name','mobileNumber','owner_type','emailId','locality'];
+  displayedColumns5: string[] = [
+    'slno',
+    'transferDate',
+    'cidNumber',
+    'ownerName',
+    'dzongkhagName',
+    'gewogName',
+    'village_name',
+    'mobileNumber',
+    'owner_type',
+    'emailId',
+    'locality',
+  ];
   dataSource5 = new MatTableDataSource();
 
   dewormingDataForSending: any;
@@ -131,15 +143,15 @@ export class PetInformationComponent implements OnInit {
       passportNumber: new FormControl(''),
       countryName: new FormControl(''),
       abandonedDate: new FormControl(''),
-      ownerNames:new FormControl(''),
-      ownerGewog:new FormControl(''),
-      ownerCid:new FormControl(''), 
-      ownerVillageId:new FormControl(''),
-      ownerDzongkhagId:new FormControl(''),
-      ownerlocality:new FormControl(''),
-      ownermobileNumber:new FormControl(''),
-      owneremailId:new FormControl(''),
-      village_name:new FormControl(''),
+      ownerNames: new FormControl(''),
+      ownerGewog: new FormControl(''),
+      ownerCid: new FormControl(''),
+      ownerVillageId: new FormControl(''),
+      ownerDzongkhagId: new FormControl(''),
+      ownerlocality: new FormControl(''),
+      ownermobileNumber: new FormControl(''),
+      owneremailId: new FormControl(''),
+      village_name: new FormControl(''),
     });
   }
   populateForm() {
@@ -187,9 +199,9 @@ export class PetInformationComponent implements OnInit {
     this.petRegistrationNo = this.petInforForm.get('petRegistrationNoOrMicrochip').value;
     this.visMasterService.getPetRegistrationNumber(this.petRegistrationNo).subscribe((response) => {
       this.getDoc(this.petRegistrationNo);
-      debugger
+      debugger;
       this.petRegistration = response;
-      console.log("ffffffffff",response)
+      console.log('ffffffffff', response);
       this.dewormingDataForSending = response.dewormingDetails;
       this.vaccinationDataForSending = response.vaccinationDetails;
       this.dataSource.data = response.clinicalDetails;
@@ -276,23 +288,16 @@ export class PetInformationComponent implements OnInit {
         dateRenewal: this.petRegistration.dateRenewal,
         status: this.petRegistration.status,
         abandonedDate: this.petRegistration.abandonedDate,
-
       });
       this.getDoc(this.petRegistration.petRegistrationNumber);
       this.getGewogs(this.petRegistration.dzongkhagId);
       this.getVillage(this.petRegistration.gewogId);
       this.status(this.petRegistration.status);
-      this.getOwnerDetails(
-        this.petRegistration.petRegistrationNumber,
-        this.petRegistration.microchipNumber
-      )
-      this.getOwnerDetailsodTranfer(
-        this.petRegistration.petRegistrationNumber,
-        this.petRegistration.microchipNumber
-      )
+      this.getOwnerDetails(this.petRegistration.petRegistrationNumber, this.petRegistration.microchipNumber);
+      this.getOwnerDetailsodTranfer(this.petRegistration.petRegistrationNumber, this.petRegistration.microchipNumber);
       // this.viewDetailsForRegister(
       //   this.petRegistration.cid,
-       
+
       // )
       this.getVaccinatationDetails(
         this.petRegistration.petRegistrationNumber,
@@ -313,19 +318,14 @@ export class PetInformationComponent implements OnInit {
       this.vaccDetails = res;
       this.dataSource5.data = res;
       console.log(res);
-      
     });
   }
 
-
-  getOwnerDetails(petRegistrationNo: string,microchipNumber: string) {
-    this.visMasterService.getOwnerDetailsofDog(petRegistrationNo,microchipNumber).subscribe((res) => {
+  getOwnerDetails(petRegistrationNo: string, microchipNumber: string) {
+    this.visMasterService.getOwnerDetailsofDog(petRegistrationNo, microchipNumber).subscribe((res) => {
       this.vaccDetails = res;
       this.dataSource4.data = res;
-      console.log(res,"dddddd");
-      
-  
-      
+      console.log(res, 'dddddd');
     });
   }
   status(status: string) {
@@ -346,9 +346,8 @@ export class PetInformationComponent implements OnInit {
       this.showingImage = res.imageByte;
     });
     this.getBarCode(petRegistrationNo);
-
   }
-  barcodeshow:any
+  barcodeshow: any;
   getBarCode(petRegistrationNo: string) {
     this.imageShow = true;
     //  this.DontShowBarCodeImage =false;
@@ -405,34 +404,29 @@ export class PetInformationComponent implements OnInit {
   //   dialogRef.afterClosed().subscribe((result) => {});
 
   // }
-  nationalitys:any
-  showDogDetails: boolean =false
-  ownerDetail:any
-  viewDetailsForRegister(cidNumber:number){
-    this.visMasterService.getOwnerDetailsofDogofRegister(cidNumber)
-    .subscribe((res) => {
-      if(cidNumber ==undefined){
-        cidNumber=0;
-      
+  nationalitys: any;
+  showDogDetails: boolean = false;
+  ownerDetail: any;
+  viewDetailsForRegister(cidNumber: number) {
+    this.visMasterService.getOwnerDetailsofDogofRegister(cidNumber).subscribe((res) => {
+      if (cidNumber == undefined) {
+        cidNumber = 0;
       }
       this.ownerDetail = res;
-      this.showDogDetails =true
-        this.nationalitys = this.ownerDetail.nationality == 1 ? 'Bhutanese' : 'Non-Bhutaneese';
-        this.petInforForm.patchValue({
-          ownerCid: res[0].cidNumber,
-          owneremailId: res[0].emailId,
-          ownerNames: res[0].ownerName,
-          ownermobileNumber: res[0].mobileNumber,
-          ownerDzongkhagId: res[0].dzongkhagName,
-          ownerVillageId: res[0].village_name,
-          ownerlocality: res[0].locality,
-          ownerGewog:  res[0].gewogName,
-        })
-       
-      console.log(this.ownerDetail,"ddddddd");
-      
-    
-    });
+      this.showDogDetails = true;
+      this.nationalitys = this.ownerDetail.nationality == 1 ? 'Bhutanese' : 'Non-Bhutaneese';
+      this.petInforForm.patchValue({
+        ownerCid: res[0].cidNumber,
+        owneremailId: res[0].emailId,
+        ownerNames: res[0].ownerName,
+        ownermobileNumber: res[0].mobileNumber,
+        ownerDzongkhagId: res[0].dzongkhagName,
+        ownerVillageId: res[0].village_name,
+        ownerlocality: res[0].locality,
+        ownerGewog: res[0].gewogName,
+      });
 
+      console.log(this.ownerDetail, 'ddddddd');
+    });
   }
 }

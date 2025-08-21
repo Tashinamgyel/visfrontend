@@ -676,8 +676,7 @@
                 </div>
               </div>
               <br />
-              <div class="form-group row"
-               *ngIf="massDogSterilizationForm.value.ownershipStatus === 'Unowned'">
+              <div class="form-group row" *ngIf="massDogSterilizationForm.value.ownershipStatus === 'Unowned'">
                 <div class="col-md-6">
                   <label class="col-form-label">Upload Photo</label>
                   <input type="file" (change)="onChange($event)" />

@@ -136,7 +136,6 @@ export class ClinicalForAddNewCaseComponent implements OnInit {
     });
   }
 
-
   formFillUp() {
     var registrationFormData = JSON.parse(localStorage.getItem('treatmentFormData'));
     this.treatmentForm.patchValue({
@@ -305,8 +304,8 @@ export class ClinicalForAddNewCaseComponent implements OnInit {
     this.masterService.getMedication(this.registrationId).subscribe((res) => {
       this.dataSource.data = res;
       this.dewormingDataForSending = res;
-      console.log(res,"cccccccccccc");
-      
+      console.log(res, 'cccccccccccc');
+
       localStorage.setItem('medData', JSON.stringify(this.dataSource.data));
     });
   }
@@ -323,12 +322,12 @@ export class ClinicalForAddNewCaseComponent implements OnInit {
     } else {
       const clinical = new Clinical();
       Object.assign(clinical, this.treatmentForm.value);
-      console.log(clinical,"sss");
-      
-      if(clinical.procedures = this.treatmentForm.value.procedures){
+      console.log(clinical, 'sss');
+
+      if ((clinical.procedures = this.treatmentForm.value.procedures)) {
         clinical.procedures = this.treatmentForm.value.procedures.join(',');
       }
-     
+
       if (this.treatmentForm.value.clinicalTest !== '') {
         clinical.clinicalTest = this.treatmentForm.value.clinicalTest.join(',');
       }
@@ -349,7 +348,6 @@ export class ClinicalForAddNewCaseComponent implements OnInit {
       var medDragtfData = JSON.parse(localStorage.getItem('medData'));
       clinical.medicationData = medDragtfData;
       console.log(medDragtfData);
-      
 
       this.service.saveClinical(clinical).subscribe(
         () => {
@@ -377,7 +375,7 @@ export class ClinicalForAddNewCaseComponent implements OnInit {
     } else {
       const clinical = new Clinical();
       Object.assign(clinical, this.treatmentForm.value);
-      if(clinical.procedures = this.treatmentForm.value.procedures){
+      if ((clinical.procedures = this.treatmentForm.value.procedures)) {
         clinical.procedures = this.treatmentForm.value.procedures.join(',');
       }
 

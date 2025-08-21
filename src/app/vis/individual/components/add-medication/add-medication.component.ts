@@ -107,8 +107,7 @@ export class AddMedicationComponent implements OnInit {
   getMedicine(classId: number) {
     this.sharedService.getMedicine(classId).subscribe((response) => {
       this.medicines = response;
-      console.log("cccccccccccc",response);
-      
+      console.log('cccccccccccc', response);
     });
   }
 

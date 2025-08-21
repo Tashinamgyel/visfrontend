@@ -147,7 +147,7 @@ export class MassRegistrationComponent implements OnInit {
       this.populateForm();
 
       this.visMasterService.getMassDetails(MRN).subscribe((response) => {
-       // console.log('masss details in search', response);
+        // console.log('masss details in search', response);
         if (response.cidNumber != null) {
           this.nationalityChange = 1;
           //this.nationalityForShowing = "Bhutanese"
@@ -295,7 +295,10 @@ export class MassRegistrationComponent implements OnInit {
         this.massRegistrationForm.value.mobileNumber != '' &&
         this.massRegistrationForm.value.ownershipTypeId != ''
       ) {
-        if (this.massRegistrationForm.value.mobileNumber.length < 8 || this.massRegistrationForm.value.cidNumber.length < 11) {
+        if (
+          this.massRegistrationForm.value.mobileNumber.length < 8 ||
+          this.massRegistrationForm.value.cidNumber.length < 11
+        ) {
           this.notification.openErrorSnackBar('Please enter the required data');
         } else {
           const dialogRef = this.dialog.open(MassConfirmationComponent, {

@@ -88,7 +88,6 @@
         </div>
         <br />
 
-      
         <div class="container">
           <div class="form-group row" *ngIf="numberOfAnimalMedicated">
             <!-- <div *ngIf="numberOfAnimalMedicated"> -->
@@ -401,7 +400,7 @@
       </div>
 
       <div *ngIf="numberOfAnimalsToHide && deworming">
-      <!-- <div *ngIf="numberOfAnimalsToHide && deworming || valueFromFormDeworming"> -->
+        <!-- <div *ngIf="numberOfAnimalsToHide && deworming || valueFromFormDeworming"> -->
         <button mat-raised-button color="primary" (click)="addMedication('deworming')">
           <mat-icon *ngIf="numberOfAnimalsToHide">add</mat-icon> Add Medicine
           <!-- <mat-icon *ngIf="numberOfAnimalsToHide && valueFromFormDeworming">add</mat-icon> Add Medicine -->
@@ -433,10 +432,10 @@
           </tr>
         </table>
       </div>
-<br />
-<br />
-     
-        <div *ngIf="numberOfAnimalsToHide && vaccination">
+      <br />
+      <br />
+
+      <div *ngIf="numberOfAnimalsToHide && vaccination">
         <button mat-raised-button color="primary" (click)="addMedicationForVaccination()">
           <mat-icon>add</mat-icon>Choose Vaccine Type
         </button>
@@ -455,11 +454,13 @@
           </tr>
         </table>
       </div>
-      
+
       <br />
 
-      <button mat-raised-button (click)="addMass()" color="primary" *ngIf="numberOfAnimalsToHide"><mat-icon>add</mat-icon> Save</button>
-     
+      <button mat-raised-button (click)="addMass()" color="primary" *ngIf="numberOfAnimalsToHide">
+        <mat-icon>add</mat-icon> Save
+      </button>
+
       <button mat-raised-button (click)="closeDialog()" style="background-color: red; color: white">Close</button>
     </form>
   </div>

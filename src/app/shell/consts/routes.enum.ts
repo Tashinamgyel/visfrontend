@@ -66,5 +66,5 @@ export enum routes {
   CLINICALDIANOSTICTEST = '/clinicalDiagnosticTest',
   OUTBREAKREPORTSUMMARY = '/diseaseOutbreakReportSummaryComponent',
   OUTBREAKREPORTSEARCH = '/diseaseOutbreakReportSeach',
-  MEDICINEDETAILS = '/medicineDetails'
+  MEDICINEDETAILS = '/medicineDetails',
 }

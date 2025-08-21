@@ -73,11 +73,9 @@ export class TreatmentDetailComponent implements OnInit {
     mass.massDetails = this.valueFromForm;
     if (this.valueFromForm != '') {
       this.sharedService.submitMassTreatment(mass).subscribe(
-
         (res) => {
-
-          console.log("Sdsdsds",res);
-           console.log('response for massRegistration', res);
+          console.log('Sdsdsds', res);
+          console.log('response for massRegistration', res);
           this.router.navigate(['/', 'dashboard']);
           this.notification.openSuccessSnackBar('Submitted Successfully');
         },

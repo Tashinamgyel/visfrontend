@@ -86,7 +86,7 @@
             <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
               <mat-button-toggle
                 value="excel"
-                (click)="exporter.exportTable('xlsx',{fileName:'Veterinary_Information_System_Report'})"
+                (click)="exporter.exportTable('xlsx', { fileName: 'Veterinary_Information_System_Report' })"
                 matTooltip="Export as excel"
                 matTooltipPosition="above"
               >
@@ -94,7 +94,7 @@
               </mat-button-toggle>
               <mat-button-toggle
                 value="excel"
-                (click)="exporter.exportTable('csv',{fileName:'Veterinary_Information_System_Report'})"
+                (click)="exporter.exportTable('csv', { fileName: 'Veterinary_Information_System_Report' })"
                 matTooltip="Export as csv"
                 matTooltipPosition="above"
                 ><img src="../../assets/csv-svgrepo-com.svg" style="height: 50px; width: 50px"
@@ -139,7 +139,6 @@
                 <td mat-cell *matCellDef="let element">{{ element.final_name }}</td>
               </ng-container>
 
-
               <!-- <ng-container matColumnDef="tentative_disease_name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Disease name (final diagnosis)</th>
                 <td mat-cell *matCellDef="let element">{{ element.tentative_disease_name }}</td>
@@ -167,7 +166,7 @@
               <ng-container matColumnDef="caseDate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Index Case Date</th>
                 <td mat-cell *matCellDef="let element">{{ element.caseDate }}</td>
-            </ng-container>
+              </ng-container>
 
               <ng-container matColumnDef="deadTotal">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>No. of deaths</th>
@@ -199,15 +198,13 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>No. of animals vaccinated</th>
                 <td mat-cell *matCellDef="let element">{{ element.vaccinated }}</td>
               </ng-container>
-              
+
               <ng-container matColumnDef="report">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Outbreak status</th>
-                  <td mat-cell *matCellDef="let element">{{ element.report }}</td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Outbreak status</th>
+                <td mat-cell *matCellDef="let element">{{ element.report }}</td>
               </ng-container>
 
-
-
-             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
           </cdk-virtual-scroll-viewport>

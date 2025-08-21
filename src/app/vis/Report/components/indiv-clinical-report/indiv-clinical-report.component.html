@@ -188,26 +188,27 @@
                     <mat-select formControlName="medicineId">
                       <mat-option value="All">All</mat-option>
                       <mat-option *ngFor="let medicine of medicines" [value]="medicine.id">
-                        {{ medicine.medicineName }} </mat-option
-                      >
+                        {{ medicine.medicineName }}
+                      </mat-option>
                     </mat-select>
                     <mat-error>Medicine is required</mat-error>
                   </mat-form-field>
                 </div>
               </div>
               <div class="form-group row">
-    
                 <div class="col-md-6">
                   <label class="col-form-label"> Centre Name</label>
                   <mat-form-field appearance="outline" class="example-full-width">
                     <mat-select formControlName="centreId" name="centreAgencies" id="centreAgencies">
                       <!-- <mat-option value="All">All</mat-option> -->
-                      <mat-option *ngFor="let breed of centre" [value]="breed.id">{{ breed.centreAgencies }}</mat-option>
+                      <mat-option *ngFor="let breed of centre" [value]="breed.id">{{
+                        breed.centreAgencies
+                      }}</mat-option>
                     </mat-select>
                     <mat-error>Breed is required</mat-error>
                   </mat-form-field>
                 </div>
-                </div>
+              </div>
             </div>
             <br />
             <div class="form-group row">
@@ -227,7 +228,7 @@
             <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
               <mat-button-toggle
                 value="excel"
-                (click)="exporter.exportTable('xlsx',{fileName:'Veterinary_Information_System_Report'})"
+                (click)="exporter.exportTable('xlsx', { fileName: 'Veterinary_Information_System_Report' })"
                 matTooltip="Export as excel"
                 matTooltipPosition="above"
               >
@@ -235,7 +236,7 @@
               </mat-button-toggle>
               <mat-button-toggle
                 value="excel"
-                (click)="exporter.exportTable('csv',{fileName:'Veterinary_Information_System_Report'})"
+                (click)="exporter.exportTable('csv', { fileName: 'Veterinary_Information_System_Report' })"
                 matTooltip="Export as csv"
                 matTooltipPosition="above"
                 ><img src="../../assets/csv-svgrepo-com.svg" style="height: 50px; width: 50px"

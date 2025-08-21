@@ -71,7 +71,7 @@ export class MdvReportComponent implements OnInit {
     'neuter_status',
     'jurisdiction',
     'centre',
-    'user_name'
+    'user_name',
   ];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -149,17 +149,17 @@ export class MdvReportComponent implements OnInit {
     reportRequest.centreId = this.userDetails.centre.id;
     reportRequest.levelUserId = this.userDetails.levelUser.id;
     //reportRequest.jurisdiction = this.userDetails.jurisdiction;
-    if(this.userDetails.jurisdiction==='TVH&SL Phuentshogling'){
+    if (this.userDetails.jurisdiction === 'TVH&SL Phuentshogling') {
       reportRequest.jurisdiction = 'RLDC Tsimasham ';
-      }else if(this.userDetails.jurisdiction==='TVH&SL Gelegphu'){
-        reportRequest.jurisdiction = 'RLDC Zhemgang';
-      }else if(this.userDetails.jurisdiction==='TVH&SL Nganglam'){
-        reportRequest.jurisdiction = 'RLDC Kanglung';
-      }else if(this.userDetails.jurisdiction==='TVH&SL Dewathang'){
-        reportRequest.jurisdiction = 'RLDC Kanglung';
-      }else{
-        reportRequest.jurisdiction = this.userDetails.jurisdiction;
-      }
+    } else if (this.userDetails.jurisdiction === 'TVH&SL Gelegphu') {
+      reportRequest.jurisdiction = 'RLDC Zhemgang';
+    } else if (this.userDetails.jurisdiction === 'TVH&SL Nganglam') {
+      reportRequest.jurisdiction = 'RLDC Kanglung';
+    } else if (this.userDetails.jurisdiction === 'TVH&SL Dewathang') {
+      reportRequest.jurisdiction = 'RLDC Kanglung';
+    } else {
+      reportRequest.jurisdiction = this.userDetails.jurisdiction;
+    }
     reportRequest.userName = this.userDetails.userName;
     Object.assign(reportRequest, this.mdvReport.value);
     this.visMasterService.getMdvReport(reportRequest).subscribe((res) => {

@@ -159,13 +159,12 @@ export class SearchResultsComponent {
    * @return void
    */
   viewCases(patientId: string, registrationId: number) {
-     console.log('searchDetails', this.searchDetails);
+    console.log('searchDetails', this.searchDetails);
 
     for (let i = 0; i < this.searchDetails.length; i++) {
-
-    console.log("searchDetails")
+      console.log('searchDetails');
       this.patientIDToShow = this.searchDetails[i].patientId;
-      console.log("searchDetails",this.searchDetails)
+      console.log('searchDetails', this.searchDetails);
     }
 
     this.service.viewClinicalCases(patientId).subscribe((res) => {
@@ -191,7 +190,7 @@ export class SearchResultsComponent {
       // For Deworming
       this.dataSourceForDeworming.data = this.registeredDetails.deworming;
 
-     // console.log('dataSourceForDeworming', this.dataSourceForDeworming.data);
+      // console.log('dataSourceForDeworming', this.dataSourceForDeworming.data);
       // For Vaccination
       this.dataSourceForVaccination.data = this.registeredDetails.vaccination;
       //  console.log('dataSourceForVaccination', this.dataSourceForVaccination.data);
@@ -252,7 +251,7 @@ export class SearchResultsComponent {
   }
 
   viewDetails(dataToSend: any): void {
-   // console.log(dataToSend, 'dataToSenddataToSenddataToSend');
+    // console.log(dataToSend, 'dataToSenddataToSenddataToSend');
 
     const dialogRef = this.dialog.open(TreatmentDetailsPopComponent, {
       width: '100%',
@@ -280,7 +279,7 @@ export class SearchResultsComponent {
 
     this.service.getClinicalCaseDetailsByCaseId(caseId.id).subscribe((res) => {
       this.forOngoing = res;
-     // console.log(this.forOngoing,"this.forOngoingthis.forOngoingthis.forOngoingthis.forOngoing");
+      // console.log(this.forOngoing,"this.forOngoingthis.forOngoingthis.forOngoingthis.forOngoing");
 
       this.dataSourceForOngoing.data = this.forOngoing;
       this.caseIdForOngoing = caseId;

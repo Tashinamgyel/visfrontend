@@ -38,7 +38,7 @@ export class FollowUpOutBreakDetailsComponent implements OnInit {
   public refreshData$ = new BehaviorSubject<boolean>(false);
   outBreakForm: FormGroup;
   followUpForm: FormGroup;
-  followUpSusceptibleForm:FormGroup;
+  followUpSusceptibleForm: FormGroup;
   flashId: number;
   type: string;
   outbreakDetails: any;
@@ -220,7 +220,7 @@ export class FollowUpOutBreakDetailsComponent implements OnInit {
   initializeFirstFormGroup() {
     this.firstFormGroup = this.fb.group({
       cidNumber: new FormControl(''),
-    
+
       ownerName: new FormControl(''),
       dzongkhagId: new FormControl('', Validators.required),
       gewogId: new FormControl('', Validators.required),
@@ -231,9 +231,9 @@ export class FollowUpOutBreakDetailsComponent implements OnInit {
       farmingId: new FormControl(''),
       //lastVaccinationDate: new FormControl('', Validators.required),
       lastVaccinationDate: new FormControl(''),
-      villageId: new FormControl('',),
+      villageId: new FormControl(''),
       locality: new FormControl(''),
-      ownershipStatus:new FormControl('', Validators.required)
+      ownershipStatus: new FormControl('', Validators.required),
     });
   }
   initializeSecondFormGroup() {
@@ -257,8 +257,7 @@ export class FollowUpOutBreakDetailsComponent implements OnInit {
   populateForm() {
     this.service.loadAllUserDetails(this.credentialsService.credentials.userName).subscribe((res) => {
       this.userDetails = res;
-      console.log("sds",res);
-      
+      console.log('sds', res);
     });
     this.sharedService.loadDiseases().subscribe((response) => {
       this.diseases = response;
@@ -304,7 +303,7 @@ export class FollowUpOutBreakDetailsComponent implements OnInit {
   getTableData() {
     this.sharedService.getOutbreakDetails(this.flashId).subscribe((res) => {
       this.outbreakDetails = res;
-      console.log("sdsdsd",res)
+      console.log('sdsdsd', res);
       this.followUp = res.followUp;
       this.outBreakForm.patchValue({
         outbreakId: this.outbreakDetails.outbreakId,
@@ -433,8 +432,7 @@ export class FollowUpOutBreakDetailsComponent implements OnInit {
       farmingId: new FormControl('', Validators.required),
       lastVaccinationDate: new FormControl('', Validators.required),
       probableSource: new FormControl('', Validators.required),
-      controlMeasures: new FormControl('',),
-
+      controlMeasures: new FormControl(''),
     });
   }
   initializeForm() {
@@ -460,7 +458,6 @@ export class FollowUpOutBreakDetailsComponent implements OnInit {
       createdBy: new FormControl('', Validators.required),
       locality: new FormControl('', Validators.required),
       dzongkhagName: new FormControl(''),
-   
     });
   }
   openAddModalFollowUpCase() {
@@ -557,8 +554,8 @@ export class FollowUpOutBreakDetailsComponent implements OnInit {
   saveCaseOwner() {
     const cases = new Cases();
     Object.assign(cases, this.firstFormGroup.value);
-    console.log("ssssssssssss",this.cases);
-    
+    console.log('ssssssssssss', this.cases);
+
     cases.createdBy = this.credentialsService.credentials.userName;
     cases.type = 'OwnerDetails';
     cases.outbreakId = this.outbreakDetails.outbreakId;
@@ -588,7 +585,6 @@ export class FollowUpOutBreakDetailsComponent implements OnInit {
   }
 
   viewReport(cidNumber: number) {
-  
     localStorage.setItem('fetchedCID', JSON.stringify(cidNumber));
     this.view = true;
     this.type = 'FollowUpCase';
@@ -654,31 +650,23 @@ export class FollowUpOutBreakDetailsComponent implements OnInit {
     } else if (this.followUpForm.value.tentativeDiseaseId === '') {
       this.notificationService.openErrorSnackBar('Enter required fields');
       return;
-    } 
-    else if (this.followUpForm.value.probableSource === '') {
+    } else if (this.followUpForm.value.probableSource === '') {
       this.notificationService.openErrorSnackBar('Enter required fields');
       return;
-    } 
-    else if (this.followUpForm.value.controlMeasures === '') {
+    } else if (this.followUpForm.value.controlMeasures === '') {
       this.notificationService.openErrorSnackBar('Enter required fields');
       return;
-    } 
-    else if (this.followUpForm.value.cidNumber === '') {
+    } else if (this.followUpForm.value.cidNumber === '') {
       this.notificationService.openErrorSnackBar('Enter Owner Details');
       return;
-    }
-    else if (this.followUpForm.value.ownershipStatus === '') {
+    } else if (this.followUpForm.value.ownershipStatus === '') {
       this.notificationService.openErrorSnackBar('Enter required fields');
       return;
-    }
-    else if (this.followUpForm.value.speciesName === '') {
+    } else if (this.followUpForm.value.speciesName === '') {
       this.notificationService.openErrorSnackBar('Select Dzongkhag ');
       return;
-    } 
- 
-    
-    
-  
+    }
+
     flashReport.createdBy = this.credentialsService.credentials.userName;
     flashReport.outbreakId = this.outbreakDetails.outbreakId;
     flashReport.flashId = this.outbreakDetails.id;

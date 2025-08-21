@@ -51,7 +51,7 @@ export class IndivClinicalReportComponent implements OnInit {
   userDetails: any;
   conditions: Conditions[];
   systems: System[];
-  centre :Centre[];
+  centre: Centre[];
 
   displayedColumns: string[] = [
     'slno',
@@ -207,12 +207,12 @@ export class IndivClinicalReportComponent implements OnInit {
       systemId: new FormControl('All'),
       conditionsId: new FormControl('All'),
       centreId: new FormControl('All'),
-      centreAgencies:new FormControl(''),
+      centreAgencies: new FormControl(''),
       // actualnationality: new FormControl('All'),
     });
   }
   showDetails: boolean;
-  centreAgencies:any
+  centreAgencies: any;
   getReport() {
     this.showReport = true;
     const reportRequest = new ReportRequest();
@@ -221,27 +221,26 @@ export class IndivClinicalReportComponent implements OnInit {
     reportRequest.centreId = this.userDetails.centre.id;
     reportRequest.centreAgencies = this.centreAgencies;
     reportRequest.levelUserId = this.userDetails.levelUser.id;
-   // reportRequest.jurisdiction = this.userDetails.jurisdiction;
-  //  if(this.userDetails.jurisdiction==='TVH&SL Phuentshogling'){
-  //   reportRequest.jurisdiction = 'RLDC Tsimasham ';
-  //   }else if(this.userDetails.jurisdiction==='TVH&SL Gelegphu'){
-  //     reportRequest.jurisdiction = 'RLDC Zhemgang';
-  //   }else if(this.userDetails.jurisdiction==='TVH&SL Nganglam'){
-  //     reportRequest.jurisdiction = 'RLDC Kanglung';
-  //   }else if(this.userDetails.jurisdiction==='TVH&SL Dewathang'){
-  //     reportRequest.jurisdiction = 'RLDC Kanglung';
-  //   }else{
-  //     reportRequest.jurisdiction = this.userDetails.jurisdiction;
-  //   }
-  this.service.loadCentre().subscribe((res) => {
-    this.centre = res;
-  });
-  this.centreAgencies = this.centre[0].centreAgencies
-  reportRequest.jurisdiction = this.userDetails.jurisdiction;
+    // reportRequest.jurisdiction = this.userDetails.jurisdiction;
+    //  if(this.userDetails.jurisdiction==='TVH&SL Phuentshogling'){
+    //   reportRequest.jurisdiction = 'RLDC Tsimasham ';
+    //   }else if(this.userDetails.jurisdiction==='TVH&SL Gelegphu'){
+    //     reportRequest.jurisdiction = 'RLDC Zhemgang';
+    //   }else if(this.userDetails.jurisdiction==='TVH&SL Nganglam'){
+    //     reportRequest.jurisdiction = 'RLDC Kanglung';
+    //   }else if(this.userDetails.jurisdiction==='TVH&SL Dewathang'){
+    //     reportRequest.jurisdiction = 'RLDC Kanglung';
+    //   }else{
+    //     reportRequest.jurisdiction = this.userDetails.jurisdiction;
+    //   }
+    this.service.loadCentre().subscribe((res) => {
+      this.centre = res;
+    });
+    this.centreAgencies = this.centre[0].centreAgencies;
+    reportRequest.jurisdiction = this.userDetails.jurisdiction;
     reportRequest.userName = this.userDetails.userName;
     Object.assign(reportRequest, this.clinicalReport.value);
-    
-    
+
     this.visMasterService.getIndivClinicalReport(reportRequest).subscribe((res) => {
       this.report = res;
       this.dataSource.data = res;

@@ -327,8 +327,6 @@ export class ClinicalComponent implements OnInit {
     });
   }
 
-  
-
   getSystemDiagnostic(diagnosticConditionsId: number) {
     this.masterService.getSystem(diagnosticConditionsId).subscribe((response) => {
       this.treatmentForm.patchValue({
@@ -354,7 +352,6 @@ export class ClinicalComponent implements OnInit {
     medicationData.registrationId = this.populateDataForClinical.registrationId;
     medicationData.flag = 1;
 
-    
     this.service.saveMedication(medicationData).subscribe(
       () => {
         this.notificationService.openSuccessSnackBar('Added successfully');
@@ -409,7 +406,7 @@ export class ClinicalComponent implements OnInit {
     } else {
       const clinical = new Clinical();
       Object.assign(clinical, this.treatmentForm.value);
-      if(clinical.procedures = this.treatmentForm.value.procedures){
+      if ((clinical.procedures = this.treatmentForm.value.procedures)) {
         clinical.procedures = this.treatmentForm.value.procedures.join(',');
       }
       // clinical.procedures = this.treatmentForm.value.procedures.join(',');
@@ -430,7 +427,7 @@ export class ClinicalComponent implements OnInit {
         return;
       } else {
       }
-      debugger
+      debugger;
       clinical.registrationId = this.populateDataForClinical.registrationId;
       clinical.patientId = this.populateDataForClinical.patientId;
       clinical.caseId = this.caseIdForOngoing.id;
@@ -462,7 +459,7 @@ export class ClinicalComponent implements OnInit {
     } else {
       const clinical = new Clinical();
       Object.assign(clinical, this.treatmentForm.value);
-      if(clinical.procedures = this.treatmentForm.value.procedures){
+      if ((clinical.procedures = this.treatmentForm.value.procedures)) {
         clinical.procedures = this.treatmentForm.value.procedures.join(',');
       }
       // clinical.procedures = this.treatmentForm.value.procedures.join(',');
@@ -515,9 +512,8 @@ export class ClinicalComponent implements OnInit {
   conditionFinal: any;
   system: System[];
   printPage() {
+    console.log('this.treatmentForm.value.status', this.treatmentForm.value.status);
 
-    console.log("this.treatmentForm.value.status",this.treatmentForm.value.status);
-    
     this.masterService.loadConditionsById(this.treatmentForm.value.conditionsId).subscribe((response) => {
       this.printConditions = response;
       this.conditionData();
@@ -541,7 +537,7 @@ export class ClinicalComponent implements OnInit {
       data: {
         printConditionsName: this.printConditions.conditions,
         printSystemName: this.printConditions.system.systemName,
-        
+
         finalSystemName: this.conditionFinal.system.systemName,
         printFinalConditions: this.conditionFinal.conditions,
 

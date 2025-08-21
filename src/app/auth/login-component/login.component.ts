@@ -17,8 +17,6 @@ const log = new Logger('Login');
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
-
   showPassword: boolean = true;
   isActiveToggleTextPassword: Boolean = true;
   version: string | null = environment.version;
@@ -37,18 +35,15 @@ export class LoginComponent implements OnInit {
     this.createForm();
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   public toggleTextPassword(): void {
-    this.isActiveToggleTextPassword = (this.isActiveToggleTextPassword == true) ? false : true;
+    this.isActiveToggleTextPassword = this.isActiveToggleTextPassword == true ? false : true;
   }
   public getType() {
     return this.isActiveToggleTextPassword ? 'password' : 'text';
   }
 
-  
   public togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }

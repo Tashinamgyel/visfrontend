@@ -153,7 +153,6 @@ import { DewormConditionListComponent } from './components/deworm-condition-list
     DewormConditionFormComponent,
 
     DewormConditionListComponent,
-
   ],
   imports: [
     CommonModule,

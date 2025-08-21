@@ -93,7 +93,7 @@ export class VaccinationComponent implements OnInit {
   }
 
   saveVaccination() {
-    debugger
+    debugger;
     if (
       this.treatmentForm.value.vaccineTypeId === '' &&
       this.treatmentForm.value.dueDate === '' &&
@@ -112,11 +112,10 @@ export class VaccinationComponent implements OnInit {
       clinical.petRegistrationNumber = this.registrationDetails.petRegistrationNumber;
       clinical.microchipNumber = this.registrationDetails.microchipNumber;
 
-      
-      if(clinical.reactionId = this.treatmentForm.value.reactionId){
+      if ((clinical.reactionId = this.treatmentForm.value.reactionId)) {
         clinical.reactionId = this.treatmentForm.value.reactionId;
       }
-     
+
       if (this.treatmentForm.value.reactionId == null) {
         clinical.reactionId == 0;
       }

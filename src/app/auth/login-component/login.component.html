@@ -59,8 +59,9 @@
               <mat-error *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">
                 {{ getErrorPassword() }}
               </mat-error>
-              <mat-icon matSuffix (click)="toggleTextPassword()" (click)="togglePasswordVisibility()" 
-              >  {{showPassword?'visibility_off':'visibility'}}</mat-icon>
+              <mat-icon matSuffix (click)="toggleTextPassword()" (click)="togglePasswordVisibility()">
+                {{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon
+              >
             </mat-form-field>
             <!-- <mat-slide-toggle color="accent" formControlName="remember" translate>Remember me</mat-slide-toggle> -->
             <!-- <div style="cursor: pointer; color: blue; text-decoration: underline">

@@ -30,7 +30,7 @@ export class VaccinationDataViewComponent implements OnInit {
   @Input() registrationDetails: any;
   @Input() editable = false;
   vaccineTypeId: any;
-  reactionId:any;
+  reactionId: any;
 
   vaccinationDateTreatmentDate: any;
   vaccinationDateDueDate: any;
@@ -54,13 +54,12 @@ export class VaccinationDataViewComponent implements OnInit {
   formFillUp() {
     debugger;
     var registrationFormData = this.data.vaccinationData;
-    if(registrationFormData.reactionId ==null){
-        this.reactionId=0
+    if (registrationFormData.reactionId == null) {
+      this.reactionId = 0;
     }
     // var registrationFormData = JSON.parse(localStorage.getItem('treatmentFormVaccinationData'));
     (this.vaccinationDateTreatmentDate = registrationFormData.treatmentDate),
       (this.vaccinationDateDueDate = registrationFormData.dueDate),
-     
       this.treatmentForm.patchValue({
         vaccineTypeId: registrationFormData.vaccineType.vaccineName,
         observation: registrationFormData.observation,
@@ -68,7 +67,6 @@ export class VaccinationDataViewComponent implements OnInit {
         reactionDetail: registrationFormData.reactionDetail,
         registrationId: registrationFormData.registrationId,
         reactionId: registrationFormData.reaction.id,
-
       });
   }
 
@@ -98,17 +96,8 @@ export class VaccinationDataViewComponent implements OnInit {
       });
     });
     this.masterService.loadVaccineType().subscribe((res) => (this.vaccineType = res));
-    debugger
-    this.masterService.loadReaction().subscribe((res) => 
-    
-    (this.reactions = res
-   
-      
-      
-      ));
-
-
-
+    debugger;
+    this.masterService.loadReaction().subscribe((res) => (this.reactions = res));
   }
   changeReactionDetail(event: MatRadioChange) {
     this.reactionDetail = Number(event.value) === 1;

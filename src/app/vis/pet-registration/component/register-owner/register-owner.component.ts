@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { OwnershipTypes, Dzongkhags, Gewogs, Country, PetRegistration, Villages } from '@app/master-management/models/master';
+import {
+  OwnershipTypes,
+  Dzongkhags,
+  Gewogs,
+  Country,
+  PetRegistration,
+  Villages,
+} from '@app/master-management/models/master';
 import { MatDialog } from '@angular/material/dialog';
 import { SharedService } from '@app/vis/shared/services/shared.service';
 import { NotificationService } from '@app/@core';
@@ -10,7 +17,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register-owner',
   templateUrl: './register-owner.component.html',
-  styleUrls: ['./register-owner.component.scss']
+  styleUrls: ['./register-owner.component.scss'],
 })
 export class RegisterOwnerComponent implements OnInit {
   [x: string]: any;
@@ -36,7 +43,6 @@ export class RegisterOwnerComponent implements OnInit {
   countryName: any;
   // @ViewChild('pdfViewer') pdfViewer: ElementRef;
 
-  
   dontshowIT: boolean = false;
 
   dewormingDataForSending: any;
@@ -104,7 +110,7 @@ export class RegisterOwnerComponent implements OnInit {
     this.visMasterService.loadDzongkhag().subscribe((response) => {
       this.dzongkhags = response;
     });
-  
+
     this.visMasterService.loadCountry().subscribe((response) => {
       this.countrys = response;
     });
@@ -126,12 +132,6 @@ export class RegisterOwnerComponent implements OnInit {
 
   showDzongkhagAddress: boolean = true;
   dewormngDetailsForPrinting: any;
-  
-  viewDetails(){}
 
+  viewDetails() {}
 }
-
-
-
-
-

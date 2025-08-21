@@ -78,7 +78,7 @@ export class MassVaccinationReportComponent implements OnInit {
     'reasons',
     'centre',
     'jurisdiction',
-    'user_name'
+    'user_name',
   ];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -167,18 +167,18 @@ export class MassVaccinationReportComponent implements OnInit {
     reportRequest.levelUser = this.userDetails.levelUser.levelName;
     reportRequest.centreId = this.userDetails.centre.id;
     reportRequest.levelUserId = this.userDetails.levelUser.id;
-   reportRequest.jurisdiction = this.userDetails.jurisdiction;
-  //  if(this.userDetails.jurisdiction==='TVH&SL Phuentshogling'){
-  //   reportRequest.jurisdiction = 'RLDC Tsimasham ';
-  //   }else if(this.userDetails.jurisdiction==='TVH&SL Gelegphu'){
-  //     reportRequest.jurisdiction = 'RLDC Zhemgang';
-  //   }else if(this.userDetails.jurisdiction==='TVH&SL Nganglam'){
-  //     reportRequest.jurisdiction = 'RLDC Kanglung';
-  //   }else if(this.userDetails.jurisdiction==='TVH&SL Dewathang'){
-  //     reportRequest.jurisdiction = 'RLDC Kanglung';
-  //   }else{
-  //     reportRequest.jurisdiction = this.userDetails.jurisdiction;
-  //   }
+    reportRequest.jurisdiction = this.userDetails.jurisdiction;
+    //  if(this.userDetails.jurisdiction==='TVH&SL Phuentshogling'){
+    //   reportRequest.jurisdiction = 'RLDC Tsimasham ';
+    //   }else if(this.userDetails.jurisdiction==='TVH&SL Gelegphu'){
+    //     reportRequest.jurisdiction = 'RLDC Zhemgang';
+    //   }else if(this.userDetails.jurisdiction==='TVH&SL Nganglam'){
+    //     reportRequest.jurisdiction = 'RLDC Kanglung';
+    //   }else if(this.userDetails.jurisdiction==='TVH&SL Dewathang'){
+    //     reportRequest.jurisdiction = 'RLDC Kanglung';
+    //   }else{
+    //     reportRequest.jurisdiction = this.userDetails.jurisdiction;
+    //   }
     reportRequest.userName = this.userDetails.userName;
     Object.assign(reportRequest, this.massVaccinationReport.value);
     this.visMasterService.getMassVaccReport(reportRequest).subscribe((res) => {

@@ -20,7 +20,16 @@ export class MedicinesListComponent implements OnInit {
   medicines: Observable<Medicines[]>;
   dataSource = new MatTableDataSource();
   public refreshData$ = new BehaviorSubject<boolean>(false);
-  displayedColumns: string[] = ['slno', 'name', 'medicineClass','presentation','composition', 'unit','edit', 'delete'];
+  displayedColumns: string[] = [
+    'slno',
+    'name',
+    'medicineClass',
+    'presentation',
+    'composition',
+    'unit',
+    'edit',
+    'delete',
+  ];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   constructor(
@@ -136,14 +145,14 @@ export class MedicinesListComponent implements OnInit {
   updateMedicines(medicines: Medicines) {
     this.service.updateMedicines(medicines, medicines.id).subscribe(
       () => {
-        if(medicines.status =='Y'){
-        this.notificationService.openSuccessSnackBar('Medicines successfully updated');
-        this.refreshData$.next(true);
-      }else{
+        if (medicines.status == 'Y') {
+          this.notificationService.openSuccessSnackBar('Medicines successfully updated');
+          this.refreshData$.next(true);
+        } else {
           this.notificationService.openSuccessSnackBar('Medicines successfully deleted');
           this.refreshData$.next(true);
-      }
-    },
+        }
+      },
       () => {
         this.notificationService.openErrorSnackBar('Medicines could not be updated, please try again');
       }

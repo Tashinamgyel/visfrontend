@@ -1,7 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Dzongkhags, Country, DogRegistration, MedicationData } from '@app/vis/shared/model/model';
-import {Gewogs,AnimalTypes,OwnershipTypes,Species,Breeds,Villages,Cases,MassSearch,} from '@app/master-management/models/master';
+import {
+  Gewogs,
+  AnimalTypes,
+  OwnershipTypes,
+  Species,
+  Breeds,
+  Villages,
+  Cases,
+  MassSearch,
+} from '@app/master-management/models/master';
 import { MatTableDataSource } from '@angular/material/table';
 import { SharedService } from '@app/vis/shared/services/shared.service';
 import { MasterService } from '@app/master-management/services/master.service';
@@ -269,10 +278,9 @@ export class MassSearchComponent implements OnInit {
 
   getMassVacc(medId: number, massRegId: string) {
     this.visMasterService.getMassVaccDetails(medId, massRegId).subscribe((res) => {
-
       this.vaccDetails = res;
       this.dataSource3 = this.vaccDetails;
-      console.log("sdsdsdsd",this.dataSource3)
+      console.log('sdsdsdsd', this.dataSource3);
     });
   }
 
@@ -339,7 +347,7 @@ export class MassSearchComponent implements OnInit {
   getVillage(gewogId: number) {
     this.visMasterService.getVillage(gewogId).subscribe((response) => {
       this.villages = response;
-     // console.log(this.villages, 'Gfdgfdgfdgdfgfdgd');
+      // console.log(this.villages, 'Gfdgfdgfdgdfgfdgd');
     });
   }
   getGewogs(dzongkhagId: number) {

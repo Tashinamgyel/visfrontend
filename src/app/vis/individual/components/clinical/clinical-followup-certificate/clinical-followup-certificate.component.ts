@@ -70,7 +70,7 @@ export class ClinicalFollowupCertificateComponent implements OnInit {
     this.populateForm();
   }
   populateForm() {
-      this.masterService.loadAllUserDetails(this.credentialsService.credentials.userName).subscribe((res) => {
+    this.masterService.loadAllUserDetails(this.credentialsService.credentials.userName).subscribe((res) => {
       this.userDetails = res;
       this.useCenter = this.userDetails.centre.centre;
     });
@@ -111,15 +111,15 @@ export class ClinicalFollowupCertificateComponent implements OnInit {
   conditionName: any;
   finalConditionsName: any;
   getClinicalDetails() {
-    console.log("this.data.clinicalData",this.data.clinicalData);
-    
+    console.log('this.data.clinicalData', this.data.clinicalData);
+
     this.clinicalDetails = this.data.clinicalData;
     this.mediacDetails = this.data.medicationData;
     this.systemName = this.data.printSystemName;
     this.systemName = this.data.printSystemName;
     (this.conditionName = this.data.printConditionsName),
-    (this.finalSystemName = this.data.finalSystemName),
-    (this.finalConditionsName = this.data.printFinalConditions);
+      (this.finalSystemName = this.data.finalSystemName),
+      (this.finalConditionsName = this.data.printFinalConditions);
     this.clinicalDetails = this.data.clinicalData;
 
     this.clinicalAnamnesis = this.clinicalDetails.anamnesisHistory;

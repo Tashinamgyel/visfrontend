@@ -40,8 +40,7 @@ import {
   Country,
   SearchDetails,
   MassSearch,
-  MedClass
-
+  MedClass,
 } from '@app/master-management/models/master';
 
 @Injectable({
@@ -59,11 +58,11 @@ export class SharedService {
 
   constructor(private http: HttpClient) {}
 
- public populateflashList(userName: string, roleName: string,actionType:string) {
-
- 
-
-    return this.http.get<any[]>(`${environment.serverUrl}/flash/${userName}/${roleName}/${actionType}/taskList`, this.httpOptions);
+  public populateflashList(userName: string, roleName: string, actionType: string) {
+    return this.http.get<any[]>(
+      `${environment.serverUrl}/flash/${userName}/${roleName}/${actionType}/taskList`,
+      this.httpOptions
+    );
   }
 
   public populateClincalDetail(clinicalDetail: number): Observable<ClinicalDetails[]> {
@@ -105,10 +104,8 @@ export class SharedService {
   }
 
   getFollowUpCaseDetails(flashId: number, type: string, reportStatus: number, cid: number) {
-    console.log("ddddddddd",flashId)
+    console.log('ddddddddd', flashId);
     return this.http.get<any>(
-  
-      
       `${environment.serverUrl}/flash/${flashId}/${type}/${reportStatus}/${cid}/followUpCaseDetails`,
       this.httpOptions
     );
@@ -180,7 +177,7 @@ export class SharedService {
   }
 
   public getMedicines(classId: number): Observable<MedClass[]> {
-    debugger
+    debugger;
     return new Observable<MedClass[]>((observer) => {
       this.http
         .get<MedClass[]>(`${environment.serverUrl}/medClass/${classId}/petBreedBySpecies`, this.httpOptions)
@@ -341,7 +338,6 @@ export class SharedService {
     });
   }
 
-
   public loadMedcineDetails(): Observable<Medicines[]> {
     return new Observable<Medicines[]>((observer) => {
       this.http.get<Medicines[]>(`${environment.serverUrl}/medDetails/`, this.httpOptions).subscribe(
@@ -353,7 +349,6 @@ export class SharedService {
     });
   }
 
-
   public loadMedcineClassDetails(): Observable<MedClass[]> {
     return new Observable<MedClass[]>((observer) => {
       this.http.get<MedClass[]>(`${environment.serverUrl}/medClass/`, this.httpOptions).subscribe(
@@ -364,11 +359,6 @@ export class SharedService {
       );
     });
   }
-
-
-
-
-
 
   public getPetBreeds(speciesId: number): Observable<PetBreeds[]> {
     return new Observable<PetBreeds[]>((observer) => {
@@ -387,7 +377,7 @@ export class SharedService {
     return this.http.post(`${environment.serverUrl}/registration/`, registration, this.httpOptions);
   }
   public sendMail(emailData: EmailData) {
-    console.log("thissss",emailData)
+    console.log('thissss', emailData);
     return this.http.post(`${environment.serverUrl}/flash/sendEmail`, emailData, this.httpOptions);
   }
 
@@ -398,12 +388,10 @@ export class SharedService {
   }
 
   public saveClinical(clinical: Clinical) {
-  
     return this.http.post(`${environment.serverUrl}/registration/clinical`, clinical, this.httpOptions);
   }
 
   public saveClinicalFollowUp(clinical: Clinical) {
-  
     return this.http.post(`${environment.serverUrl}/registration/clinicalFollowUp`, clinical, this.httpOptions);
   }
 
@@ -411,11 +399,10 @@ export class SharedService {
     return this.http.post(`${environment.serverUrl}/registration/sterilization`, Sterilization, this.httpOptions);
   }
   public saveDeworming(deworming: Clinical) {
-
     return this.http.post(`${environment.serverUrl}/registration/deworming`, deworming, this.httpOptions);
   }
   public saveVaccination(Vaccination: Clinical) {
-    debugger
+    debugger;
     return this.http.post(`${environment.serverUrl}/registration/vaccination`, Vaccination, this.httpOptions);
   }
 
@@ -476,7 +463,7 @@ export class SharedService {
   }
 
   public updatePetRegistration(petregistration: PetRenwal) {
-    debugger
+    debugger;
     return this.http.post(`${environment.serverUrl}/petRegistration/update`, petregistration, this.httpOptions);
   }
 
@@ -526,7 +513,7 @@ export class SharedService {
 
   // forReassinging
   public saveDogRegistration(dogRegistrationValueReassigning: any) {
-    console.log("i am here",dogRegistrationValueReassigning)
+    console.log('i am here', dogRegistrationValueReassigning);
     return this.http.post(
       `${environment.serverUrl}/massRegistration/`,
       dogRegistrationValueReassigning,
@@ -568,15 +555,10 @@ export class SharedService {
   }
   public updateMedication(medicationData: MedicationData, id: number) {
     return this.http.post(`${environment.serverUrl}/registration/medication/${id}`, medicationData, this.httpOptions);
-
-
   }
   public updateMedications(medicines: Medicines, id: number) {
     return this.http.post(`${environment.serverUrl}/registration/medication/${id}`, medicines, this.httpOptions);
   }
-
-
-
 
   public updateRegistration(search: SearchDetails) {
     return this.http.post(`${environment.serverUrl}/registration/updateRegistration`, search, this.httpOptions);
@@ -595,15 +577,13 @@ export class SharedService {
   }
 
   public saveFlashCaseOwner(cases: Cases) {
-  debugger
+    debugger;
     return this.http.post(`${environment.serverUrl}/flash/flashCaseOwner`, cases, this.httpOptions);
   }
 
   public saveFlashCase(cases: Cases) {
     return this.http.post(`${environment.serverUrl}/flash/flashCase`, cases, this.httpOptions);
   }
-
-
 
   public loadMedication(): Observable<MedicationData[]> {
     return new Observable<MedicationData[]>((observer) => {
@@ -628,7 +608,6 @@ export class SharedService {
   }
 
   public saveMedication(medicationData: MedicationData) {
-   
     return this.http.post(`${environment.serverUrl}/registration/medication`, medicationData, this.httpOptions);
   }
   public saveMedicines(medicationData: MedicationData) {
@@ -642,8 +621,6 @@ export class SharedService {
   public deleteMedicines(id: number) {
     return this.http.post(`${environment.serverUrl}/medicine/${id}/delete`, this.httpOptions);
   }
-
-
 
   public updateCase(id: number, type: string) {
     return this.http.post(`${environment.serverUrl}/flash/${id}${type}/poultryCase`, this.httpOptions);
@@ -707,28 +684,33 @@ export class SharedService {
     return this.http.get<any>(`${environment.serverUrl}/report/searchOutbreakID/${outbreakID}`, this.httpOptions);
   }
 
-  public getOwnerDetails(outbreak_id: any,report_status:any) {
-    return this.http.get<any>(`${environment.serverUrl}/report/getOwnerDetails/${outbreak_id}/${report_status}`, this.httpOptions);
+  public getOwnerDetails(outbreak_id: any, report_status: any) {
+    return this.http.get<any>(
+      `${environment.serverUrl}/report/getOwnerDetails/${outbreak_id}/${report_status}`,
+      this.httpOptions
+    );
   }
 
-  public getOutBreakCaseDetails(outbreak_id: any,report_status:any,cid_number:any) {
-    return this.http.get<any>(`${environment.serverUrl}/report/getOutBreakCaseDetails/${outbreak_id}/${report_status}/${cid_number}`, this.httpOptions);
+  public getOutBreakCaseDetails(outbreak_id: any, report_status: any, cid_number: any) {
+    return this.http.get<any>(
+      `${environment.serverUrl}/report/getOutBreakCaseDetails/${outbreak_id}/${report_status}/${cid_number}`,
+      this.httpOptions
+    );
   }
 
-  public getFateDetails(outbreak_id: any,report_status:any,cid_number:any) {
-    return this.http.get<any>(`${environment.serverUrl}/report/getFateDetails/${outbreak_id}/${report_status}/${cid_number}`, this.httpOptions);
+  public getFateDetails(outbreak_id: any, report_status: any, cid_number: any) {
+    return this.http.get<any>(
+      `${environment.serverUrl}/report/getFateDetails/${outbreak_id}/${report_status}/${cid_number}`,
+      this.httpOptions
+    );
   }
 
-  public getSusceptibleDetails(outbreak_id: any,report_status:any) {
-    return this.http.get<any>(`${environment.serverUrl}/report/getSusceptibleDetails/${outbreak_id}/${report_status}`, this.httpOptions);
+  public getSusceptibleDetails(outbreak_id: any, report_status: any) {
+    return this.http.get<any>(
+      `${environment.serverUrl}/report/getSusceptibleDetails/${outbreak_id}/${report_status}`,
+      this.httpOptions
+    );
   }
-
-  
-  
-  
-
-
-  
 
   //mass
   public searchMassDetails(massRegistrationId: string, massId: number) {
@@ -753,15 +735,9 @@ export class SharedService {
   }
 
   getOwnerDetailsofDogofRegister(cidNumber: number) {
-    debugger
-    return this.http.get<any>(
-      `${environment.serverUrl}/report/ownerDetails/${cidNumber}`,
-      this.httpOptions
-    );
+    debugger;
+    return this.http.get<any>(`${environment.serverUrl}/report/ownerDetails/${cidNumber}`, this.httpOptions);
   }
-  
-
-
 
   getMassMedDetails(medId: number, massRegId: string) {
     return this.http.get<any>(
@@ -847,7 +823,7 @@ export class SharedService {
     if (microchipNumber === '') {
       microchipNumber = petRegistrationNo;
     }
-    debugger
+    debugger;
     return this.http.get<any>(
       `${environment.serverUrl}/report/getOnwerDetailsofPet/${petRegistrationNo}/${microchipNumber}`,
       this.httpOptions
@@ -864,10 +840,8 @@ export class SharedService {
     );
   }
 
-
-
   public getIndivClinicalReport(reports: ReportRequest) {
-    debugger
+    debugger;
     return this.http.post<any>(`${environment.serverUrl}/report/indivClinical`, reports, this.httpOptions);
   }
 

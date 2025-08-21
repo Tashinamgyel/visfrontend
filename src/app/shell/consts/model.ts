@@ -63,8 +63,6 @@ export const MASTER_USER_ROUTES: MasterUserRoute[] = [
     route: routes.BREEDMAPPING,
     name: 'Pet Breed',
   },
-  
-  
 
   {
     route: routes.SKINCONDITION,
@@ -324,7 +322,7 @@ export const REPORT: Report[] = [
     route: routes.MASSVACCINATION,
     name: 'Vaccination Report (MASS)',
   },
- {
+  {
     route: routes.OUTBREAKREPORTSEARCH,
     name: 'Outbreak Report (Search)',
   },

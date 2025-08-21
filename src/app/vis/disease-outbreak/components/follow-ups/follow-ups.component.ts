@@ -274,7 +274,7 @@ export class FollowUpsComponent implements OnInit {
         '',
         Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11)])
       ),
-      ownerName: new FormControl('',Validators.required),
+      ownerName: new FormControl('', Validators.required),
       dzongkhagId: new FormControl('', Validators.required),
       gewogId: new FormControl('', Validators.required),
       //villageName: new FormControl('', Validators.required),
@@ -639,19 +639,19 @@ export class FollowUpsComponent implements OnInit {
     reportRequest.outbreakId = this.outbreakDetails.outbreakId;
     reportRequest.reportStatus = this.reportStatus;
     this.sharedService.getFollowUpMailData(reportRequest).subscribe((res) => {
-      debugger
+      debugger;
       this.reportMail = res;
       console.log(this.reportMail, 'zzzzzzzzzzzzzzzzzzz');
     });
     this.send(this.reportMail);
   }
-  send(reportMail: any) { 
+  send(reportMail: any) {
     const dialogRef = this.dialog.open(EmailComponentComponent, {
       width: '800px',
       height: '500px',
     });
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) { 
+      if (result) {
         this.sendMaill(result);
       }
     });
@@ -661,7 +661,7 @@ export class FollowUpsComponent implements OnInit {
     emailData.flashEmailList = this.reportMail;
     this.sharedService.sendMail(emailData).subscribe(
       () => {
-        console.log(emailData)
+        console.log(emailData);
         this.notificationService.openSuccessSnackBar('Added successfully');
       },
       () => {

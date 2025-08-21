@@ -99,15 +99,15 @@ export class DewormingDataViewComponent implements OnInit {
   formFillUp() {
     var registrationFormData = this.data.dewormingData;
     (this.dewormingDataFormat = registrationFormData.treatmentDate),
-    this.treatmentForm.patchValue({
-      registrationId: registrationFormData.registrationId,
-      conditionsId: registrationFormData.conditions.conditionsName,
-      differentialDiagnosis: registrationFormData.differentialDiagnosis,
-      status: registrationFormData.status,
-      typeOfTest: registrationFormData.typeOfTest,
-      finalConditions: registrationFormData.finalConditions.conditionsName,
-      advice: registrationFormData.advice,
-    });
+      this.treatmentForm.patchValue({
+        registrationId: registrationFormData.registrationId,
+        conditionsId: registrationFormData.conditions.conditionsName,
+        differentialDiagnosis: registrationFormData.differentialDiagnosis,
+        status: registrationFormData.status,
+        typeOfTest: registrationFormData.typeOfTest,
+        finalConditions: registrationFormData.finalConditions.conditionsName,
+        advice: registrationFormData.advice,
+      });
     this.getMedicationData(registrationFormData.registrationId, registrationFormData.id, 'Deworming');
   }
 

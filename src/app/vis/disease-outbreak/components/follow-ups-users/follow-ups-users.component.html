@@ -532,19 +532,19 @@
                 <form class="form-horizontal form" [formGroup]="firstFormGroup">
                   <ng-template matStepLabel>Fill Owner Details</ng-template>
                   <div class="form-group row">
-                      <div class="col-md-6">
-                        <label class="col-form-label">Ownership Status<span class="text-danger">*</span></label>
-                        <mat-form-field class="example-full-width" appearance="outline">
-                          <mat-select formControlName="ownershipStatus">
-                            <mat-option value="">Select</mat-option>
-                            <mat-option value="Owned">Owned</mat-option>
-                            <mat-option value="Unowned">Stray</mat-option>
-                          </mat-select>
-                          <mat-error>Ownership Status is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      </div>
-                 <div class="form-group row" *ngIf="firstFormGroup.value.ownershipStatus === 'Owned'">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Ownership Status<span class="text-danger">*</span></label>
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-select formControlName="ownershipStatus">
+                          <mat-option value="">Select</mat-option>
+                          <mat-option value="Owned">Owned</mat-option>
+                          <mat-option value="Unowned">Stray</mat-option>
+                        </mat-select>
+                        <mat-error>Ownership Status is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="form-group row" *ngIf="firstFormGroup.value.ownershipStatus === 'Owned'">
                     <div class="col-md-6">
                       <label class="col-form-label">CID Number<span class="text-danger">*</span>:</label>
                       <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]="false">
@@ -563,22 +563,17 @@
                     <div class="col-md-6">
                       <label class="col-form-label">Owner Name <span class="text-danger">*</span></label>
                       <mat-form-field appearance="outline" class="example-full-width">
-                        <input
-                          formControlName="ownerName"
-              
-                          matInput
-                          name="ownerName"
-                          placeholder="Owner Name"
-                        
-                        />
+                        <input formControlName="ownerName" matInput name="ownerName" placeholder="Owner Name" />
                         <mat-error>Enter Valid Owner Name</mat-error>
                       </mat-form-field>
                     </div>
                   </div>
                   <br />
-                 <div class="form-group row" *ngIf="firstFormGroup.value.ownershipStatus === 'Unowned'">
+                  <div class="form-group row" *ngIf="firstFormGroup.value.ownershipStatus === 'Unowned'">
                     <div class="col-md-6">
-                      <label class="col-form-label">StrayID (Enter any random no.)<span class="text-danger">*</span>:</label>
+                      <label class="col-form-label"
+                        >StrayID (Enter any random no.)<span class="text-danger">*</span>:</label
+                      >
                       <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]="false">
                         <input
                           matInput
@@ -680,7 +675,9 @@
                   <div class="form-group row">
                     <div class="col-md-6">
                       <label class="col-form-label"
-                        >Primary Case Date (date of first case during the current follow-up)<span class="text-danger">*</span></label
+                        >Primary Case Date (date of first case during the current follow-up)<span class="text-danger"
+                          >*</span
+                        ></label
                       >
                       <mat-form-field appearance="outline" class="example-full-width">
                         <input
@@ -985,7 +982,9 @@
             <mat-expansion-panel-header>
               <mat-panel-title><strong>View Details </strong></mat-panel-title>
             </mat-expansion-panel-header>
-            <h5 class="p-4" style="padding-top: 20px">Follow Up Case Details ( Live Case/Dead).<span class="text-danger">*</span></h5>
+            <h5 class="p-4" style="padding-top: 20px">
+              Follow Up Case Details ( Live Case/Dead).<span class="text-danger">*</span>
+            </h5>
             <mat-card-actions>
               <button mat-raised-button (click)="openAddModalFollowUpCase()" color="primary">
                 <mat-icon>add</mat-icon> Add Case

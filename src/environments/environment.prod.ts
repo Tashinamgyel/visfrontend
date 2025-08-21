@@ -9,7 +9,7 @@ export const environment = {
   production: true,
   version: '11',
   serverUrl: 'https://vis.ncah.gov.bt/api',
- // serverUrl: 'http://202.144.157.182/api',
+  // serverUrl: 'http://202.144.157.182/api',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US'],
 };

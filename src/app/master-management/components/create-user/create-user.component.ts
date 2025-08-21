@@ -96,10 +96,9 @@ export class CreateUserComponent implements OnInit {
 
     if (this.actionType === 'EDIT') {
       this.service.loadUserById(this.id).subscribe(
-    
         (response) => {
-          console.log(response,"responseresponse");
-          debugger
+          console.log(response, 'responseresponse');
+          debugger;
           let roles = response.userRole;
           for (let i = 0; i < response.userRole.length; i++) {
             if (roles[i].role.id === 5) {
@@ -187,7 +186,7 @@ export class CreateUserComponent implements OnInit {
       4: () => 'tvh',
       5: () => 'dzongkhag',
       6: () => 'centreAgencies',
-      10:() => 'dol',
+      10: () => 'dol',
     });
 
     name = centerReducer(centreId.toString());

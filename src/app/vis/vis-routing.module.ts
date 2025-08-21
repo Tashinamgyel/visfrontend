@@ -17,7 +17,7 @@ import { FollowUpReportComponent } from '@app/vis/disease-outbreak/components/fo
 import { MassRegistrationComponent } from '@app/vis/mass/components/mas-registration/mass-registration.component';
 import { OutbreakDetailComponent } from './disease-outbreak/components/outbreak-detail/outbreak-detail.component';
 import { PetCertificateComponent } from './certificate/compoments/pet-certificate/pet-certificate.component';
-import { VaccineCertificateComponent } from './certificate/compoments/vaccine-certificate/vaccine-certificate.component';
+import { VaccineCertificateComponent } from '@app/vis/certificate/compoments/vaccine-certificate/vaccine-certificate.component'; // changed by TN
 import { FlashOutBreakDetailsComponent } from './disease-outbreak/components/flash-out-break-details/flash-out-break-details.component';
 import { FollowUpOutBreakDetailsComponent } from './disease-outbreak/components/follow-up-out-break-details/follow-up-out-break-details.component';
 import { FollowUpsComponent } from './disease-outbreak/components/follow-ups/follow-ups.component';
@@ -34,10 +34,10 @@ import { IndividaulDewormingReportComponent } from './report/components/individa
 import { IndividaulVaccinationReportComponent } from './report/components/individaul-vaccination-report/individaul-vaccination-report.component';
 import { IndividualSterializationReportComponent } from './report/components/individual-sterialization-report/individual-sterialization-report.component';
 import { MassVaccinationReportComponent } from './report/components/mass-vaccination-report/mass-vaccination-report.component';
-import { MassDewormingReportComponent } from './report/components/mass-deworming-report/mass-deworming-report.component';
-import { MassClinincalReportComponent } from './Report/components/mass-clinincal-report/mass-clinincal-report.component';
+import { MassDewormingReportComponent } from '@app/vis/Report/components/mass-deworming-report/mass-deworming-report.component'; // changed by TN
+import { MassClinincalReportComponent } from '@app/vis/Report/components/mass-clinincal-report/mass-clinincal-report.component'; // changed by TN
 import { OutbreakReportComponent } from './report/components/outbreak-report/outbreak-report.component';
-import { IndivClinicalReportComponent } from './Report/components/indiv-clinical-report/indiv-clinical-report.component';
+import { IndivClinicalReportComponent } from '@app/vis/Report/components/indiv-clinical-report/indiv-clinical-report.component'; // changed by TN
 import { MassCertificateComponent } from './certificate/components/mass-certificate/mass-certificate.component';
 import { DataArchivalComponent } from './Report/components/data-archival/data-archival.component';
 import { DiseaseOutbreakReportSummaryComponent } from './Report/components/disease-outbreak-report-summary/disease-outbreak-report-summary.component';

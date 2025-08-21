@@ -110,15 +110,15 @@
                   <label class="col-form-label">Ownership Transfer Date<span class="text-danger">*</span></label>
                   <mat-form-field appearance="outline" class="example-full-width">
                     <input
-                    [matDatepicker]="picker"
-                    [max]="maxDate"
-                    formControlName="transferDate"
-                    matInput
-                    placeholder="Select Transfer Date"
-                    readonly
-                  />
-                  <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
+                      [matDatepicker]="picker"
+                      [max]="maxDate"
+                      formControlName="transferDate"
+                      matInput
+                      placeholder="Select Transfer Date"
+                      readonly
+                    />
+                    <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
                 </div>
               </div>

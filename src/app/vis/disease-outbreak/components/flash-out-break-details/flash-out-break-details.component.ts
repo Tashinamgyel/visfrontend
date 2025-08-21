@@ -123,9 +123,9 @@ export class FlashOutBreakDetailsComponent implements OnInit {
   getTableData() {
     this.sharedService.getOutbreakDetails(this.flashId).subscribe((res) => {
       this.outbreakDetails = res;
-      debugger
-      console.log("res",res);
-      
+      debugger;
+      console.log('res', res);
+
       this.outBreakForm.patchValue({
         outbreakId: this.outbreakDetails.outbreakId,
         flashId: this.outbreakDetails.id,
@@ -202,7 +202,7 @@ export class FlashOutBreakDetailsComponent implements OnInit {
       outbreakSource: new FormControl(''),
       controlMeasures: new FormControl(''),
       contactName: new FormControl('', Validators.required),
-      mobileNumber: new FormControl('',),
+      mobileNumber: new FormControl(''),
       createdBy: new FormControl(''),
       locality: new FormControl(''),
       gewogId: new FormControl(''),
@@ -307,12 +307,10 @@ export class FlashOutBreakDetailsComponent implements OnInit {
     flashReport.createdBy = this.outbreakDetails.createdBy;
     this.sharedService.saveFollowUpReport(flashReport).subscribe(
       (res) => {
-
-
         this.notificationService.openSuccessSnackBar(' Successfully sent for Follow up');
         this.registered = true;
         this.outbreakDetails = res;
-        console.log("sdsdsds",res)
+        console.log('sdsdsds', res);
         this.router.navigate(['/', 'dashboard']);
       },
       () => {
@@ -374,7 +372,6 @@ export class FlashOutBreakDetailsComponent implements OnInit {
   sendMaill(emailData: EmailData) {
     emailData.flashEmailList = this.report;
     this.sharedService.sendMail(emailData).subscribe(
-    
       () => {
         this.notificationService.openSuccessSnackBar('Added successfully');
       },

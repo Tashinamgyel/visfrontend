@@ -24,9 +24,9 @@ export class AddMassMedComponent implements OnInit {
   id: number;
   classId: number;
   medicationData: MedicationData[];
-  composition: string ;
+  composition: string;
   unit: any;
-  presentation: string ;
+  presentation: string;
   stock: any;
   treatmentId: number;
   treatment: string;
@@ -46,7 +46,7 @@ export class AddMassMedComponent implements OnInit {
     this.id = this.data.id;
     this.treatmentId = this.data.treatmentId;
     this.treatment = this.data.treatment;
-   // console.log(this.treatment,"this.treatmentIdthis.treatmentId");
+    // console.log(this.treatment,"this.treatmentIdthis.treatmentId");
 
     this.initializeForm();
     this.populateForm();
@@ -143,7 +143,7 @@ export class AddMassMedComponent implements OnInit {
       Object.assign(medicationData, this.medForm.value);
       medicationData.id = this.id;
       medicationData.treatmentId = this.treatmentId;
-      medicationData.treatment=this.treatment;
+      medicationData.treatment = this.treatment;
       this.dialogRef.close(medicationData);
       medicationData.createdBy = this.credentialsService.credentials.userName;
     } else {

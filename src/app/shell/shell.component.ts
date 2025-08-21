@@ -68,7 +68,7 @@ export class ShellComponent implements OnInit {
   isEnumerator = false;
   isNCAH = false;
   isGuest = false;
-  isDPMDV =false;
+  isDPMDV = false;
 
   constructor(
     private router: Router,
@@ -116,7 +116,7 @@ export class ShellComponent implements OnInit {
   populateForm() {
     this.masterService.loadAllUserDetails(this.currentUserName).subscribe((res) => {
       this.userDetails = res;
-     // console.log(res, 'reszdssfs');
+      // console.log(res, 'reszdssfs');
 
       this.fullName = this.userDetails.fullName;
       localStorage.setItem('fullName', JSON.stringify(this.fullName));
@@ -163,16 +163,15 @@ export class ShellComponent implements OnInit {
     localStorage.removeItem('jurisdiction');
     localStorage.removeItem('fullName');
     localStorage.removeItem('forPopulatingProgram');
-    localStorage.removeItem('centre');  
-    localStorage.removeItem('fetchedCID'); 
-    localStorage.removeItem('credentials');  
-    window.addEventListener("beforeunload", () => localStorage.removeItem('credentials'));
-    window.addEventListener("beforeunload", () => localStorage.removeItem('jurisdiction'));
-    window.addEventListener("beforeunload", () => localStorage.removeItem('fullName'));
-    window.addEventListener("beforeunload", () => localStorage.removeItem('forPopulatingProgram'));
-    window.addEventListener("beforeunload", () => localStorage.removeItem('centre'));
-    window.addEventListener("beforeunload", () => localStorage.removeItem('fetchedCID'));
-
+    localStorage.removeItem('centre');
+    localStorage.removeItem('fetchedCID');
+    localStorage.removeItem('credentials');
+    window.addEventListener('beforeunload', () => localStorage.removeItem('credentials'));
+    window.addEventListener('beforeunload', () => localStorage.removeItem('jurisdiction'));
+    window.addEventListener('beforeunload', () => localStorage.removeItem('fullName'));
+    window.addEventListener('beforeunload', () => localStorage.removeItem('forPopulatingProgram'));
+    window.addEventListener('beforeunload', () => localStorage.removeItem('centre'));
+    window.addEventListener('beforeunload', () => localStorage.removeItem('fetchedCID'));
   }
 
   closeOthers() {

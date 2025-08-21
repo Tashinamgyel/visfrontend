@@ -8,9 +8,8 @@ describe('DiseaseOutbreakReportSummaryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DiseaseOutbreakReportSummaryComponent ]
-    })
-    .compileComponents();
+      declarations: [DiseaseOutbreakReportSummaryComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

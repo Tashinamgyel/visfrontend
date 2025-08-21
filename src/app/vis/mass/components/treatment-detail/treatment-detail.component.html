@@ -13,7 +13,6 @@
 
     <table style="width: 100%; border: 1px solid black" border="1">
       <tr align="center" style="color: white; background-color: #03a9f4; width: 100%">
-       
         <!-- <th>Number of Animals</th> -->
         <th>Type of Service</th>
         <th>Animal Type</th>
@@ -21,7 +20,6 @@
         <th>Delete</th>
       </tr>
       <tr *ngFor="let data of valueFromForm; let i = index" align="center">
-        
         <!-- <td>{{ data.data[0].total }}</td> -->
         <td>{{ data.data[0].treatment }}</td>
         <td>{{ data.data[0].animalTypeId.animalType }}</td>

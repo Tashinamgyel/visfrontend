@@ -112,7 +112,7 @@ export class DogSterilizationComponent implements OnInit {
       breed: new FormControl('', Validators.required),
       day: new FormControl(''),
       petRegistrationNoOrMicro: new FormControl('', Validators.required),
-     // staryDog: new FormControl(''),
+      // staryDog: new FormControl(''),
     });
   }
 
@@ -123,24 +123,23 @@ export class DogSterilizationComponent implements OnInit {
     this.convertToBase64(file);
   }
 
-  convertToBase64(file: File) {debugger
+  convertToBase64(file: File) {
+    debugger;
     this.myimage = new Observable((subscriber: Subscriber<any>) => {
       this.readFile(file, subscriber);
     });
-    this.myimage.subscribe((d)=>{
+    this.myimage.subscribe((d) => {
       var base64Img = d;
-      if(file.type ==='image/jpeg'){
-        base64Img = base64Img.replace("data:image/jpeg;base64,", "");
-      }else{
-        base64Img = base64Img.replace("data:image/png;base64,", "");
+      if (file.type === 'image/jpeg') {
+        base64Img = base64Img.replace('data:image/jpeg;base64,', '');
+      } else {
+        base64Img = base64Img.replace('data:image/png;base64,', '');
       }
 
       this.picture = base64Img;
-      
-      });
-    }
-     
-  
+    });
+  }
+
   readFile(file: File, subscriber: Subscriber<any>) {
     const filereader = new FileReader();
     filereader.readAsDataURL(file);
@@ -350,7 +349,7 @@ export class DogSterilizationComponent implements OnInit {
       } else if (this.massDogSterilizationForm.value.tagNo === '') {
         this.notification.openErrorSnackBar('Enter required fields');
         return;
-      }else if (this.massDogSterilizationForm.value.latitude === '') {
+      } else if (this.massDogSterilizationForm.value.latitude === '') {
         this.notification.openErrorSnackBar('Enter required fields');
         return;
       } else if (this.massDogSterilizationForm.value.longitude === '') {
@@ -377,7 +376,7 @@ export class DogSterilizationComponent implements OnInit {
       } else if (this.massDogSterilizationForm.value.weight === '') {
         this.notification.openErrorSnackBar('Enter required fields');
         return;
-      } 
+      }
     }
     this.formValidation = true;
     Object.assign(dogSterilization, this.massDogSterilizationForm.value);
@@ -392,24 +391,24 @@ export class DogSterilizationComponent implements OnInit {
     if (this.petRegistration !== null) {
       dogSterilization.id = this.petRegistration.id;
     }
-    if(this.picture !== null && this.picture !== undefined) {
-      dogSterilization.image=this.picture;
-    }else{
-     if(this.imageStray !== null) {
-      dogSterilization.image=this.imageStray;
-     }
+    if (this.picture !== null && this.picture !== undefined) {
+      dogSterilization.image = this.picture;
+    } else {
+      if (this.imageStray !== null) {
+        dogSterilization.image = this.imageStray;
+      }
     }
 
-    if(this.picture !== null && this.picture !== undefined) {
-      dogSterilization.image=this.picture;
-    }else{
-     if(this.imageStray !== null) {
-      dogSterilization.image=this.imageStray;
-     }
+    if (this.picture !== null && this.picture !== undefined) {
+      dogSterilization.image = this.picture;
+    } else {
+      if (this.imageStray !== null) {
+        dogSterilization.image = this.imageStray;
+      }
     }
 
-    if(this.massDogSterilizationForm.value.villageId === '') {
-      dogSterilization.villageId=0;
+    if (this.massDogSterilizationForm.value.villageId === '') {
+      dogSterilization.villageId = 0;
     }
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '500px',

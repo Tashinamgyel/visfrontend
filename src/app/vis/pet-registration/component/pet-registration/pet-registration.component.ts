@@ -108,7 +108,6 @@ export class PetRegistrationComponent implements OnInit {
       countryId: new FormControl(''),
       hasPetPhoto: new FormControl('', Validators.required),
       hasBarcodeImage: new FormControl(''),
-
     });
   }
 
@@ -177,13 +176,12 @@ export class PetRegistrationComponent implements OnInit {
   getGewogs(dzongkhagId: number) {
     this.petRegistrationForm.get('gewogId').reset();
     this.visMasterService.getGewogs(dzongkhagId).subscribe((response) => {
-      this.gewogs = response; 
+      this.gewogs = response;
       //this.petRegistrationForm.controls.gewogId.setValidators(Validators.required);
       // this.petRegistrationForm.value.dzongkhagId.clearValidators;
-      
     });
   }
-  getVillage(gewogId: number) {         
+  getVillage(gewogId: number) {
     this.visMasterService.getVillage(gewogId).subscribe((response) => {
       this.villages = response;
     });
@@ -223,7 +221,8 @@ export class PetRegistrationComponent implements OnInit {
   viladateAnimal() {}
 
   petRegistrationNumbers: any;
-  savePetRegistration() {debugger;
+  savePetRegistration() {
+    debugger;
     const petRegistration = new PetRegistration();
     if (this.hasPetPhoto == undefined) {
       this.hasPetPhotoFlag = true;
@@ -231,7 +230,7 @@ export class PetRegistrationComponent implements OnInit {
     } else {
       this.hasPetPhotoFlag = false;
     }
-    if (this.petRegistrationForm.value.speciesId ==7 && this.hasBarcodeImage == undefined) {
+    if (this.petRegistrationForm.value.speciesId == 7 && this.hasBarcodeImage == undefined) {
       this.hasBarcodeImageFlag = true;
       return;
     } else {
@@ -255,9 +254,9 @@ export class PetRegistrationComponent implements OnInit {
     if (
       this.petRegistrationForm.value.mobileNumber.length < 8 ||
       this.petRegistrationForm.value.sex == '' ||
-      this.petRegistrationForm.value.dzongkhagId =='' ||
-      this.petRegistrationForm.value.gewogId == '' || 
-      this.petRegistrationForm.value.gewogId ==null ||
+      this.petRegistrationForm.value.dzongkhagId == '' ||
+      this.petRegistrationForm.value.gewogId == '' ||
+      this.petRegistrationForm.value.gewogId == null ||
       this.petRegistrationForm.value.petName == '' ||
       this.petRegistrationForm.value.speciesId == '' ||
       this.petRegistrationForm.value.breedId == '' ||
@@ -267,7 +266,7 @@ export class PetRegistrationComponent implements OnInit {
       this.petRegistrationForm.value.registrationDate == ''
     ) {
       this.notification.openErrorSnackBar('Enter required fields');
-      return
+      return;
     } else {
       Object.assign(petRegistration, this.petRegistrationForm.value);
       if (this.petRegistrationForm.value.speciesId == 7) {
@@ -275,7 +274,8 @@ export class PetRegistrationComponent implements OnInit {
           this.notification.openErrorSnackBar('Microchip Number required');
           return;
         }
-      }petRegistration.fileId = this.fileId;
+      }
+      petRegistration.fileId = this.fileId;
       if (petRegistration.countryId === '') {
         petRegistration.countryId = 0;
       }
@@ -298,11 +298,11 @@ export class PetRegistrationComponent implements OnInit {
         if (result) {
           this.visMasterService.savePetRegistration(petRegistration).subscribe(
             (response) => {
-              console.log(response,"this is isisi ");
-              
+              console.log(response, 'this is isisi ');
+
               const res = JSON.parse(JSON.stringify(response));
               this.petRegistrationNumbers = res.petRegistrationNumber;
-              console.log(response," save here  ");
+              console.log(response, ' save here  ');
               this.saveClinicals();
               this.notification.openSuccessSnackBar('Submitted Successfully ');
               this.registered = true;

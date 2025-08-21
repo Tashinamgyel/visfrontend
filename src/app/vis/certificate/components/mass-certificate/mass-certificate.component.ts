@@ -60,7 +60,6 @@ export class MassCertificateComponent implements OnInit {
     private fb: FormBuilder,
     private visMasterService: SharedService,
 
-
     private service: MasterService,
     private dialog: MatDialog,
     private notification: NotificationService,
@@ -139,7 +138,7 @@ export class MassCertificateComponent implements OnInit {
     Object.assign(reportRequest, this.massForm.value);
     this.visMasterService.getMassCar(reportRequest).subscribe((response) => {
       this.masses = response;
-      debugger
+      debugger;
       console.log(this.masses, 'vaccDetailsvaccDetailsvaccDetails');
       for (let i = 0; i < response.length; i++) {
         if (response[i].vaccination_state === 'Vaccinated') {

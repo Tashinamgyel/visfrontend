@@ -73,7 +73,7 @@ export class FlashDashboadComponent implements OnInit {
     //alert(this.actionType);
     this.populateForm();
     this.currentUser = this.credentialsService.credentials;
-  //  console.log(this.currentUser, 'dsfdsfsdfsd');
+    //  console.log(this.currentUser, 'dsfdsfsdfsd');
 
     if (this.credentialsService.credentials.roleName === 'NCAH') {
       this.userName = true;
@@ -107,13 +107,16 @@ export class FlashDashboadComponent implements OnInit {
   followupPush: any[] = [];
 
   populateForm() {
-
     this.sharedService
 
-      .populateflashList(this.credentialsService.credentials.userName, this.credentialsService.credentials.roleName,this.actionType)
+      .populateflashList(
+        this.credentialsService.credentials.userName,
+        this.credentialsService.credentials.roleName,
+        this.actionType
+      )
       .subscribe((res) => {
-        console.log(res,"ddddddddd");
-        
+        console.log(res, 'ddddddddd');
+
         for (let i = 0; i < res.length; i++) {
           if (res[i].report === 'Flash') {
             this.flashPush.push(res[i]);

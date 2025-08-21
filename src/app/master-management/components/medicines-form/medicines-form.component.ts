@@ -15,7 +15,7 @@ export class MedicinesFormComponent implements OnInit {
   medincinesForm: FormGroup;
   actionType: String;
   id: number;
- classEntityId :number;
+  classEntityId: number;
   medicineName: string;
   medicines: Medicines[];
   classEntity: Class[];
@@ -34,12 +34,10 @@ export class MedicinesFormComponent implements OnInit {
     this.populateForm();
   }
 
-
   populateForm() {
     this.service.loadMedicines().subscribe((response) => {
       this.medicines = response;
-      console.log("ddd",response);
-      
+      console.log('ddd', response);
     });
     this.service.loadClass().subscribe((response) => {
       this.classEntity = response;
@@ -48,13 +46,12 @@ export class MedicinesFormComponent implements OnInit {
     if (this.actionType === 'EDIT' || this.actionType === 'DELETE') {
       this.service.loadMedicinesById(this.id).subscribe(
         (response) => {
-          
           this.medincinesForm.patchValue({
             medicineName: response.medicineName,
             classEntityId: response.classEntity.id,
             composition: response.composition,
-            presentation:response.presentation,
-            unit: response.unit
+            presentation: response.presentation,
+            unit: response.unit,
           });
         },
         () => {
@@ -78,7 +75,7 @@ export class MedicinesFormComponent implements OnInit {
       const medicines = new Medicines();
       Object.assign(medicines, this.medincinesForm.value);
       medicines.status = 'Y';
-     
+
       this.dialogRef.close(medicines);
     } else {
       return;

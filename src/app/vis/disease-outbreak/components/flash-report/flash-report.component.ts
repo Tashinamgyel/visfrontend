@@ -115,7 +115,7 @@ export class FlashReportComponent implements OnInit {
       outbreakId: new FormControl(''),
       ownerName: new FormControl('', Validators.required),
       caseDate: new FormControl('', Validators.required),
-      reportDate: new FormControl('', ),
+      reportDate: new FormControl(''),
       forwardDate: new FormControl(''),
       notifiability: new FormControl(''),
       householdAffected: new FormControl(''),
@@ -123,7 +123,7 @@ export class FlashReportComponent implements OnInit {
       reporterName: new FormControl(''),
       outbreakSource: new FormControl(''),
       contactName: new FormControl(''),
-      controlMeasures: new FormControl('',Validators.required),
+      controlMeasures: new FormControl('', Validators.required),
       locality: new FormControl(''),
       mobileNumber: new FormControl(''),
       preventionCase: new FormControl('', Validators.required),
@@ -214,7 +214,7 @@ export class FlashReportComponent implements OnInit {
       this.dataSource.data = res;
       this.flashCase = res;
       //console.log(res,"resres");
-      
+
       for (let i = 0; i < res.length; i++) {
         if (res[i].status === 'Dead') {
           var total = res[i].total;
@@ -305,7 +305,7 @@ export class FlashReportComponent implements OnInit {
   saveFlashReport() {
     localStorage.removeItem('dataToPopulate');
     const flashReport = new FlashReport();
-    debugger
+    debugger;
     Object.assign(flashReport, this.flashForm.value);
     flashReport.createdBy = this.credentialsService.credentials.userName;
     flashReport.flashCase = this.flashCase;
@@ -315,13 +315,12 @@ export class FlashReportComponent implements OnInit {
     flashReport.levelUserId = this.userDetails.levelUser.id;
     flashReport.jurisdiction = this.userDetails.jurisdiction;
     flashReport.fullName = this.userDetails.fullName;
-     this.registered = false;
+    this.registered = false;
 
-     if(flashReport.villageId ===null){ 
-      flashReport.villageId=0; 
-      } 
+    if (flashReport.villageId === null) {
+      flashReport.villageId = 0;
+    }
     if (
-     
       this.flashForm.value.diseaseId === '' ||
       this.flashForm.value.latitude === '' ||
       this.flashForm.value.longitude === '' ||
@@ -331,13 +330,10 @@ export class FlashReportComponent implements OnInit {
       this.flashForm.value.dzongkhagId === '' ||
       this.flashForm.value.controlMeasures === '' ||
       this.flashForm.value.briefHistory === ''
-      
     ) {
       this.notificationService.openErrorSnackBar('Enter all required fields');
-      return
-    }
-    else{
-  
+      return;
+    } else {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '500px',
         data: {
@@ -347,17 +343,17 @@ export class FlashReportComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {
-          debugger
+          debugger;
           this.sharedService.saveFlashReport(flashReport).subscribe(
             (response) => {
-              debugger
+              debugger;
               const res = JSON.parse(JSON.stringify(response));
               this.outbreakIds = res.outbreakId;
               this.saveFlashReports();
               this.notificationService.openSuccessSnackBar('Submitted Successfully');
               this.flashCaseDetails = res;
-              console.log("res",res);
-              
+              console.log('res', res);
+
               this.router.navigate(['/', 'dashboard']);
             },
             () => {

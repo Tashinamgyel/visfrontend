@@ -23,7 +23,7 @@ export class PetRenewalComponent implements OnInit {
   showingImage: any;
   showingBarCode: any;
   petRenewalForm: FormGroup;
-  petRenewalsForm:FormGroup
+  petRenewalsForm: FormGroup;
   ownershipTypes: OwnershipTypes[];
   dzongkhags: Dzongkhags[];
   gewogs: Gewogs[];
@@ -55,7 +55,7 @@ export class PetRenewalComponent implements OnInit {
   @Input() editable = false;
 
   formattedDate: any;
-  reRegistrationDate:any
+  reRegistrationDate: any;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -65,7 +65,6 @@ export class PetRenewalComponent implements OnInit {
     private dialog: MatDialog,
     private credentialsService: CredentialsService,
     private datePipe: DatePipe
-    
   ) {}
 
   ngOnInit(): void {
@@ -108,12 +107,11 @@ export class PetRenewalComponent implements OnInit {
       neuterStatus: new FormControl(),
       // renewalDueDate: new FormControl(),
       passportNumber: new FormControl(),
-      abandonedDate:new FormControl(),
-      registerDate:new FormControl(),
+      abandonedDate: new FormControl(),
+      registerDate: new FormControl(),
     });
   }
-  populateforRenewForm()
-  {
+  populateforRenewForm() {
     this.petRenewalsForm = this.fb.group({
       petRegistrationNo: new FormControl(''),
       petRegistrationNoOrMicrochip: new FormControl(''),
@@ -148,35 +146,27 @@ export class PetRenewalComponent implements OnInit {
       neuterStatus: new FormControl(),
       // renewalDueDate: new FormControl(),
       passportNumber: new FormControl(),
-      abandonedDate:new FormControl(),
-      registerDate:new FormControl(),
+      abandonedDate: new FormControl(),
+      registerDate: new FormControl(),
     });
   }
 
-
-
-
-  validateAbundata(){
-      this.formattedDate = new Date();
-      this.reRegistrationDate = new Date()
-      if(this.petRenewalForm.value.status =='abandoned')
-      {
-      this.readOnlyAbondate = true
-      this.statusShow =false
-      this.readOnlyRegister = false
-    
-      } else if(this.petRenewalForm.value.status =='Reregister'){
-        this.readOnlyRegister = true
-        this.statusShow =false
-
-      }
-      else{
-        this.readOnlyAbondate = false
-        this.statusShow =true
-        this.readOnlyRegister = false
-      }
-
-  }  
+  validateAbundata() {
+    this.formattedDate = new Date();
+    this.reRegistrationDate = new Date();
+    if (this.petRenewalForm.value.status == 'abandoned') {
+      this.readOnlyAbondate = true;
+      this.statusShow = false;
+      this.readOnlyRegister = false;
+    } else if (this.petRenewalForm.value.status == 'Reregister') {
+      this.readOnlyRegister = true;
+      this.statusShow = false;
+    } else {
+      this.readOnlyAbondate = false;
+      this.statusShow = true;
+      this.readOnlyRegister = false;
+    }
+  }
 
   // pipe = new DatePipe('en-US');
   // changeFormat(today){
@@ -230,19 +220,18 @@ export class PetRenewalComponent implements OnInit {
   }
   dontshowIT: boolean = false;
   showCidForm: boolean;
-  readOnlyAbondate:boolean=false
-  readOnlyRegister:boolean = false
-  statusShow: boolean = true
-  isDisabled:boolean= true
-
+  readOnlyAbondate: boolean = false;
+  readOnlyRegister: boolean = false;
+  statusShow: boolean = true;
+  isDisabled: boolean = true;
 
   getPetRegistrationNumber() {
     this.petRegistrationNo = this.petRenewalForm.get('petRegistrationNoOrMicrochip').value;
     this.visMasterservice.getPetRegistrationNumber(this.petRegistrationNo).subscribe((response) => {
       // this.petRegistrationId = response.id;
       this.petRegistration = response;
-      console.log(response,"eeeeeee");
-      
+      console.log(response, 'eeeeeee');
+
       if (this.petRegistration.neuterStatus === 'Yes') {
         this.editableShow = false;
         this.notEditableShow = true;
@@ -251,18 +240,14 @@ export class PetRenewalComponent implements OnInit {
         this.editableShow = true;
         this.notEditableShow = false;
       }
-      debugger
-      if (this.petRegistration.status ==='abandoned') {
+      debugger;
+      if (this.petRegistration.status === 'abandoned') {
         this.readOnlyRegister = true;
-        this.statusShow =false
-      
-      
+        this.statusShow = false;
       } else {
         this.readOnlyRegister = false;
-        this.statusShow =true
+        this.statusShow = true;
       }
-
-      
 
       if (this.petRegistration.neuterStatus === 'No') {
         this.neuterStatusFlag = false;
@@ -338,7 +323,7 @@ export class PetRenewalComponent implements OnInit {
         dateRenewal: this.petRegistration.dateRenewal,
         status: this.petRegistration.status,
         abandonedDate: this.petRegistration.abandonedate,
-        reRegistrationDate : this.petRegistration.registerDate
+        reRegistrationDate: this.petRegistration.registerDate,
       });
       this.getDoc(this.petRegistration.petRegistrationNumber);
       this.getGewogs(this.petRegistration.dzongkhagId);
@@ -360,7 +345,6 @@ export class PetRenewalComponent implements OnInit {
   }
   abandonedDate = new Date();
 
-  
   dateFormate(renewalDate: any) {
     const d = new Date(renewalDate);
     let month = d.getMonth();
@@ -406,11 +390,10 @@ export class PetRenewalComponent implements OnInit {
     petregistration.centreId = this.userDetails.centre.id;
     petregistration.levelUserId = this.userDetails.levelUser.id;
     petregistration.jurisdiction = this.userDetails.jurisdiction;
-    petregistration.fullName = this.userDetails.fullName;    
+    petregistration.fullName = this.userDetails.fullName;
     petregistration.abandonedDate = this.formattedDate;
 
     console.log('asd', petregistration);
-    
 
     if (this.petRegistration.sex == 'Male') {
       petregistration.sex = 'M';
@@ -516,7 +499,6 @@ export class PetRenewalComponent implements OnInit {
       this.neuterStatusFlag = false;
     }
   }
-
 
   getCitizen(cid: number) {
     this.service.getCitizen(cid).subscribe(

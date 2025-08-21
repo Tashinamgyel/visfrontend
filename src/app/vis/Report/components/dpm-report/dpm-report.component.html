@@ -216,7 +216,7 @@
             <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
               <mat-button-toggle
                 value="excel"
-                (click)="exporter.exportTable('xlsx',{fileName:'Veterinary_Information_System_Report'})"
+                (click)="exporter.exportTable('xlsx', { fileName: 'Veterinary_Information_System_Report' })"
                 matTooltip="Export as excel"
                 matTooltipPosition="above"
               >
@@ -224,7 +224,7 @@
               </mat-button-toggle>
               <mat-button-toggle
                 value="excel"
-                (click)="exporter.exportTable('csv',{fileName:'Veterinary_Information_System_Report'})"
+                (click)="exporter.exportTable('csv', { fileName: 'Veterinary_Information_System_Report' })"
                 matTooltip="Export as csv"
                 matTooltipPosition="above"
                 ><img src="../../assets/csv-svgrepo-com.svg" style="height: 50px; width: 50px"
@@ -257,12 +257,12 @@
                 <td mat-cell *matCellDef="let element; let i = index">
                   {{ paginatorRef.pageIndex * paginatorRef.pageSize + (i + 1) }}
                 </td>
-              </ng-container>  
+              </ng-container>
               <ng-container matColumnDef="tagNo">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Tag No</th>
                 <td mat-cell *matCellDef="let element">{{ element.tag_no }}</td>
               </ng-container>
-             
+
               <ng-container matColumnDef="cid">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>CID No</th>
                 <td mat-cell *matCellDef="let element">{{ element.cid }}</td>
@@ -339,7 +339,7 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Foetuses Removed</th>
                 <td mat-cell *matCellDef="let element">{{ element.foetuses }}</td>
               </ng-container>
-             <ng-container matColumnDef="sex">
+              <ng-container matColumnDef="sex">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Sex</th>
                 <td mat-cell *matCellDef="let element">{{ element.sex }}</td>
               </ng-container>
@@ -419,7 +419,7 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Skin Condition</th>
                 <td mat-cell *matCellDef="let element">{{ element.skin_condition_name }}</td>
               </ng-container>
-          
+
               <ng-container matColumnDef="jurisdiction">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Jurisdiction</th>
                 <td mat-cell *matCellDef="let element">{{ element.jurisdiction }}</td>

@@ -29,7 +29,7 @@ import { SharedService } from '@app/vis/shared/services/shared.service';
 export class OutbreakReportComponent implements OnInit {
   outBreakReport: FormGroup;
   outReport: any;
-  dataOut: any
+  dataOut: any;
   fromDate: string;
   toDate: string;
   ownershipTypes: OwnershipTypes[];
@@ -46,9 +46,9 @@ export class OutbreakReportComponent implements OnInit {
   countrys: Country[];
   maxDate = new Date();
   userDetails: any;
-  
+
   displayedColumns = [
-   'slno',
+    'slno',
     'bboutbreak_id',
     'caseDate',
     'report',
@@ -99,25 +99,23 @@ export class OutbreakReportComponent implements OnInit {
     'aoutbreak_source',
     'acontrol_measures',
     'user_name',
-];
+  ];
 
-  
   dataSource = new MatTableDataSource();
-  
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  
+
   constructor(
     private fb: FormBuilder,
     private visMasterService: SharedService,
     private service: MasterService,
-    private credentialsService: CredentialsService,
+    private credentialsService: CredentialsService
   ) {}
-  
-populateForm() {
+
+  populateForm() {
     this.service.loadAllUserDetails(this.credentialsService.credentials.userName).subscribe((res) => {
       this.userDetails = res;
-      
     });
     this.visMasterService.loadOwnershipType().subscribe((response) => {
       this.ownershipTypes = response;
@@ -143,8 +141,6 @@ populateForm() {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    
-    
   }
   getGewogs(dzongkhagId: number) {
     this.visMasterService.getGewogs(dzongkhagId).subscribe((response) => {
@@ -166,7 +162,6 @@ populateForm() {
     this.initializeForm();
     this.populateForm();
     //this.ngDoCheck();
-
   }
 
   applyFilter(filterValue: string) {
@@ -193,15 +188,15 @@ populateForm() {
     reportRequest.levelUser = this.userDetails.levelUser.levelName;
     reportRequest.centreId = this.userDetails.centre.id;
     reportRequest.levelUserId = this.userDetails.levelUser.id;
-    if(this.userDetails.jurisdiction==='TVH&SL Phuentshogling'){
+    if (this.userDetails.jurisdiction === 'TVH&SL Phuentshogling') {
       reportRequest.jurisdiction = 'RLDC Tsimasham ';
-    }else if(this.userDetails.jurisdiction==='TVH&SL Gelegphu'){
+    } else if (this.userDetails.jurisdiction === 'TVH&SL Gelegphu') {
       reportRequest.jurisdiction = 'RLDC Zhemgang';
-    }else if(this.userDetails.jurisdiction==='TVH&SL Nganglam'){
+    } else if (this.userDetails.jurisdiction === 'TVH&SL Nganglam') {
       reportRequest.jurisdiction = 'RLDC Kanglung';
-    }else if(this.userDetails.jurisdiction==='TVH&SL Dewathang'){
+    } else if (this.userDetails.jurisdiction === 'TVH&SL Dewathang') {
       reportRequest.jurisdiction = 'RLDC Kanglung';
-    }else{
+    } else {
       reportRequest.jurisdiction = this.userDetails.jurisdiction;
     }
     reportRequest.userName = this.userDetails.userName;
@@ -213,33 +208,22 @@ populateForm() {
       this.loading = false;
       console.log(this.outReport, 'sdddssddssdsdd');
 
-   //  this.remove_duplicates(this.outReport);
+      //  this.remove_duplicates(this.outReport);
     });
+  }
+
+  //  remove_duplicates(arr) {debugger;
+  //   let obj = {};
+  //   for (let i = 0; i < arr.length; i++) {
+  //       obj[arr[i]] = true;
+  //   }
+  //   arr = [];
+  //   for (let key in obj) {
+  //       arr.push(key);
+  //   }
+  //   return arr;
+  // }
 }
-
-//  remove_duplicates(arr) {debugger;
-//   let obj = {};
-//   for (let i = 0; i < arr.length; i++) {
-//       obj[arr[i]] = true;
-//   }
-//   arr = [];
-//   for (let key in obj) {
-//       arr.push(key);
-//   }
-//   return arr;
-// }
-}
-
-
-
-
-
-
-
-
-
-
-
 
 //   cacheSpan(key, accessor) {
 //       for (let i = 0; i < this.dataSource.filteredData.length;) {
@@ -248,13 +232,13 @@ populateForm() {
 
 //       // Iterate through the remaining rows to see how many match
 //       // the current value as retrieved through the accessor.
-//       for (let j = i + 1; j <  this.dataSource.filteredData.length; j++) {        
+//       for (let j = i + 1; j <  this.dataSource.filteredData.length; j++) {
 //         if (currentValue != accessor(this.outReport[j])) {
 //           break;
 //         }
 
 //         count++;
-//       } 
+//       }
 
 //       if (!this.spans[i]) {
 //         this.spans[i] = {};

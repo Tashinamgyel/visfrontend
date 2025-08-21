@@ -228,7 +228,7 @@ export class OwnershipTransferComponent implements OnInit {
       month: new FormControl(''),
       year: new FormControl(''),
       breederStatus: new FormControl(''),
-      transferDate:new FormControl('', Validators.required),
+      transferDate: new FormControl('', Validators.required),
     });
   }
   dontshowIT: boolean = false;
@@ -370,7 +370,6 @@ export class OwnershipTransferComponent implements OnInit {
     Object.assign(petregistration, this.ownershipTransferForm.value);
     petregistration.petBreedId = this.petRegistration.petBreedId;
     petregistration.speciesId = this.petRegistration.speciesId;
-
 
     petregistration.userName = this.userDetails.userName;
     petregistration.centreId = this.userDetails.centre.id;

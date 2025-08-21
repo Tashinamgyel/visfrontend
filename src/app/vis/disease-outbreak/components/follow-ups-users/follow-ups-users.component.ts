@@ -275,7 +275,7 @@ export class FollowUpsUsersComponent implements OnInit {
       this.changeSampleCollected;
       this.followUp = res.followUp;
       //console.log(this.outbreakDetails, 'this.outbreakDetails');
-     // console.log(this.followUp, 'this.followUp');
+      // console.log(this.followUp, 'this.followUp');
 
       var i = Number(this.followUp.length) - 1;
       if (this.followUp[i].finalBasisDiagnosis !== null) {
@@ -399,11 +399,10 @@ export class FollowUpsUsersComponent implements OnInit {
       finalDiseaseId: new FormControl(''),
       basisDiagnosisIdUser: new FormControl(''),
       diagnosingOfficer: new FormControl(''),
-      farmingId: new FormControl('',),
+      farmingId: new FormControl(''),
       lastVaccinationDate: new FormControl(''),
       probableSource: new FormControl('', Validators.required),
       controlMeasures: new FormControl('', Validators.required),
-  
     });
   }
 
@@ -457,7 +456,7 @@ export class FollowUpsUsersComponent implements OnInit {
       lastVaccinationDate: new FormControl(''),
       villageId: new FormControl(''),
       locality: new FormControl(''),
-      ownershipStatus:new FormControl('', Validators.required),
+      ownershipStatus: new FormControl('', Validators.required),
     });
   }
   initializeSecondFormGroup() {
@@ -692,26 +691,24 @@ export class FollowUpsUsersComponent implements OnInit {
     Object.assign(flashReport, this.followUpFormUser.value);
     if (this.followUpFormUser.value.followUpDate === '') {
       this.notificationService.openErrorSnackBar('Enter required fields');
-    
+
       return;
     } else if (this.followUpFormUser.value.sampleCollected === '') {
       this.notificationService.openErrorSnackBar('Enter required fields');
-      
+
       return;
     } else if (this.followUpFormUser.value.tentativeDiseaseId === '') {
       this.notificationService.openErrorSnackBar('Enter required fields');
-      
+
       return;
     } else if (this.followUpFormUser.value.probableSource === '') {
       this.notificationService.openErrorSnackBar('Enter required fields');
-      
-      return;
-    }
 
-    else if (this.followUpFormUser.value.controlMeasures === '') {
+      return;
+    } else if (this.followUpFormUser.value.controlMeasures === '') {
       this.notificationService.openErrorSnackBar('Enter required fields');
       return;
-    }  
+    }
     flashReport.createdBy = this.credentialsService.credentials.userName;
     flashReport.outbreakId = this.outbreakDetails.outbreakId;
     flashReport.flashId = this.outbreakDetails.id;
